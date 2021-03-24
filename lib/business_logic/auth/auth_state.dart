@@ -7,4 +7,29 @@ abstract class AuthState extends Equatable {
 class AuthInitial extends AuthState {
   @override
   List<Object> get props => [];
+
+  const AuthInitial();
+}
+
+class AuthLoadTokenSuccess extends AuthState {
+  final String token;
+
+  AuthLoadTokenSuccess({required this.token});
+
+  @override
+  List<Object?> get props => [token];
+}
+
+class AuthLoadTokenNotAuthenticated extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthLoadTokenFailure extends AuthState {
+  final String message;
+
+  AuthLoadTokenFailure({required this.message});
+
+  @override
+  List<Object?> get props => [message];
 }
