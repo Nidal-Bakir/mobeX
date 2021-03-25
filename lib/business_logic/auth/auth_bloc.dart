@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import 'package:mobox/data/repository/auth_repo.dart';
 import 'package:mobox/utils/exception.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'auth_event.dart';
 
@@ -24,6 +26,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield* _authTokenLoadedStateHandler();
     } else if (event is AuthLoginRequested) {
       yield* _authLoginRequestedStateHandler(event.userName, event.password);
+    } else if (event is AuthAccountCreated) {
+      if (await canLaunch('https://flutter.dev')) {
+       await launch('https://flutter.dev');
+      }
     }
   }
 

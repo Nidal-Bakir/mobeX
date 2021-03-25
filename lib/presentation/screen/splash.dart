@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/business_logic/auth/auth_bloc.dart';
 
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<AuthBloc>().add(AuthTokenLoaded());
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

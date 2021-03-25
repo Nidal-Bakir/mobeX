@@ -17,3 +17,8 @@ class AuthLoginRequested extends AuthEvent {
   @override
   List<Object?> get props => [userName, password];
 }
+
+class AuthAccountCreated extends AuthEvent {
+  @override
+  List<Object?> get props => [];
+}
