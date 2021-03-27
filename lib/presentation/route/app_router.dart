@@ -13,5 +13,9 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => Login(),
       );
+    // case '/home':
+    //   return MaterialPageRoute(
+    //     builder: (context) => Home(),
+    //   );
   }
 }

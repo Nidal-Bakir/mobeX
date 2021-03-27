@@ -1,4 +1,4 @@
 class ApiUrl {
-  static const BASE_URL='http://api.mobex.com';
+  static const BASE_URL='https://api.mobex.com';
 
 }

@@ -20,6 +20,13 @@ class AuthLoadTokenSuccess extends AuthState {
   List<Object?> get props => [token];
 }
 
+class AuthLoadTokenInProgress extends AuthState {
+  const AuthLoadTokenInProgress();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class AuthLoadTokenNotAuthenticated extends AuthState {
   @override
   List<Object?> get props => [];
@@ -32,4 +39,9 @@ class AuthLoadTokenFailure extends AuthState {
 
   @override
   List<Object?> get props => [message];
+}
+
+class AuthCreateAccount extends AuthState {
+  @override
+  List<Object?> get props => [];
 }

@@ -12,33 +12,28 @@ class _SplashState extends State<Splash> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     context.read<AuthBloc>().add(AuthTokenLoaded());
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: BlocListener<AuthBloc, AuthState>(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BlocListener<AuthBloc, AuthState>(
-              child: Column(
-                children: [
-                  Image.asset('assets/images/logo.png'),
-                  SizedBox(height: 20),
-                  CircularProgressIndicator(),
-                ],
-              ),
-              listener: (context, state) {
-                if (state is AuthLoadTokenSuccess) {
-                  Navigator.of(context).pushReplacementNamed('/home');
-                } else if (state is AuthLoadTokenNotAuthenticated) {
-                  Navigator.of(context).pushReplacementNamed('/login');
-                }
-              },
-            )
+            Image.asset('assets/images/logo.png'),
+            SizedBox(height: 64),
+            CircularProgressIndicator(),
           ],
         ),
+        listener: (context, state) {
+          if (state is AuthLoadTokenSuccess) {
+            // TODO: uncomment the code
+            // Navigator.of(context).pushReplacementNamed('/home');
+          } else if (state is AuthLoadTokenNotAuthenticated) {
+            Navigator.of(context).pushReplacementNamed('/login');
+          }
+        },
       ),
     );
   }

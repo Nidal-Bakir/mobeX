@@ -10,14 +10,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  static const _url = 'http://flutter.dev';
-  late final TapGestureRecognizer _tapGestureRecognizer = TapGestureRecognizer()
-    ..onTap = () async {
-      ///context.read<AuthBloc>().add(AuthAccountCreated());
-      if (await canLaunch(_url)) {
-        await launch(_url);
-      }
-    };
+  var _obscureText = true;
+  final formKey = GlobalKey<FormState>();
+  String? userName, password;
+  late final TapGestureRecognizer _tapGestureRecognizer =
+      TapGestureRecognizer();
 
   @override
   void dispose() {
@@ -25,81 +22,137 @@ class _LoginState extends State<Login> {
     _tapGestureRecognizer.dispose();
   }
 
-  final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 60,
-            ),
-            Image.asset('assets/images/logo.png'),
-            SizedBox(
-              height: 24,
-            ),
-            Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(hintText: 'username'),
-                    validator: (value) {
-                      value = value ?? '';
-                      if (value.isEmpty) {
-                        return 'please enter a username';
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      value = value ?? '';
-                      if (value.isEmpty) {
-                        return 'please enter a password';
-                      } else if (value.length < 6)
-                        return 'password must be more than 6 character';
-                    },
-                    decoration: InputDecoration(hintText: 'username'),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 32,
               ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            Text.rich(
-              TextSpan(
-                text: "Don't have one? ",
-                children: <InlineSpan>[
-                  TextSpan(
-                    text: 'see how to create account.',
-                    recognizer: _tapGestureRecognizer,
-                    style: TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
+              Image.asset('assets/images/logo.png'),
+              SizedBox(
+                height: 24,
+              ),
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'username',
+                      ),
+                      style: TextStyle(),
+                      onSaved: (newValue) => userName = newValue,
+                      validator: (value) {
+                        value = value ?? '';
+                        if (value.trim().isEmpty) {
+                          return 'please enter a username';
+                        }
+                      },
                     ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    TextFormField(
+                      obscureText: _obscureText,
+                      validator: (value) {
+                        value = value ?? '';
+                        if (value.trim().isEmpty) {
+                          return 'please enter a password';
+                        } else if (value.length < 6)
+                          return 'password must be more than 6 character length';
+                      },
+                      onSaved: (newValue) => password = newValue,
+                      decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.visibility_rounded,
+                              color: Colors.blueGrey,
+                            ),
+                            onPressed: () => setState(() {
+                              _obscureText = !_obscureText;
+                            }),
+                          ),
+                          labelText: 'password'),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              BlocListener<AuthBloc, AuthState>(
+                listenWhen: (previous, current) => current is AuthCreateAccount,
+                listener: (BuildContext context, state) async {
+                  // TODO : use our url
+                  if (await canLaunch('http://mobox.com')) {
+                    await launch('http://mobox.com');
+                  }
+                },
+                child: Text.rich(
+                  TextSpan(
+                    text: "Don't have one? ",
+                    children: <InlineSpan>[
+                      TextSpan(
+                        text: 'see how to create account.',
+                        recognizer: _tapGestureRecognizer,
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(' LOGIN '),
+              SizedBox(
+                height: 32,
               ),
-            )
-          ],
+              BlocConsumer<AuthBloc, AuthState>(
+                builder: (BuildContext context, state) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      state is AuthLoadTokenInProgress
+                          ? CircularProgressIndicator()
+                          : Container(),
+                      ElevatedButton(
+                        onPressed: state is! AuthLoadTokenInProgress
+                            ? () {
+                                if (formKey.currentState?.validate() ?? false) {
+                                  formKey.currentState?.save();
+                                  context.read<AuthBloc>().add(
+                                        AuthLoginRequested(
+                                          userName: '$userName',
+                                          password: '$password',
+                                        ),
+                                      );
+                                }
+                              }
+                            : null,
+                        child: Text(
+                          'LOGIN',
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                listener: (BuildContext context, Object? state) {
+                  if (state is AuthLoadTokenFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('${state.message}')));
+                  } else if (state is AuthLoadTokenSuccess) {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
