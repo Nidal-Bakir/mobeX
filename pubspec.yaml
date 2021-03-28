@@ -28,8 +28,12 @@ dependencies:
 
   url_launcher: ^6.0.2
 
+  get_it: ^6.0.0
+
   http: ^0.13.1
+
   google_fonts: ^2.0.0
+
   shared_preferences: ^2.0.5
 
   flutter:

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobox/business_logic/auth/auth_bloc.dart';
+import 'package:mobox/utils/shared_initializer.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -9,10 +13,17 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    context.read<AuthBloc>().add(AuthTokenLoaded());
+  void initState() {
+    super.initState();
+    GetIt.instance.isReady<SharedInitializer>().then((_) {
+      // register SharedPreferences var in get_it
+      GetIt.instance.registerSingleton<SharedPreferences>(
+          GetIt.I.get<SharedInitializer>().sharedPreferences);
+      // kickoff the auth process
+      context.read<AuthBloc>().add(AuthTokenLoaded());
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +39,7 @@ class _SplashState extends State<Splash> {
         ),
         listener: (context, state) {
           if (state is AuthLoadTokenSuccess) {
-            // TODO: uncomment the code
-            // Navigator.of(context).pushReplacementNamed('/home');
+            Navigator.of(context).pushReplacementNamed('/home');
           } else if (state is AuthLoadTokenNotAuthenticated) {
             Navigator.of(context).pushReplacementNamed('/login');
           }

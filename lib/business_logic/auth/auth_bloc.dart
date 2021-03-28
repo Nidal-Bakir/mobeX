@@ -44,7 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _authTokenLoadedStateHandler() async* {
-    var userToken = await _authRepo.getUserToken();
+    var userToken = _authRepo.getUserToken();
     if (userToken == null) {
       yield AuthLoadTokenNotAuthenticated();
     } else {

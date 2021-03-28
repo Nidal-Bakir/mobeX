@@ -6,12 +6,15 @@ ThemeData appTheme() {
 
   return ThemeData(
     brightness: Brightness.light,
-    primaryColor: green,
+    primaryColor: Colors.white,
     accentColor: green,
     canvasColor: Colors.white,
     textTheme: _textTheme(),
-
-
+    textButtonTheme: TextButtonThemeData(
+        style: ButtonStyle(
+            textStyle: MaterialStateProperty.all<TextStyle>(
+                TextStyle(fontWeight: FontWeight.bold)),
+            foregroundColor: MaterialStateProperty.all<Color>(green))),
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(color: green),
       focusedBorder: OutlineInputBorder(
@@ -78,10 +81,10 @@ TextTheme _textTheme() => TextTheme(
         fontWeight: FontWeight.w400,
         letterSpacing: 0.25,
       ),
-      button: GoogleFonts.openSans(
+      button: GoogleFonts.roboto(
         fontSize: 14,
         fontWeight: FontWeight.w500,
-        letterSpacing: 1.25,
+        letterSpacing: 0,
       ),
       caption: GoogleFonts.openSans(
         fontSize: 12,

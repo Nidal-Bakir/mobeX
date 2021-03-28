@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mobox/presentation/screen/app_screen.dart';
 import 'package:mobox/presentation/screen/login.dart';
 import 'package:mobox/presentation/screen/splash.dart';
 
@@ -13,9 +14,9 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => Login(),
       );
-    // case '/home':
-    //   return MaterialPageRoute(
-    //     builder: (context) => Home(),
-    //   );
+    case '/home':
+      return MaterialPageRoute(
+        builder: (context) => AppScreen(),
+      );
   }
 }
