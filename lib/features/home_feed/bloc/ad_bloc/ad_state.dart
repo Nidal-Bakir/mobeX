@@ -20,7 +20,7 @@ class AdLoadSuccess extends AdState {
 
 /// Emit when error occur while fetch the data.
 ///
-/// Rhe [adList] member hold the cached data or (null) to indecent there is no cached data
+/// The [adList] member hold the cached data or (null) to indecent there is no cached data
 class AdLoadFailure extends AdState {
   final List<Product>? adList;
 

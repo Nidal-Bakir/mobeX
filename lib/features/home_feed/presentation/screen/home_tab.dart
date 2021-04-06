@@ -18,34 +18,34 @@ class HomeTab extends StatelessWidget {
             products: list,
           ),
         ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 24),
-            child: ProductsList(
-              title: 'Offers from stores you like',
-              products: list,
-            ),
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 32, bottom: 16),
-            child: Text(
-              'New from stores you like',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-        ),
-        SliverGrid(
-          delegate: SliverChildBuilderDelegate((_, int index) {
-            return ProductCart(product: list[index]);
-          }),
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 16,
-          ),
-        )
+        // SliverToBoxAdapter(
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(top: 24),
+        //     child: ProductsList(
+        //       title: 'Offers from stores you like',
+        //       products: list,
+        //     ),
+        //   ),
+        // ),
+        // SliverToBoxAdapter(
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(left: 16.0, top: 32, bottom: 16),
+        //     child: Text(
+        //       'New from stores you like',
+        //       style: Theme.of(context).textTheme.headline6,
+        //     ),
+        //   ),
+        // ),
+        // SliverGrid(
+        //   delegate: SliverChildBuilderDelegate((_, int index) {
+        //     return ProductCart(product: list[index]);
+        //   }),
+        //   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        //     maxCrossAxisExtent: 200,
+        //     crossAxisSpacing: 8,
+        //     mainAxisSpacing: 16,
+        //   ),
+        // )
       ],
     );
   }

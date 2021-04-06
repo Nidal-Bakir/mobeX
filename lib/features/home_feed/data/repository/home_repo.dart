@@ -4,15 +4,18 @@ import 'package:mobox/features/home_feed/data/data_source/local/local_home_data_
 import 'package:mobox/features/home_feed/data/data_source/remote/remote_home_data_source.dart';
 
 class HomeRepo {
-  final LocalHomeDataSource localHomeDataSource;
-  final RemoteHomeDataSource remoteHomeDataSource;
+  final LocalHomeDataSource _localHomeDataSource;
+  final RemoteHomeDataSource _remoteHomeDataSource;
 
   HomeRepo(
-      {required this.localHomeDataSource, required this.remoteHomeDataSource});
+      {required LocalHomeDataSource localHomeDataSource,
+      required RemoteHomeDataSource remoteHomeDataSource})
+      : _localHomeDataSource = localHomeDataSource,
+        _remoteHomeDataSource = remoteHomeDataSource;
 
   /// Return list of [newProductList] the user.
   ///
-  /// Store the incoming data in cache [localHomeDataSource] in case there no internet connection or
+  /// Store the incoming data in cache [_localHomeDataSource] in case there no internet connection or
   /// something went wrong.
   ///
   /// Throws an [ConnectionExceptionWithData] if something go wrong while fetch the
@@ -20,21 +23,22 @@ class HomeRepo {
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
   Future<List<Product>?> getNewProductsList() async {
-    var newProductList = await remoteHomeDataSource.getNewProductList();
+    var newProductList = await _remoteHomeDataSource.getNewProductList();
     if (newProductList != null) {
-      localHomeDataSource.setNewProductList(newProductList);
+      _localHomeDataSource.setNewProductList(newProductList);
       return newProductList;
     } else {
       // if the local cache is null, then return null and handle that in the ui
       // indicating that there is no data!
       // TODO : handle that case if there is no data in cache nor api return data like display image
-      newProductList = localHomeDataSource.getNewProductList();
+      newProductList = _localHomeDataSource.getNewProductList();
       throw ConnectionExceptionWithData(newProductList);
     }
   }
+
   /// Return list of [adList] the user.
   ///
-  /// Store the incoming data in cache [localHomeDataSource] in case there no internet connection or
+  /// Store the incoming data in cache [_localHomeDataSource] in case there no internet connection or
   /// something went wrong.
   ///
   /// Throws an [ConnectionExceptionWithData] if something go wrong while fetch the
@@ -42,21 +46,21 @@ class HomeRepo {
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
   Future<List<Product>?> getAdList() async {
-    var adList = await remoteHomeDataSource.getAdList();
+    var adList = await _remoteHomeDataSource.getAdList();
     if (adList != null) {
-      localHomeDataSource.setAdList(adList);
+      _localHomeDataSource.setAdList(adList);
       return adList;
     } else {
       // if the local cache is null, then return null and handle that in the ui
       // indicating that there is no data!
-      adList = localHomeDataSource.getAdList();
+      adList = _localHomeDataSource.getAdList();
       throw ConnectionExceptionWithData(adList);
     }
   }
 
   /// Return list of [offerList] the user.
   ///
-  /// Store the incoming data in cache [localHomeDataSource] in case there no internet connection or
+  /// Store the incoming data in cache [_localHomeDataSource] in case there no internet connection or
   /// something went wrong.
   ///
   /// Throws an [ConnectionExceptionWithData] if something go wrong while fetch the
@@ -64,14 +68,14 @@ class HomeRepo {
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
   Future<List<Product>?> getOffersList() async {
-    var offerList = await remoteHomeDataSource.getOfferList();
+    var offerList = await _remoteHomeDataSource.getOfferList();
     if (offerList != null) {
-      localHomeDataSource.setOfferList(offerList);
+      _localHomeDataSource.setOfferList(offerList);
       return offerList;
     } else {
       // if the local cache is null, then return null and handle that in the ui
       // indicating that there is no data!
-      offerList = localHomeDataSource.getOfferList();
+      offerList = _localHomeDataSource.getOfferList();
       throw ConnectionExceptionWithData(offerList);
     }
   }
