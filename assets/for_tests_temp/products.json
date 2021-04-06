@@ -1,0 +1,67 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "title1",
+      "storeName": "storeName1",
+      "imageUrl": "assets/images/productimg2.png",
+      "price": 99.5,
+      "sale": 99.1,
+      "rate": 2.5
+    },
+    {
+      "id": 2,
+      "title": "title1",
+      "storeName": "storeName1",
+      "imageUrl": "assets/images/productimg.png",
+      "price": 9.5,
+      "sale": null,
+      "rate": 3.5
+    },
+    {
+      "id": 3,
+      "title": "title3",
+      "storeName": "storeName3",
+      "imageUrl": "assets/images/productimg.png",
+      "price": 99.0,
+      "sale": 99.1,
+      "rate": 2.1
+    },
+    {
+      "id": 4,
+      "title": "title4",
+      "storeName": "storeName4",
+      "imageUrl": "assets/images/productimg2.png",
+      "price": 99.0,
+      "sale": 99.1,
+      "rate": 2.1
+    },
+    {
+      "id": 4,
+      "title": "title4",
+      "storeName": "storeName4",
+      "imageUrl": "assets/images/productimg.png",
+      "price": 99.0,
+      "sale": 99.1,
+      "rate": 2.1
+    },
+    {
+      "id": 4,
+      "title": "title4",
+      "storeName": "storeName4",
+      "imageUrl": "assets/images/productimg2.png",
+      "price": 99.0,
+      "sale": 99.1,
+      "rate": 2.1
+    },
+    {
+      "id": 4,
+      "title": "title4",
+      "storeName": "storeName4",
+      "imageUrl": "assets/images/productimg.png",
+      "price": 99.0,
+      "sale": 99.1,
+      "rate": 2.1
+    }
+  ]
+}

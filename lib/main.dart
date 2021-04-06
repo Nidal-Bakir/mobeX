@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
+import 'package:mobox/route/app_router.dart';
 
-import 'package:mobox/business_logic/auth/auth_bloc.dart';
-import 'package:mobox/presentation/route/app_router.dart';
-import 'package:mobox/presentation/theme/theme.dart';
-import 'injaction_container.dart' as di;
+import 'package:mobox/theme/theme.dart';
+import 'package:mobox/injection/injection_container.dart' as di;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
