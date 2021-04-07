@@ -10,7 +10,7 @@ class AdInProgress extends AdState {
 }
 
 class AdLoadSuccess extends AdState {
-  final List<Product>? adList;
+  final List<Product> adList;
 
   const AdLoadSuccess({required this.adList});
 
@@ -22,10 +22,15 @@ class AdLoadSuccess extends AdState {
 ///
 /// The [adList] member hold the cached data or (null) to indecent there is no cached data
 class AdLoadFailure extends AdState {
-  final List<Product>? adList;
+  final List<Product> adList;
 
   const AdLoadFailure({required this.adList});
 
   @override
   List<Object?> get props => [adList];
+}
+
+class AdNoData extends AdState {
+  @override
+  List<Object?> get props => [];
 }

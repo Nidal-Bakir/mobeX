@@ -17,7 +17,7 @@ class ConnectionException implements Exception {
 }
 
 class ConnectionExceptionWithData implements Exception {
-  final Object? data;
+  final Object data;
 
   const ConnectionExceptionWithData(this.data);
 }

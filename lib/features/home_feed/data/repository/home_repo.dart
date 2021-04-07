@@ -22,14 +22,12 @@ class HomeRepo {
   /// data.
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
-  Future<List<Product>?> getNewProductsList() async {
+  Future<List<Product>> getNewProductsList() async {
     var newProductList = await _remoteHomeDataSource.getNewProductList();
     if (newProductList != null) {
-      _localHomeDataSource.setNewProductList(newProductList);
+      _localHomeDataSource.appendNewProductList(newProductList);
       return newProductList;
     } else {
-      // if the local cache is null, then return null and handle that in the ui
-      // indicating that there is no data!
       // TODO : handle that case if there is no data in cache nor api return data like display image
       newProductList = _localHomeDataSource.getNewProductList();
       throw ConnectionExceptionWithData(newProductList);
@@ -45,14 +43,13 @@ class HomeRepo {
   /// data.
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
-  Future<List<Product>?> getAdList() async {
+  Future<List<Product>> getAdList() async {
     var adList = await _remoteHomeDataSource.getAdList();
+
     if (adList != null) {
-      _localHomeDataSource.setAdList(adList);
+      _localHomeDataSource.appendAdList(adList);
       return adList;
     } else {
-      // if the local cache is null, then return null and handle that in the ui
-      // indicating that there is no data!
       adList = _localHomeDataSource.getAdList();
       throw ConnectionExceptionWithData(adList);
     }
@@ -67,14 +64,12 @@ class HomeRepo {
   /// data.
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
-  Future<List<Product>?> getOffersList() async {
+  Future<List<Product>> getOffersList() async {
     var offerList = await _remoteHomeDataSource.getOfferList();
     if (offerList != null) {
-      _localHomeDataSource.setOfferList(offerList);
+      _localHomeDataSource.appendOfferList(offerList);
       return offerList;
     } else {
-      // if the local cache is null, then return null and handle that in the ui
-      // indicating that there is no data!
       offerList = _localHomeDataSource.getOfferList();
       throw ConnectionExceptionWithData(offerList);
     }

@@ -21,9 +21,6 @@ class ProductCart extends StatelessWidget {
             Expanded(
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  print(constraints.maxWidth);
-                  print(constraints.minWidth);
-
                   return Stack(
                     fit: StackFit.expand,
                     children: [

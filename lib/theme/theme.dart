@@ -11,12 +11,13 @@ ThemeData appTheme() {
     accentColor: green,
     canvasColor: Colors.white,
     textTheme: _textTheme(),
-
     textButtonTheme: TextButtonThemeData(
-        style: ButtonStyle(
-            textStyle: MaterialStateProperty.all<TextStyle>(
-                TextStyle(fontWeight: FontWeight.bold)),
-            foregroundColor: MaterialStateProperty.all<Color>(green))),
+      style: ButtonStyle(
+        textStyle: MaterialStateProperty.all<TextStyle>(
+            TextStyle(fontWeight: FontWeight.bold)),
+        foregroundColor: MaterialStateProperty.all<Color>(green),
+      ),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(color: green),
       focusedBorder: OutlineInputBorder(

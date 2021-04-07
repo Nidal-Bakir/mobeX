@@ -37,8 +37,11 @@ class AdBloc extends Bloc<AdEvent, AdState> {
 
   Stream<AdState> _loadData() async* {
     try {
-      var adList = await homeRepo.getAdList();
-      yield AdLoadSuccess(adList: adList);
+      var adList = await homeRepo.getAdList() ;
+      if (adList.isEmpty)
+        yield AdNoData();
+      else
+        yield AdLoadSuccess(adList: adList);
     } on ConnectionExceptionWithData catch (e) {
       yield AdLoadFailure(adList: e.data as List<Product>);
     }

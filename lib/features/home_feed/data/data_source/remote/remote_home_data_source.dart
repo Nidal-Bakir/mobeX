@@ -42,7 +42,7 @@ class RemoteHomeDataSourceImpl extends RemoteHomeDataSource {
     //TODO : use the token filed from super class
 
     var res = await Future.value(Response(
-        await rootBundle.loadString('assets/for_tests/temp/products.json'),
+        await rootBundle.loadString('assets/for_tests_temp/products.json'),
         200));
     if (res.statusCode != 200) {
       return null;
