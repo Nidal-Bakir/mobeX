@@ -1,22 +1,57 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
+import 'package:mobox/core/widget/error_cart.dart';
 import 'package:mobox/core/widget/product_cart.dart';
 import 'package:mobox/features/home_feed/bloc/ad_bloc/ad_bloc.dart';
+import 'package:mobox/features/home_feed/bloc/offers/offers_bloc.dart';
 
-class ProductsList extends StatelessWidget {
+class ProductsList extends StatefulWidget {
   final String title;
-  final bool withRetryButton;
+  final Stream<Product> productStream;
 
-  const ProductsList(
-      {Key? key,
-      required this.title,
-      required this.products,
-      this.withRetryButton = false})
-      : super(key: key);
+  ProductsList({
+    Key? key,
+    required this.title,
+    required this.productStream,
+  }) : super(key: key);
 
-  final List<Product> products;
+  @override
+  _ProductsListState createState() => _ProductsListState();
+}
+
+class _ProductsListState extends State<ProductsList> {
+  final productList = <Product?>[];
+  late final sc = StreamController<Product>();
+  late final StreamSubscription sub;
+
+  @override
+  void initState() {
+    widget.productStream.pipe(sc);
+    sub = sc.stream.listen((event) {
+      setState(() {
+        print(event);
+        productList.add(event);
+      });
+    })
+      ..onError((error) {
+        setState(() {
+          productList.add(null);
+        });
+      });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    sub.cancel();
+    sc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +63,7 @@ class ProductsList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
               child: Text(
-                '$title',
+                '${widget.title}',
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
@@ -36,38 +71,19 @@ class ProductsList extends StatelessWidget {
           ],
         ),
         Container(
-          height: 180,
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              if (withRetryButton && index == products.length + 1) {
-                return Container(
-                  width: 150,
-                  height: 200,
-                  child: Center(
-                    child: Card(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/error-cloud.png'),
-                          TextButton(
-                            onPressed: () {
-                              context.read<AdBloc>().add(AdReRequested());
-                            },
-                            child: Text('RETRY'),
-                            style: Theme.of(context).textButtonTheme.style,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }
-              return ProductCart(product: products[index]);
-            },
-            itemCount: products.length,
-            scrollDirection: Axis.horizontal,
-          ),
-        )
+            height: 180,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                if (index >= productList.length) return Container();
+                if (productList[index] == null)
+                  return ErrorCart(
+                    () => context.read<AdBloc>().add(AdReRequested()),
+                  );
+                return ProductCart(product: productList[index]!);
+              },
+              itemCount: productList.length,
+              scrollDirection: Axis.horizontal,
+            ))
       ],
     );
   }

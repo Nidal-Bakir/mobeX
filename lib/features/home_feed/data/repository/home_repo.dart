@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/features/home_feed/data/data_source/local/local_home_data_souce.dart';
 import 'package:mobox/features/home_feed/data/data_source/remote/remote_home_data_source.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HomeRepo {
   final LocalHomeDataSource _localHomeDataSource;
@@ -22,16 +25,16 @@ class HomeRepo {
   /// data.
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
-  Future<List<Product>> getNewProductsList() async {
-    var newProductList = await _remoteHomeDataSource.getNewProductList();
-    if (newProductList != null) {
-      _localHomeDataSource.appendNewProductList(newProductList);
-      return newProductList;
-    } else {
-      // TODO : handle that case if there is no data in cache nor api return data like display image
-      newProductList = _localHomeDataSource.getNewProductList();
-      throw ConnectionExceptionWithData(newProductList);
-    }
+  Stream<Product> getNewProductsStream() {
+    var newProductsLocalStream = _localHomeDataSource.getNewProductStream();
+
+    var newProductsRemoteStream = _remoteHomeDataSource.getNewProductStream();
+
+    _localHomeDataSource.appendOfferList(newProductsLocalStream.toList());
+
+    return Rx.concat([newProductsLocalStream, newProductsRemoteStream]);
+
+
   }
 
   /// Return list of [adList] the user.
@@ -43,16 +46,18 @@ class HomeRepo {
   /// data.
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
-  Future<List<Product>> getAdList() async {
-    var adList = await _remoteHomeDataSource.getAdList();
+  Stream<Product> getAdStream() {
+    var adLocalStream = _localHomeDataSource.getAdStream();
 
-    if (adList != null) {
-      _localHomeDataSource.appendAdList(adList);
-      return adList;
-    } else {
-      adList = _localHomeDataSource.getAdList();
-      throw ConnectionExceptionWithData(adList);
-    }
+    var adRemoteStream =
+        _remoteHomeDataSource.getAdStream().asBroadcastStream();
+
+    Future.microtask(
+        () => _localHomeDataSource.appendAdList(adRemoteStream.toList()));
+
+    return Rx.concat([adLocalStream, adRemoteStream]);
+
+
   }
 
   /// Return list of [offerList] the user.
@@ -64,14 +69,14 @@ class HomeRepo {
   /// data.
   ///
   /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
-  Future<List<Product>> getOffersList() async {
-    var offerList = await _remoteHomeDataSource.getOfferList();
-    if (offerList != null) {
-      _localHomeDataSource.appendOfferList(offerList);
-      return offerList;
-    } else {
-      offerList = _localHomeDataSource.getOfferList();
-      throw ConnectionExceptionWithData(offerList);
-    }
+  Stream<Product> getOffersStream() {
+    var offersLocalStream = _localHomeDataSource.getOfferStream();
+
+    var offersRemoteStream = _remoteHomeDataSource.getOfferStream();
+
+    _localHomeDataSource.appendOfferList(offersLocalStream.toList());
+
+    return Rx.concat([offersLocalStream, offersRemoteStream]);
+
   }
 }

@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/model/product_model.dart';
 
 abstract class RemoteHomeDataSource {
@@ -9,46 +10,64 @@ abstract class RemoteHomeDataSource {
 
   const RemoteHomeDataSource({required this.token});
 
-  Future<List<Product>?> getAdList();
+  Stream<Product> getAdStream();
 
-  Future<List<Product>?> getOfferList();
+  Stream<Product> getOfferStream();
 
-  Future<List<Product>?> getNewProductList();
+  Stream<Product> getNewProductStream();
 }
 
 class RemoteHomeDataSourceImpl extends RemoteHomeDataSource {
-  final Client client;
+  final http.Client client;
 
   RemoteHomeDataSourceImpl({required this.client, required String token})
       : super(token: token);
 
   @override
-  Future<List<Product>?> getAdList() async {
+  Stream<Product> getAdStream() {
     return _getProductDataFromApi('OfferList');
   }
 
   @override
-  Future<List<Product>?> getNewProductList() async {
+  Stream<Product> getNewProductStream() {
     return _getProductDataFromApi('OfferList');
   }
 
   @override
-  Future<List<Product>?> getOfferList() async {
+  Stream<Product> getOfferStream() {
     return _getProductDataFromApi('OfferList');
   }
 
-  Future<List<Product>?> _getProductDataFromApi(String endPoint) async {
+  Stream<Product> _getProductDataFromApi(String endPoint) async* {
     // TODO : add our website
     //TODO : use the token filed from super class
 
-    var res = await Future.value(Response(
+    // var req = http.Request(
+    //     'get', Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    // var res = await client.send(req);
+    //
+    // if (res.statusCode == 200) {
+    //  yield* res.stream
+    //       .transform(utf8.decoder)
+    //       .transform(json.decoder)
+    //       .expand((element) => [...element as List])
+    //       .map((event) => Product.fromMap(event));
+    //
+    // }else {
+    //
+    // }
+
+    var res = await Future.value(http.Response(
         await rootBundle.loadString('assets/for_tests_temp/products.json'),
         200));
-    if (res.statusCode != 200) {
-      return null;
+    if (res.statusCode == 200) {
+      // yield* Stream.fromIterable(
+      //     (json.decode(res.body)['products'] as List<dynamic>)
+      //         .map((e) => Product.fromMap(e))
+      //         .toList());
+      yield* Stream.empty();
+    } else {
+      yield throw ConnectionException('error while fetching $endPoint data');
     }
-    return (json.decode(res.body)['products'] as List<dynamic>)
-        .map((e) => Product.fromMap(e))
-        .toList();
   }
 }

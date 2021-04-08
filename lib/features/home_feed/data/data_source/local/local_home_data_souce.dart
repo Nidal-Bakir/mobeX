@@ -1,17 +1,17 @@
 import 'package:mobox/core/model/product_model.dart';
 
 abstract class LocalHomeDataSource {
-  List<Product> getAdList();
+  Stream<Product> getAdStream();
 
-  List<Product> getOfferList();
+  Stream<Product> getOfferStream();
 
-  List<Product> getNewProductList();
+  Stream<Product> getNewProductStream();
 
-  void appendAdList(List<Product> adList);
+  void appendAdList(Future<List<Product>> adList);
 
-  void appendOfferList(List<Product> offerList);
+  void appendOfferList(Future<List<Product>> offerList);
 
-  void appendNewProductList(List<Product> newProductList);
+  void appendNewProductList(Future<List<Product>> newProductList);
 }
 
 class LocalHomeDataSourceImpl extends LocalHomeDataSource {
@@ -20,22 +20,23 @@ class LocalHomeDataSourceImpl extends LocalHomeDataSource {
   List<Product> newProductList = [];
 
   @override
-  List<Product> getAdList() => adList;
+  Stream<Product> getAdStream() => Stream.fromIterable(adList);
 
   @override
-  List<Product> getNewProductList() => newProductList;
+  Stream<Product> getNewProductStream() => Stream.fromIterable(newProductList);
 
   @override
-  List<Product> getOfferList() => offerList;
+  Stream<Product> getOfferStream() => Stream.fromIterable(offerList);
 
   @override
-  void appendAdList(List<Product> adList) => this.adList.addAll(adList);
+  void appendAdList(Future<List<Product>> adList) async =>
+      this.adList.addAll(await adList);
 
   @override
-  void appendNewProductList(List<Product> newProductList) =>
-      this.newProductList.addAll(newProductList);
+  void appendNewProductList(Future<List<Product>> newProductList) async =>
+      this.newProductList.addAll(await newProductList);
 
   @override
-  void appendOfferList(List<Product> offerList) =>
-      this.offerList.addAll(offerList);
+  void appendOfferList(Future<List<Product>> offerList) async =>
+      this.offerList.addAll(await offerList);
 }
