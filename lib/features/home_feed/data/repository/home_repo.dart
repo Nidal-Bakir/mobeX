@@ -33,19 +33,20 @@ class HomeRepo {
     _localHomeDataSource.appendOfferList(newProductsLocalStream.toList());
 
     return Rx.concat([newProductsLocalStream, newProductsRemoteStream]);
-
-
   }
 
-  /// Return list of [adList] the user.
+  /// Returns stream of [Product]s from local cache and remote if possible.
   ///
-  /// Store the incoming data in cache [_localHomeDataSource] in case there no internet connection or
-  /// something went wrong.
+  /// Store the incoming data in cache [LocalHomeDataSource] in case there are
+  //  no internet connection or something went wrong.
+  //
+  /// concat the two streams in one stream, local stream come first then
+  /// the remote stream came behind it.
   ///
-  /// Throws an [ConnectionExceptionWithData] if something go wrong while fetch the
-  /// data.
+  /// ``  Rx.concat([local,remote])
+  /// ``
   ///
-  /// The Exception has list of cached data *[ConnectionExceptionWithData.data]* to display for the user.
+
   Stream<Product> getAdStream() {
     var adLocalStream = _localHomeDataSource.getAdStream();
 
@@ -53,12 +54,15 @@ class HomeRepo {
         _remoteHomeDataSource.getAdStream().asBroadcastStream();
 
     Future.microtask(
-        () => _localHomeDataSource.appendAdList(adRemoteStream.toList()));
+        () => _localHomeDataSource.appendAdList(adRemoteStream.handleError((_) {
+              return; //ignore the error
+            }).toList()));
 
     return Rx.concat([adLocalStream, adRemoteStream]);
-
-
   }
+
+  ///  Returns stream of [Product]s from local cache.
+  Stream<Product> getLocalAdStream() => _localHomeDataSource.getAdStream();
 
   /// Return list of [offerList] the user.
   ///
@@ -77,6 +81,5 @@ class HomeRepo {
     _localHomeDataSource.appendOfferList(offersLocalStream.toList());
 
     return Rx.concat([offersLocalStream, offersRemoteStream]);
-
   }
 }

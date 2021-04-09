@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/features/home_feed/data/repository/home_repo.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'ad_event.dart';
 
@@ -16,7 +16,9 @@ class AdBloc extends Bloc<AdEvent, AdState> {
   AdBloc({required this.homeRepo}) : super(AdInProgress());
 
   @override
-  Stream<AdState> mapEventToState(AdEvent event,) async* {
+  Stream<AdState> mapEventToState(
+    AdEvent event,
+  ) async* {
     if (event is AdDataLoaded) {
       yield* _dataLoadedHandler();
     } else if (event is AdReRequested) {
@@ -35,16 +37,14 @@ class AdBloc extends Bloc<AdEvent, AdState> {
 
   Stream<AdState> _loadData() async* {
     var adStream = homeRepo.getAdStream();
-    yield AdLoadSuccess(adStream: adStream);
-    // try {
-    //   var adList = await homeRepo.getAdStream() ;
-    //   if (adList.isEmpty)
-    //     yield AdNoData();
-    //   else
-    //     yield AdLoadSuccess(adStream: adList);
-    // } on ConnectionExceptionWithData catch (e) {
-    //   yield AdLoadFailure(adStream: e.data as List<Product>);
-    // }
-  }
 
+    yield* adStream
+        .bufferCount(5)
+        .scan<List<Product>>((acc, curr, index) => [...acc ?? []]..addAll(curr))
+        .map((event) =>
+            event.isEmpty ? AdNoData() : AdLoadSuccess(adList: event))
+        .startWith(AdNoData())
+        .onErrorReturn(
+            AdLoadFailure(adList: await homeRepo.getLocalAdStream().toList()));
+  }
 }

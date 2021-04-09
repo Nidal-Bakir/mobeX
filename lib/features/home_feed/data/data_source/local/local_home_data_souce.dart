@@ -19,14 +19,24 @@ class LocalHomeDataSourceImpl extends LocalHomeDataSource {
   List<Product> offerList = [];
   List<Product> newProductList = [];
 
+  /// returns stream from new list it's data from the source list
+  /// to solve the error case where the list is read/write from it in concurrent
+  /// time
   @override
-  Stream<Product> getAdStream() => Stream.fromIterable(adList);
+  Stream<Product> getAdStream() => Stream.fromIterable([...adList]);
 
+  /// returns stream from new list it's data from the source list
+  /// to solve the error case where the list is read/write from it in concurrent
+  /// time
   @override
-  Stream<Product> getNewProductStream() => Stream.fromIterable(newProductList);
+  Stream<Product> getNewProductStream() =>
+      Stream.fromIterable([...newProductList]);
 
+  /// returns stream from new list it's data from the source list
+  /// to solve the error case where the list is read/write from it in concurrent
+  /// time
   @override
-  Stream<Product> getOfferStream() => Stream.fromIterable(offerList);
+  Stream<Product> getOfferStream() => Stream.fromIterable([...offerList]);
 
   @override
   void appendAdList(Future<List<Product>> adList) async =>

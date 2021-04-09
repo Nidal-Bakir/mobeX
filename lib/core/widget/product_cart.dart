@@ -12,7 +12,6 @@ class ProductCart extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Container(
-        height: 200,
         width: 150,
         child: Card(
             child: Column(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobox/core/widget/no_data.dart';
 import 'package:mobox/core/widget/products_list.dart';
 import 'package:mobox/features/home_feed/bloc/ad_bloc/ad_bloc.dart';
 
@@ -17,38 +18,31 @@ class _AdListState extends State<AdList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AdBloc, AdState>(
-      builder: (context, state) {
-        if (state is AdLoadSuccess) {
-          return ProductsList(
-            title: 'Ad',
-            productStream: state.adStream,
-          );
-        } else if (state is AdLoadFailure) {
-          return ProductsList(
-            title: 'Ad',
-            productStream: state.adStream,
-
-          );
-        } else if (state is AdNoData) {
+    return Container(
+      height: 250,
+      child: BlocBuilder<AdBloc, AdState>(
+        builder: (context, state) {
+          if (state is AdLoadSuccess) {
+            return ProductsList(
+              title: 'Ad',
+              productList: state.adList,
+            );
+          } else if (state is AdLoadFailure) {
+            return ProductsList(
+              title: 'Ad',
+              productList: state.adList,
+              withReTryButton: true,
+            );
+          } else if (state is AdNoData) {
+            return NoData(
+              title: 'Ad',
+            );
+          }
           return Center(
-            child: Center(
-              child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('/assets/images/nothing_to_show.png'),
-                  Text(
-                    'Nothing to show rightKnow',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ],
-              ),
-            ),
+            child: CircularProgressIndicator(),
           );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+        },
+      ),
     );
   }
 }
