@@ -22,13 +22,13 @@ class _AdListState extends State<AdList> {
         if (state is AdLoadSuccess) {
           return ProductsList(
             title: 'Ad',
-            products: state.adList,
+            productStream: state.adStream,
           );
         } else if (state is AdLoadFailure) {
           return ProductsList(
             title: 'Ad',
-            products: state.adList,
-            withRetryButton: true,
+            productStream: state.adStream,
+
           );
         } else if (state is AdNoData) {
           return Center(

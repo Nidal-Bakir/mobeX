@@ -16,9 +16,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
   AdBloc({required this.homeRepo}) : super(AdInProgress());
 
   @override
-  Stream<AdState> mapEventToState(
-    AdEvent event,
-  ) async* {
+  Stream<AdState> mapEventToState(AdEvent event,) async* {
     if (event is AdDataLoaded) {
       yield* _dataLoadedHandler();
     } else if (event is AdReRequested) {
@@ -36,14 +34,17 @@ class AdBloc extends Bloc<AdEvent, AdState> {
   }
 
   Stream<AdState> _loadData() async* {
-    try {
-      var adList = await homeRepo.getAdList() ;
-      if (adList.isEmpty)
-        yield AdNoData();
-      else
-        yield AdLoadSuccess(adList: adList);
-    } on ConnectionExceptionWithData catch (e) {
-      yield AdLoadFailure(adList: e.data as List<Product>);
-    }
+    var adStream = homeRepo.getAdStream();
+    yield AdLoadSuccess(adStream: adStream);
+    // try {
+    //   var adList = await homeRepo.getAdStream() ;
+    //   if (adList.isEmpty)
+    //     yield AdNoData();
+    //   else
+    //     yield AdLoadSuccess(adStream: adList);
+    // } on ConnectionExceptionWithData catch (e) {
+    //   yield AdLoadFailure(adStream: e.data as List<Product>);
+    // }
   }
+
 }
