@@ -17,38 +17,43 @@ class _AdListState extends State<AdList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AdBloc, AdState>(
-      builder: (context, state) {
-        if (state is AdLoadSuccess) {
-          return ProductsList(
-            title: 'Ad',
-            productStream: state.adStream,
-          );
-        } else if (state is AdLoadFailure) {
-          return ProductsList(
-            title: 'Ad',
-            productStream: state.adStream,
-
-          );
-        } else if (state is AdNoData) {
-          return Center(
-            child: Center(
-              child: Row(mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+      height: 200,
+      child: BlocBuilder<AdBloc, AdState>(
+        builder: (context, state) {
+          if (state is AdLoadSuccess) {
+            return ProductsList(
+              title: 'Ad',
+              productList: state.adList,
+            );
+          } else if (state is AdLoadFailure) {
+            return ProductsList(
+              title: 'Ad',
+              productList: state.adList,
+              withReTryButton: true,
+            );
+          } else if (state is AdNoData) {
+            return Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('/assets/images/nothing_to_show.png'),
+                  FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Image.asset('/assets/images/nothing_to_show.png'),
+                  ),
                   Text(
                     'Nothing to show rightKnow',
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ],
               ),
-            ),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
           );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+        },
+      ),
     );
   }
 }
