@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
-import 'package:mobox/core/widget/error_cart.dart';
-import 'package:mobox/core/widget/product_cart.dart';
+import 'package:mobox/core/widget/error_card.dart';
+import 'package:mobox/core/widget/product_card.dart';
 
 class ProductsList extends StatelessWidget {
   final String title;
@@ -43,10 +43,10 @@ class ProductsList extends StatelessWidget {
           child: ListView.builder(
             itemBuilder: (context, index) {
               if (withReTryButton && index >= productList.length)
-                return ErrorCart(
+                return ErrorCard(
                   () => context.read<ProductBloc>().add(ProductReRequested()),
                 );
-              return ProductCart(product: productList[index]);
+              return ProductCard(product: productList[index]);
             },
             itemCount:
                 withReTryButton ? productList.length + 1 : productList.length,

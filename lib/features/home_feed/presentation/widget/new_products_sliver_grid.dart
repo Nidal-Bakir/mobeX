@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/widget/no_data.dart';
-import 'package:mobox/core/widget/product_cart.dart';
+import 'package:mobox/core/widget/product_card.dart';
+
 class NewProductSliverGrid extends StatefulWidget {
   @override
   _NewProductSliverGridState createState() => _NewProductSliverGridState();
@@ -21,26 +22,28 @@ class _NewProductSliverGridState extends State<NewProductSliverGrid> {
       builder: (context, state) {
         if (state is ProductLoadSuccess) {
           return SliverGrid(
-            delegate: SliverChildBuilderDelegate((_, int index) {
-              return ProductCart(product: state.productList[index]);
-            }),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,
               crossAxisSpacing: 8,
               mainAxisSpacing: 16,
             ),
+            delegate: SliverChildBuilderDelegate(
+                (_, int index) =>
+                    ProductCard(product: state.productList[index]),
+                childCount: state.productList.length),
           );
         } else if (state is ProductLoadFailure) {
-
           return SliverGrid(
-            delegate: SliverChildBuilderDelegate((_, int index) {
-
-              return ProductCart(product: state.productList[index]);
-            }),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,
               crossAxisSpacing: 8,
               mainAxisSpacing: 16,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (_, index) {
+                return ProductCard(product: state.productList[index]);
+              },
+              childCount: state.productList.length,
             ),
           );
         } else if (state is ProductNoData) {

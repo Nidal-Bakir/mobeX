@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ErrorCart extends StatelessWidget {
+class ErrorCard extends StatelessWidget {
   final void Function() onRetry;
 
-  ErrorCart(this.onRetry);
+  ErrorCard(this.onRetry);
 
   @override
   Widget build(BuildContext context) {

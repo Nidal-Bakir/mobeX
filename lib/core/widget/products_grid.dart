@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobox/core/model/product_model.dart';
-import 'package:mobox/core/widget/product_cart.dart';
+import 'package:mobox/core/widget/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<Product> products;
@@ -32,7 +32,7 @@ class ProductsGrid extends StatelessWidget {
             style: Theme.of(context).textButtonTheme.style,
           );
         }
-        return ProductCart(
+        return ProductCard(
           product: products[index],
         );
       },

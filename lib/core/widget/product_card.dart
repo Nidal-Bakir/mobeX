@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobox/core/model/product_model.dart';
 
-class ProductCart extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final Product product;
 
-  const ProductCart({Key? key, required this.product}) : super(key: key);
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
