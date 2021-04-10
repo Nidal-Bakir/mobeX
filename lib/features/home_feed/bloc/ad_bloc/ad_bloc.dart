@@ -43,6 +43,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
         .scan<List<Product>>((acc, curr, index) => [...acc ?? []]..addAll(curr))
         .map((event) =>
             event.isEmpty ? AdNoData() : AdLoadSuccess(adList: event))
+        .startWith(AdNoData())
         .onErrorReturn(
             AdLoadFailure(adList: await homeRepo.getLocalAdStream().toList()));
   }

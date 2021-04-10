@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,23 +20,24 @@ class ProductsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Text(
-                '$title',
-                style: Theme.of(context).textTheme.headline6,
-              ),
+    return  Flex(direction: Axis.vertical,
+        children: [
+          Flexible(flex: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    '$title',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                TextButton(onPressed: () {}, child: Text('MORE')),
+              ],
             ),
-            TextButton(onPressed: () {}, child: Text('MORE')),
-          ],
-        ),
-        Container(
-            // height: 180,
+          ),
+          Flexible(
             child: ListView.builder(
               itemBuilder: (context, index) {
                 if (withReTryButton && index >= productList.length)
@@ -46,11 +46,14 @@ class ProductsList extends StatelessWidget {
                   );
                 return ProductCart(product: productList[index]);
               },
-              itemCount:
-                  withReTryButton ? productList.length + 1 : productList.length,
+              itemCount: withReTryButton
+                  ? productList.length + 1
+                  : productList.length,
               scrollDirection: Axis.horizontal,
-            ))
-      ],
+            ),
+          )
+        ],
+
     );
   }
 }
