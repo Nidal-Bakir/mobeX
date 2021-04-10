@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobox/core/model/product_model.dart';
-import 'package:mobox/features/home_feed/data/repository/home_repo.dart';
+import 'package:mobox/core/repository/product_repository.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 part 'ad_event.dart';
@@ -11,9 +12,11 @@ part 'ad_event.dart';
 part 'ad_state.dart';
 
 class AdBloc extends Bloc<AdEvent, AdState> {
-  final HomeRepo homeRepo;
+  final ProductRepository productRepository;
+  final String endPoint;
 
-  AdBloc({required this.homeRepo}) : super(AdInProgress());
+  AdBloc({required this.productRepository, required this.endPoint})
+      : super(AdInProgress());
 
   @override
   Stream<AdState> mapEventToState(
@@ -36,7 +39,7 @@ class AdBloc extends Bloc<AdEvent, AdState> {
   }
 
   Stream<AdState> _loadData() async* {
-    var adStream = homeRepo.getAdStream();
+    var adStream = productRepository.getProductsStreamFromEndPoint(endPoint);
 
     yield* adStream
         .bufferCount(5)
@@ -44,7 +47,9 @@ class AdBloc extends Bloc<AdEvent, AdState> {
         .map((event) =>
             event.isEmpty ? AdNoData() : AdLoadSuccess(adList: event))
         .startWith(AdNoData())
-        .onErrorReturn(
-            AdLoadFailure(adList: await homeRepo.getLocalAdStream().toList()));
+        .onErrorReturn(AdLoadFailure(
+            adList: await productRepository
+                .getProductsStreamFromLocalCache(endPoint)
+                .toList()));
   }
 }

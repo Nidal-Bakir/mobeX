@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:mobox/core/model/product_model.dart';
 
 class ProductCart extends StatelessWidget {
