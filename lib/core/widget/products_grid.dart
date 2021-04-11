@@ -4,28 +4,28 @@ import 'package:mobox/core/widget/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<Product> products;
-  final bool withErrorButton;
+  final bool withReTryButton;
   final Function()? onRetry;
 
   const ProductsGrid({
     Key? key,
     required this.products,
-    this.withErrorButton = false,
+    this.withReTryButton = false,
     this.onRetry,
-  })  : assert(onRetry != null && withErrorButton),
+  })  : assert(onRetry == null && !withReTryButton),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: withErrorButton ? products.length + 1 : products.length,
+      itemCount: withReTryButton ? products.length + 1 : products.length,
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 200,
         crossAxisSpacing: 8,
         mainAxisSpacing: 16,
       ),
       itemBuilder: (context, index) {
-        if (withErrorButton && index >= products.length) {
+        if (withReTryButton && index >= products.length) {
           return TextButton(
             onPressed: onRetry,
             child: Text('Retry'),

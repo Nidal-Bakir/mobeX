@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
+import 'package:mobox/core/screen/all_product.dart';
 import 'package:mobox/core/widget/error_card.dart';
 import 'package:mobox/core/widget/product_card.dart';
 
@@ -35,7 +36,17 @@ class ProductsList extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text('MORE')),
+              TextButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => BlocProvider.value(
+                        value: context.read<ProductBloc>(),
+                        child: AllProducts()),
+                    settings: RouteSettings(arguments: title),
+                  ),
+                ),
+                child: Text('MORE'),
+              ),
             ],
           ),
         ),
