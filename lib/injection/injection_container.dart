@@ -9,8 +9,6 @@ import 'package:mobox/core/data/product_data_source/local/local_product_source.d
 import 'package:mobox/core/data/product_data_source/remote/remote_product_source.dart';
 import 'package:mobox/core/repository/product_repository.dart';
 import 'package:mobox/core/utils/shared_initializer.dart';
-import 'package:mobox/features/home_feed/data/data_source/local/local_home_data_souce.dart';
-import 'package:mobox/features/home_feed/data/data_source/remote/remote_home_data_source.dart';
 
 
 part 'auth_injection.dart';
