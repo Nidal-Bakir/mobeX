@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
+import 'package:mobox/core/widget/error_card.dart';
 import 'package:mobox/core/widget/no_data.dart';
 import 'package:mobox/core/widget/product_card.dart';
 
@@ -28,9 +29,9 @@ class _NewProductSliverGridState extends State<NewProductSliverGrid> {
               mainAxisSpacing: 16,
             ),
             delegate: SliverChildBuilderDelegate(
-                (_, int index) =>
-                    ProductCard(product: state.productList[index]),
-                childCount: state.productList.length),
+              (_, int index) => ProductCard(product: state.productList[index]),
+              childCount: state.productList.length,
+            ),
           );
         } else if (state is ProductLoadFailure) {
           return SliverGrid(
@@ -39,12 +40,13 @@ class _NewProductSliverGridState extends State<NewProductSliverGrid> {
               crossAxisSpacing: 8,
               mainAxisSpacing: 16,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (_, index) {
-                return ProductCard(product: state.productList[index]);
-              },
-              childCount: state.productList.length,
-            ),
+            delegate: SliverChildBuilderDelegate((_, index) {
+              if (index >= state.productList.length) {
+                return ErrorCard(() =>
+                    context.read<ProductBloc>().add(ProductReRequested()));
+              }
+              return ProductCard(product: state.productList[index]);
+            }, childCount: state.productList.length + 1),
           );
         } else if (state is ProductNoData) {
           return SliverToBoxAdapter(
