@@ -4,7 +4,7 @@ import 'package:mobox/core/data/product_data_source/local/local_product_source.d
 import 'package:mobox/core/data/product_data_source/remote/remote_product_source.dart';
 import 'package:mobox/core/model/product_model.dart';
 
-import 'package:rxdart/rxdart.dart';
+
 
 class ProductRepository {
   final LocalProductDataSource _localProductDataSource;
@@ -21,29 +21,52 @@ class ProductRepository {
   /// Store the incoming data in cache [LocalProductDataSource] in case there are
   //  no internet connection or something went wrong.
   //
-  /// concat the two streams in one stream, local stream come first then
-  /// the remote stream came behind it.
-  ///
-  /// ``  Rx.concat([local,remote])
-  /// ``
+  /// emit the local streams first, and then the remote stream.
   ///
 
-  Stream<Product> getProductsStreamFromEndPoint(String endPoint) {
-    var localStream =
-        _localProductDataSource.getProductsStreamFromLocalEndPoint(endPoint);
+  Stream<Product> getProductsStreamFromEndPoint(String endPoint) async* {
+    // use this number to tall the api to send the next products list relative
+    // to this number
+    var numberOfProductsForPagination =
+        _localProductDataSource.getNumberOfCachedProductsForEndPoint(endPoint);
+
+    yield* _localProductDataSource.getProductsStreamFromLocalEndPoint(endPoint);
 
     var remoteStream = _remoteProductDataSource
-        .getProductsStreamFromEndPoint(endPoint)
+        .getProductsStreamFromEndPoint(
+            endPoint: endPoint, paginationCount: numberOfProductsForPagination)
         .asBroadcastStream();
 
-    Future.microtask(() => _localProductDataSource.appendCache(
+    _localProductDataSource.appendCache(
         remoteStream.handleError((_) {
           return; //ignore the error
         }).toList(),
-        endPoint));
+        endPoint);
 
-    return Rx.concat([localStream, remoteStream]);
+    yield* remoteStream;
+  }
 
+  Stream<Product> getProductsStreamFromAPIForInfiniteScrolling(
+      String endPoint) {
+    // use this number to tall the api to send the next products list relative
+    // to this number
+    var numberOfProductsForPagination =
+        _localProductDataSource.getNumberOfCachedProductsForEndPoint(endPoint);
+
+    var remoteStream = _remoteProductDataSource
+        .getProductsStreamFromEndPoint(
+          endPoint: endPoint,
+          paginationCount: numberOfProductsForPagination,
+        )
+        .asBroadcastStream();
+
+    _localProductDataSource.appendCache(
+        remoteStream.handleError((_) {
+          return; //ignore the error
+        }).toList(),
+        endPoint);
+
+    return remoteStream;
   }
 
   ///  Returns stream of [Product]s from local cache.

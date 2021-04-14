@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/core/widget/no_data.dart';
-import 'package:mobox/core/widget/products_grid.dart';
+import 'package:mobox/core/widget/sliver_products_grid.dart';
 
 class AllProducts extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class _AllProductsState extends State<AllProducts> {
     // the bloc will be passed by value (BP.value) when navigation to this screen
     // products and values depend on the bloc passed to this screen.
     context.read<ProductBloc>().add(ProductDataLoaded());
+
     super.initState();
   }
 
@@ -22,34 +24,62 @@ class _AllProductsState extends State<AllProducts> {
   Widget build(BuildContext context) {
     final String title = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (notification) =>
+            notificationListener(notification, context),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Text(title),
+              snap: true,
+              floating: true,
+              centerTitle: true,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductLoadSuccess) {
+                  return SliverProductsGrid(productList: state.productList);
+                } else if (state is ProductLoadFailure) {
+                  return SliverProductsGrid(productList: state.productList);
+                } else if (state is ProductMoreInProgress) {
+                  return SliverProductsGrid(productList: state.productList);
+                } else if (state is ProductNoData) {
+                  return SliverFillRemaining(child: NoData(vertical: true));
+                }
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            ),
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                if (state is ProductMoreInProgress) {
+                  return SliverToBoxAdapter(
+                    child: Center(
+                      child: LinearProgressIndicator(),
+                    ),
+                  );
+                } else if (state is ProductLoadFailure) {
+                  return TextButton(
+                    onPressed: () =>
+                        context.read<ProductBloc>().add(ProductLoadRetried()),
+                    child: Text('RETRY'),
+                    style: Theme.of(context).textButtonTheme.style,
+                  );
+                }
+                return SliverToBoxAdapter(
+                  child: Container(),
+                );
+              },
+            )
+          ],
         ),
-      ),
-      body: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoadSuccess) {
-            return ProductsGrid(products: state.productList);
-          } else if (state is ProductLoadFailure) {
-            return ProductsGrid(
-              products: state.productList,
-              withReTryButton: true,
-              onRetry: () =>
-                  context.read<ProductBloc>().add(ProductReRequested()),
-            );
-          } else if (state is ProductNoData) {
-            return NoData(
-              vertical: true,
-            );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
       ),
     );
   }

@@ -3,19 +3,21 @@ import 'package:mobox/core/model/product_model.dart';
 abstract class LocalProductDataSource {
   Stream<Product> getProductsStreamFromLocalEndPoint(String endPoint);
 
-  void appendCache(Future<List<Product>> adList, String endPoint);
+  void appendCache(Future<List<Product>> productList, String endPoint);
+
+  int getNumberOfCachedProductsForEndPoint(String endPoint);
 }
 
 class LocalProductDataSourceImpl extends LocalProductDataSource {
   final Map<String, List<Product>> cache = {};
 
   @override
-  void appendCache(Future<List<Product>> adList, String endPoint) async {
-    var _adList = await adList;
+  void appendCache(Future<List<Product>> productList, String endPoint) async {
+    var _productList = await productList;
     this.cache.update(
           endPoint,
-          (value) => [...value]..addAll(_adList),
-          ifAbsent: () => _adList,
+          (value) => [...value]..addAll(_productList),
+          ifAbsent: () => _productList,
         );
   }
 
@@ -25,4 +27,8 @@ class LocalProductDataSourceImpl extends LocalProductDataSource {
   @override
   Stream<Product> getProductsStreamFromLocalEndPoint(String endPoint) =>
       Stream.fromIterable([...cache[endPoint] ?? []]);
+
+  @override
+  int getNumberOfCachedProductsForEndPoint(String endPoint) =>
+      cache[endPoint]?.length ?? 0;
 }

@@ -40,7 +40,7 @@ class ProductsList extends StatelessWidget {
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => BlocProvider.value(
-                        value: context.read<ProductBloc>(),
+                        value: BlocProvider.of<ProductBloc>(context),
                         child: AllProducts()),
                     settings: RouteSettings(arguments: title),
                   ),
@@ -55,7 +55,7 @@ class ProductsList extends StatelessWidget {
             itemBuilder: (context, index) {
               if (withReTryButton && index >= productList.length)
                 return ErrorCard(
-                  () => context.read<ProductBloc>().add(ProductReRequested()),
+                  () => context.read<ProductBloc>().add(ProductLoadRetried()),
                 );
               return ProductCard(product: productList[index]);
             },

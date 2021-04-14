@@ -9,15 +9,23 @@ class ProductInProgress extends ProductState {
   List<Object> get props => [];
 }
 
+class ProductMoreInProgress extends ProductState {
+  final List<Product> productList;
+
+  const ProductMoreInProgress({required this.productList});
+
+  @override
+  List<Object> get props => [productList];
+}
+
 class ProductLoadSuccess extends ProductState {
-  final  List<Product> productList;
+  final List<Product> productList;
 
   const ProductLoadSuccess({required this.productList});
 
   @override
   List<Object?> get props => [productList];
 }
-
 
 class ProductLoadFailure extends ProductState {
   final List<Product> productList;

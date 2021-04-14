@@ -15,7 +15,8 @@ abstract class RemoteProductDataSource {
   ///
   /// Throws [ConnectionException] in the stream, if there is no internet or the
   /// server returns statusCode other than *(200 OK)*
-  Stream<Product> getProductsStreamFromEndPoint(String endPoint);
+  Stream<Product> getProductsStreamFromEndPoint(
+      {required String endPoint, required int paginationCount});
 }
 
 class RemoteProductDataSourceImpl extends RemoteProductDataSource {
@@ -25,12 +26,16 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
       : super(token: token);
 
   @override
-  Stream<Product> getProductsStreamFromEndPoint(String endPoint) async* {
+  Stream<Product> getProductsStreamFromEndPoint({
+    required String endPoint,
+    required int paginationCount,
+  }) async* {
     // TODO : add our website
     //TODO : use the token filed from super class
+    // TODO : use paginationCount in the url
 
     // var req = http.Request(
-    //     'get', Uri.parse('https://api.mobex.com/ad$token'));
+    //     'get', Uri.parse('https://api.mobex.com/ad$token$paginationCount'));
     // var res = await client.send(req);
     //
     // if (res.statusCode == 200) {
@@ -43,19 +48,19 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     // }else {
     //  yield throw ConnectionException('error while fetching $endPoint data');
     // }
-
+    int index = 0;
     var res = await Future.value(http.Response(
         await rootBundle.loadString('assets/for_tests_temp/products.json'),
         200));
     if (res.statusCode == 200) {
       yield* Stream.fromIterable(
-        (json.decode(res.body)['products'] as List<dynamic>)
-            .map((e) {
-              e['title']=endPoint;
-              return Product.fromMap(e);
-            })
-            .toList(),
+        (json.decode(res.body)['products'] as List<dynamic>).map((e) {
+          e['title'] = endPoint;
+          e['storeName'] = ( ++index).toString();
+          return Product.fromMap(e);
+        }).toList(),
       );
+
     } else {
       yield throw ConnectionException('error while fetching $endPoint data');
     }
