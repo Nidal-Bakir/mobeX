@@ -3,6 +3,7 @@ import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/core/widget/no_data.dart';
+import 'package:mobox/core/widget/retry_button.dart';
 import 'package:mobox/core/widget/sliver_products_grid.dart';
 
 class AllProducts extends StatefulWidget {
@@ -66,12 +67,7 @@ class _AllProductsState extends State<AllProducts> {
                     ),
                   );
                 } else if (state is ProductLoadFailure) {
-                  return TextButton(
-                    onPressed: () =>
-                        context.read<ProductBloc>().add(ProductLoadRetried()),
-                    child: Text('RETRY'),
-                    style: Theme.of(context).textButtonTheme.style,
-                  );
+                  return RetryTextButton();
                 }
                 return SliverToBoxAdapter(
                   child: Container(),

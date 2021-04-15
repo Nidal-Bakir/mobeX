@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobox/features/categories/bloc/categories_bloc.dart';
+import 'package:mobox/features/categories/presentation/screen/categories_tab.dart';
 import 'package:mobox/features/home_feed/presentation/screen/home_tab.dart';
 
 class AppScreen extends StatefulWidget {
@@ -62,22 +65,15 @@ class _AppScreenState extends State<AppScreen>
           controller: _tabController,
           children: <Widget>[
             HomeTab(),
-            Tab1(),
+            BlocProvider<CategoriesBloc>(
+              create: (context) => GetIt.I.get(),
+              child: CategoriesTab(),
+            ),
             Tab2(),
             Text("Tab 4"),
           ],
         ),
       ),
-    );
-  }
-}
-
-class Tab1 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    print('rebuild Tab1');
-    return Container(
-      child: Text("Tab 1"),
     );
   }
 }
