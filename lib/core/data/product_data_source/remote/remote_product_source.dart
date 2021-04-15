@@ -6,10 +6,7 @@ import 'package:mobox/core/model/product_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class RemoteProductDataSource {
-  /// user token
-  final String token;
-
-  const RemoteProductDataSource({required this.token});
+  const RemoteProductDataSource();
 
   /// Returns Stream of [Product]s from api
   ///
@@ -20,10 +17,12 @@ abstract class RemoteProductDataSource {
 }
 
 class RemoteProductDataSourceImpl extends RemoteProductDataSource {
-  http.Client client;
+  final http.Client client;
 
-  RemoteProductDataSourceImpl({required this.client, required String token})
-      : super(token: token);
+  /// user token
+  final String token;
+
+  RemoteProductDataSourceImpl({required this.client, required this.token});
 
   @override
   Stream<Product> getProductsStreamFromEndPoint({
@@ -56,11 +55,10 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
       yield* Stream.fromIterable(
         (json.decode(res.body)['products'] as List<dynamic>).map((e) {
           e['title'] = endPoint;
-          e['storeName'] = ( ++index).toString();
+          e['storeName'] = (++index).toString();
           return Product.fromMap(e);
         }).toList(),
       );
-
     } else {
       yield throw ConnectionException('error while fetching $endPoint data');
     }
