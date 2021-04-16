@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
                       decoration: InputDecoration(
                         labelText: 'username',
                       ),
-                      style: TextStyle(),
+                      style: TextStyle(color: Colors.black),
                       onSaved: (newValue) => userName = newValue,
                       validator: (value) {
                         value = value ?? '';
@@ -60,6 +60,7 @@ class _LoginState extends State<Login> {
                     ),
                     TextFormField(
                       obscureText: _obscureText,
+                      style: TextStyle(color: Colors.black),
                       validator: (value) {
                         value = value ?? '';
                         if (value.trim().isEmpty) {

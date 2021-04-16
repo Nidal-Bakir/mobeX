@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:mobox/core/error/exception.dart';
@@ -54,6 +55,7 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     if (res.statusCode == 200) {
       yield* Stream.fromIterable(
         (json.decode(res.body)['products'] as List<dynamic>).map((e) {
+          e['id']=Random().nextInt(999999999);
           e['title'] = endPoint;
           e['storeName'] = (++index).toString();
           return Product.fromMap(e);

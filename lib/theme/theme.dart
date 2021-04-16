@@ -18,6 +18,7 @@ ThemeData appTheme() {
         foregroundColor: MaterialStateProperty.all<Color>(green),
       ),
     ),
+
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(color: green),
       focusedBorder: OutlineInputBorder(
@@ -72,18 +73,20 @@ TextTheme _textTheme() => TextTheme(
       ),
       subtitle2: GoogleFonts.roboto(
         fontSize: 14,
+        color: Colors.grey[700],
         fontWeight: FontWeight.w500,
-        letterSpacing: 0.1,
+        letterSpacing: 2,
       ),
       bodyText1: GoogleFonts.openSans(
         fontSize: 16,
+        color: Colors.grey[800],
         fontWeight: FontWeight.w400,
         letterSpacing: 0.5,
       ),
       bodyText2: GoogleFonts.openSans(
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.w400,
-        letterSpacing: 0.25,
+        letterSpacing: 0,
       ),
       button: GoogleFonts.roboto(
         fontSize: 14,

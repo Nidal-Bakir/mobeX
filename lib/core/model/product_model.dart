@@ -8,19 +8,21 @@ class Product extends Equatable {
   final double price;
   final double? sale;
   final double rate;
+  final String description;
 
   Product(
       {required this.id,
       required this.title,
       required this.storeName,
       required this.imageUrl,
+      required this.description,
       required this.price,
       required this.sale,
       required this.rate});
 
   @override
   List<Object?> get props =>
-      [title, storeName, imageUrl, price, sale, rate, id];
+      [id, storeName, imageUrl, price, sale, rate, title, description];
 
   factory Product.fromMap(Map<String, dynamic?> jsonMap) {
     return Product(
@@ -28,6 +30,7 @@ class Product extends Equatable {
         title: jsonMap['title'],
         storeName: jsonMap['storeName'],
         imageUrl: jsonMap['imageUrl'],
+        description: jsonMap['description'] ?? '',
         price: jsonMap['price'] as double,
         sale: jsonMap['sale'] as double?,
         rate: jsonMap['rate'] as double);
@@ -38,6 +41,7 @@ class Product extends Equatable {
         "title": title,
         "storeName": storeName,
         "imageUrl": imageUrl,
+        "description": description,
         "price": price,
         "sale": sale,
         "rate": rate,

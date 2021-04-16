@@ -19,6 +19,7 @@ void main() {
         imageUrl: 'assets/images/productimg2.png',
         price: 11.0,
         sale: 110.0,
+        description: 'test description',
         rate: 11.0),
     Product(
         id: 6,
@@ -26,6 +27,7 @@ void main() {
         storeName: '6',
         imageUrl: 'assets/images/productimg2.png',
         price: 12.0,
+        description: 'test description',
         sale: 110.0,
         rate: 11.0),
     Product(
@@ -34,6 +36,7 @@ void main() {
         storeName: '7',
         imageUrl: 'assets/images/productimg2.png',
         price: 13.0,
+        description: 'test description',
         sale: 110.0,
         rate: 11.0),
     Product(
@@ -42,6 +45,7 @@ void main() {
         storeName: '8',
         imageUrl: 'assets/images/productimg2.png',
         price: 14.0,
+        description: 'test description',
         sale: 110.0,
         rate: 11.0),
   ];
@@ -49,6 +53,7 @@ void main() {
     Product(
         id: 0,
         title: 'ad',
+        description: 'test description',
         storeName: '1',
         imageUrl: 'assets/images/productimg2.png',
         price: 11.0,
@@ -60,6 +65,7 @@ void main() {
         storeName: '2',
         imageUrl: 'assets/images/productimg2.png',
         price: 12.0,
+        description: 'test description',
         sale: 110.0,
         rate: 11.0),
     Product(
@@ -69,6 +75,7 @@ void main() {
         imageUrl: 'assets/images/productimg2.png',
         price: 13.0,
         sale: 110.0,
+        description: 'test description',
         rate: 11.0),
     Product(
         id: 3,
@@ -76,6 +83,7 @@ void main() {
         storeName: '4',
         imageUrl: 'assets/images/productimg2.png',
         price: 14.0,
+        description: 'test description',
         sale: 110.0,
         rate: 11.0),
   ];
@@ -94,7 +102,7 @@ void main() {
   group('getProductsStreamFromEndPoint() function test', () {
     test(
         'getProductsStreamFromEndPoint() should emit the same stream provided from remote in case the cache is empty ',
-        () async{
+        () async {
       when(local.getProductsStreamFromLocalEndPoint(any))
           .thenAnswer((realInvocation) => Stream.fromIterable([]));
 
@@ -105,7 +113,7 @@ void main() {
               (realInvocation) => Stream.fromIterable(productListRemote));
 
       var stream = repository.getProductsStreamFromEndPoint('endPoint');
-     await expectLater(stream, emitsInOrder(productListRemote));
+      await expectLater(stream, emitsInOrder(productListRemote));
     });
 
     test(
@@ -131,7 +139,7 @@ void main() {
   group('getProductsStreamFromAPIForInfiniteScrolling() function test', () {
     test(
         'getProductsStreamFromAPIForInfiniteScrolling() should emit the same stream provided from remote',
-        () async{
+        () async {
       when(remote.getProductsStreamFromEndPoint(
               endPoint: anyNamed('endPoint'),
               paginationCount: anyNamed('paginationCount')))
@@ -141,7 +149,7 @@ void main() {
       var stream =
           repository.getProductsStreamFromAPIForInfiniteScrolling('endPoint');
 
-     await expectLater(stream, emitsInOrder(productListRemote));
+      await expectLater(stream, emitsInOrder(productListRemote));
 
       // verify(local.appendCache(Future.value(productListRemote), 'endPoint')).called(1);
     });

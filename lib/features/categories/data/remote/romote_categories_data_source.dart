@@ -11,7 +11,7 @@ class RemoteCategoriesImpl extends RemoteCategories {
   /// user token
   final String token;
   final http.Client _client;
-
+// because
   RemoteCategoriesImpl({required http.Client client, required this.token})
       : _client = client;
 
