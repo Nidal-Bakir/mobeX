@@ -15,7 +15,7 @@ void categoriesInit() {
   ); //local data source
   sl.registerLazySingleton<RemoteCategories>(
     () => RemoteCategoriesImpl(
-      token: (sl.get<AuthBloc>().state as AuthLoadTokenSuccess).token,
+      token: (sl.get<AuthBloc>().state as AuthLoadUserProfileSuccess).userProfile.token,
       client: sl(),
     ),
   ); // remote data source

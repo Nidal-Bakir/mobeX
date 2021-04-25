@@ -16,6 +16,6 @@ void coreInit() {
   sl.registerLazySingleton<RemoteProductDataSource>(() =>
       RemoteProductDataSourceImpl(
           client: sl(),
-          token: (sl.get<AuthBloc>().state as AuthLoadTokenSuccess)
-              .token)); // remote data source
+          token: (sl.get<AuthBloc>().state as AuthLoadUserProfileSuccess)
+              .userProfile.token)); // remote data source
 }

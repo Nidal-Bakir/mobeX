@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
       GetIt.instance.registerSingleton<SharedPreferences>(
           GetIt.I.get<SharedInitializer>().sharedPreferences);
       // kickoff the auth process
-      context.read<AuthBloc>().add(AuthTokenLoaded());
+      context.read<AuthBloc>().add(AuthUserProfileLoaded());
     });
   }
 
@@ -37,9 +37,9 @@ class _SplashState extends State<Splash> {
           ],
         ),
         listener: (context, state) {
-          if (state is AuthLoadTokenSuccess) {
+          if (state is AuthLoadUserProfileSuccess) {
             Navigator.of(context).pushReplacementNamed('/home');
-          } else if (state is AuthLoadTokenNotAuthenticated) {
+          } else if (state is AuthLoadUserProfileNotAuthenticated) {
             Navigator.of(context).pushReplacementNamed('/login');
           }
         },
