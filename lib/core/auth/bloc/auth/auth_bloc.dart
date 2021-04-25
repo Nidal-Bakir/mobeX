@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:mobox/core/auth/data/model/user_profiel.dart';
+import 'package:mobox/core/auth/repository/auth_repo.dart';
 
-import 'package:mobox/core/auth/data/repository/auth_repo.dart';
+
 import 'package:mobox/core/error/exception.dart';
 
 part 'auth_event.dart';
@@ -21,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {
-    if (event is AuthTokenLoaded) {
+    if (event is AuthUserProfileLoaded) {
       yield* _authTokenLoadedStateHandler();
     } else if (event is AuthLoginRequested) {
       yield* _authLoginRequestedStateHandler(event.userName, event.password);
@@ -32,23 +34,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _authLoginRequestedStateHandler(
       String userName, String password) async* {
-    yield AuthLoadTokenInProgress();
+    yield AuthLoadUserProfileInProgress();
     try {
-      var token = await _authRepo.login(userName: userName, password: password);
-      yield AuthLoadTokenSuccess(token: token);
+      var userProfile = await _authRepo.login(userName: userName, password: password);
+      yield AuthLoadUserProfileSuccess(userProfile: userProfile);
     } on CannotLoginException catch (e) {
-      yield AuthLoadTokenFailure(message: e.message);
+      yield AuthLoadUserProfileFailure(message: e.message);
     } on AuthenticationException catch (e) {
-      yield AuthLoadTokenFailure(message: e.message);
+      yield AuthLoadUserProfileFailure(message: e.message);
     }
   }
 
   Stream<AuthState> _authTokenLoadedStateHandler() async* {
-    var userToken = _authRepo.getUserToken();
-    if (userToken == null) {
-      yield AuthLoadTokenNotAuthenticated();
+    var userProfile = _authRepo.getUserToken();
+    if (userProfile == null) {
+      yield AuthLoadUserProfileNotAuthenticated();
     } else {
-      yield AuthLoadTokenSuccess(token: userToken);
+      yield AuthLoadUserProfileSuccess(userProfile: userProfile);
     }
   }
 }

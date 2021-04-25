@@ -1,12 +1,12 @@
+import 'dart:convert';
 
-
-
+import 'package:mobox/core/auth/data/model/user_profiel.dart';
 import 'package:mobox/core/utils/shared_initializer.dart';
 
 abstract class LocalAuth {
-  String? getUserToken();
+  UserProfile? getUserProfile();
 
-  void storeTheToken(String token);
+  void storeUserProfile(UserProfile userProfile);
 }
 
 class LocalAuthImpl extends LocalAuth {
@@ -15,12 +15,16 @@ class LocalAuthImpl extends LocalAuth {
   LocalAuthImpl({required this.sharedInitializer});
 
   @override
-  void storeTheToken(String token) {
-    sharedInitializer.sharedPreferences.setString('id', token);
+  void storeUserProfile(UserProfile userProfile) {
+    sharedInitializer.sharedPreferences
+        .setString('userProfile', jsonEncode(userProfile.toMap()));
   }
 
   @override
-  String? getUserToken() {
-    return sharedInitializer.sharedPreferences.getString('id');
+  UserProfile? getUserProfile() {
+    var userProfile =
+        sharedInitializer.sharedPreferences.getString('userProfile');
+    if (userProfile == null) return null;
+    return UserProfile.fromMap(jsonDecode(userProfile));
   }
 }

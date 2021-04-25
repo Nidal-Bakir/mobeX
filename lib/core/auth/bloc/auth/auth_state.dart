@@ -11,31 +11,31 @@ class AuthInitial extends AuthState {
   const AuthInitial();
 }
 
-class AuthLoadTokenSuccess extends AuthState {
-  final String token;
+class AuthLoadUserProfileSuccess extends AuthState {
+  final UserProfile userProfile;
 
-  AuthLoadTokenSuccess({required this.token});
-
-  @override
-  List<Object?> get props => [token];
-}
-
-class AuthLoadTokenInProgress extends AuthState {
-  const AuthLoadTokenInProgress();
+  AuthLoadUserProfileSuccess({required this.userProfile});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [userProfile];
 }
 
-class AuthLoadTokenNotAuthenticated extends AuthState {
+class AuthLoadUserProfileInProgress extends AuthState {
+  const AuthLoadUserProfileInProgress();
+
   @override
   List<Object?> get props => [];
 }
 
-class AuthLoadTokenFailure extends AuthState {
+class AuthLoadUserProfileNotAuthenticated extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthLoadUserProfileFailure extends AuthState {
   final String message;
 
-  AuthLoadTokenFailure({required this.message});
+  AuthLoadUserProfileFailure({required this.message});
 
   @override
   List<Object?> get props => [message];

@@ -119,11 +119,11 @@ class _LoginState extends State<Login> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      state is AuthLoadTokenInProgress
+                      state is AuthLoadUserProfileInProgress
                           ? CircularProgressIndicator()
                           : Container(),
                       ElevatedButton(
-                        onPressed: state is! AuthLoadTokenInProgress
+                        onPressed: state is! AuthLoadUserProfileInProgress
                             ? () {
                                 if (formKey.currentState?.validate() ?? false) {
                                   formKey.currentState?.save();
@@ -144,10 +144,10 @@ class _LoginState extends State<Login> {
                   );
                 },
                 listener: (BuildContext context, Object? state) {
-                  if (state is AuthLoadTokenFailure) {
+                  if (state is AuthLoadUserProfileFailure) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('${state.message}')));
-                  } else if (state is AuthLoadTokenSuccess) {
+                  } else if (state is AuthLoadUserProfileSuccess) {
                     Navigator.of(context).pushReplacementNamed('/home');
                   }
                 },

@@ -4,7 +4,7 @@ abstract class AuthEvent extends Equatable {
   const AuthEvent();
 }
 
-class AuthTokenLoaded extends AuthEvent {
+class AuthUserProfileLoaded extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
