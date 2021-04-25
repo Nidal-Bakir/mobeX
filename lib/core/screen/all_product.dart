@@ -41,6 +41,9 @@ class _AllProductsState extends State<AllProducts> {
               ),
             ),
             BlocBuilder<ProductBloc, ProductState>(
+              buildWhen: (previous, current) =>
+                  current is! ProductRateSuccess &&
+                  current is! ProductRateFailure,
               builder: (context, state) {
                 if (state is ProductLoadSuccess) {
                   return SliverProductsGrid(productList: state.productList);

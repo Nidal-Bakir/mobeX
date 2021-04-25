@@ -6,6 +6,8 @@ abstract class LocalProductDataSource {
   void appendCache(Future<List<Product>> productList, String endPoint);
 
   int getNumberOfCachedProductsForEndPoint(String endPoint);
+
+  void upDateProduct(String endPoint, Product product);
 }
 
 class LocalProductDataSourceImpl extends LocalProductDataSource {
@@ -31,4 +33,18 @@ class LocalProductDataSourceImpl extends LocalProductDataSource {
   @override
   int getNumberOfCachedProductsForEndPoint(String endPoint) =>
       cache[endPoint]?.length ?? 0;
+
+  @override
+  void upDateProduct(String endPoint, Product upDateProduct) {
+    // get product list
+    var productList = cache[endPoint];
+    if (productList == null) return;
+    // get the index of the product to replace it.
+    int productIndex =
+        productList.indexWhere((element) => element.id == upDateProduct.id);
+    productList.removeAt(productIndex);
+    productList.insert(productIndex, upDateProduct);
+    // update the cache
+    cache.update(endPoint, (value) => productList);
+  }
 }

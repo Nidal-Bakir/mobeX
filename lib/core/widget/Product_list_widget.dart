@@ -25,6 +25,8 @@ class _ProductListState extends State<ProductList> {
     return Container(
       height: 250,
       child: BlocBuilder<ProductBloc, ProductState>(
+        buildWhen: (previous, current) =>
+            current is! ProductRateSuccess && current is! ProductRateFailure,
         builder: (context, state) {
           if (state is ProductLoadSuccess) {
             return ProductsList(

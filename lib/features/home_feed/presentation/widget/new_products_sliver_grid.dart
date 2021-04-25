@@ -19,6 +19,8 @@ class _NewProductSliverGridState extends State<NewProductSliverGrid> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
+      buildWhen: (previous, current) =>
+          current is! ProductRateSuccess && current is! ProductRateFailure,
       builder: (context, state) {
         if (state is ProductLoadSuccess) {
           return SliverProductsGrid(productList: state.productList);

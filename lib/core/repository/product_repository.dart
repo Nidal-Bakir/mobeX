@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:mobox/core/data/product_data_source/local/local_product_source.dart';
 import 'package:mobox/core/data/product_data_source/remote/remote_product_source.dart';
+import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/model/product_model.dart';
-
-
 
 class ProductRepository {
   final LocalProductDataSource _localProductDataSource;
@@ -47,7 +46,7 @@ class ProductRepository {
   }
 
   Stream<Product> getProductsStreamFromAPIForInfiniteScrolling(
-      String endPoint) {
+      String endPoint) async* {
     // use this number to tall the api to send the next products list relative
     // to this number
     var numberOfProductsForPagination =
@@ -66,10 +65,37 @@ class ProductRepository {
         }).toList(),
         endPoint);
 
-    return remoteStream;
+    yield* remoteStream;
   }
 
   ///  Returns stream of [Product]s from local cache.
   Stream<Product> getProductsStreamFromLocalCache(String endPoint) =>
       _localProductDataSource.getProductsStreamFromLocalEndPoint(endPoint);
+
+  /// Sends the user [newRate] to the API
+  /// the server Response with the updated rate for a product.
+  ///
+  /// [oldRate] used to determine which operation to invoke post, delete or patch.
+  ///
+  /// Update the corresponding [product] in the local cache.
+  ///
+  /// Returns Map<String, double?> of newProductRateFromAPI and userRate.
+  ///
+  /// Throw [ConnectionException] if the server did not response or there are no internet connection
+  Future<Map<String, double?>> sendUserRateForProduct(double? oldRate,
+      double? newRate, Product product, String endPoint) async {
+    try {
+      double newProductRateFromAPI = await _remoteProductDataSource
+          .upDateProductRate(product.id, product.storeId, oldRate, newRate);
+
+      _localProductDataSource.upDateProduct(endPoint,
+          product.copyWith(rate: newProductRateFromAPI, myRate: newRate));
+      return {
+        'newProductRateFromAPI': newProductRateFromAPI,
+        'newRate': newRate,
+      };
+    } on ConnectionException catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -18,6 +18,8 @@ void main() {
         storeName: '5',
         imageUrl: 'assets/images/productimg2.png',
         price: 11.0,
+        myRate: 3.4,
+        storeId: 'dfsafdf3',
         sale: 110.0,
         description: 'test description',
         rate: 11.0),
@@ -25,6 +27,8 @@ void main() {
         id: 6,
         title: 'ad',
         storeName: '6',
+        myRate: 4.4,
+        storeId: 'dfsattfdf3',
         imageUrl: 'assets/images/productimg2.png',
         price: 12.0,
         description: 'test description',
@@ -33,6 +37,8 @@ void main() {
     Product(
         id: 7,
         title: 'ad',
+        myRate: 4.4,
+        storeId: 'dfsafdf3',
         storeName: '7',
         imageUrl: 'assets/images/productimg2.png',
         price: 13.0,
@@ -42,6 +48,8 @@ void main() {
     Product(
         id: 8,
         title: 'ad',
+        myRate: 5.0,
+        storeId: 'df11safdf3',
         storeName: '8',
         imageUrl: 'assets/images/productimg2.png',
         price: 14.0,
@@ -53,6 +61,8 @@ void main() {
     Product(
         id: 0,
         title: 'ad',
+        myRate: 1.5,
+        storeId: 'dfsafdf3',
         description: 'test description',
         storeName: '1',
         imageUrl: 'assets/images/productimg2.png',
@@ -62,6 +72,8 @@ void main() {
     Product(
         id: 1,
         title: 'ad',
+        myRate: null,
+        storeId: 'dfsa22fdf3',
         storeName: '2',
         imageUrl: 'assets/images/productimg2.png',
         price: 12.0,
@@ -70,6 +82,8 @@ void main() {
         rate: 11.0),
     Product(
         id: 2,
+        myRate: 4.4,
+        storeId: 'dfsafdf3',
         title: 'ad',
         storeName: '3',
         imageUrl: 'assets/images/productimg2.png',
@@ -80,6 +94,8 @@ void main() {
     Product(
         id: 3,
         title: 'ad',
+        myRate: 4.4,
+        storeId: 'dfsafdf3',
         storeName: '4',
         imageUrl: 'assets/images/productimg2.png',
         price: 14.0,

@@ -40,3 +40,20 @@ class ProductNoData extends ProductState {
   @override
   List<Object?> get props => [];
 }
+
+class ProductRateSuccess extends ProductState {
+  final double? newUserRate;
+  final double newProductRateFromAPI;
+
+  const ProductRateSuccess(this.newUserRate, this.newProductRateFromAPI);
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ProductRateFailure extends ProductState {
+  const ProductRateFailure();
+
+  @override
+  List<Object?> get props => [];
+}

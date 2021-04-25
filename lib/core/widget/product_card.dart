@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
+import 'package:mobox/core/screen/product_screen.dart';
 import 'package:mobox/core/widget/sale_off.dart';
 
 class ProductCard extends StatelessWidget {
@@ -10,8 +13,12 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          Navigator.of(context).pushNamed('/product', arguments: product),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: context.read<ProductBloc>(),
+          child: ProductScreen(product: product),
+        ),
+      )),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Container(
@@ -72,7 +79,7 @@ class ProductCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                         Text(
-                          '${product.rate}',
+                          product.rate.toStringAsFixed(1),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
@@ -81,7 +88,7 @@ class ProductCard extends StatelessWidget {
                       height: 4,
                     ),
                     SaleOff(
-                      vertical: true,
+                      productScreen: false,
                       sale: product.sale,
                       price: product.price,
                     ),

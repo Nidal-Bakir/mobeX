@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/core/repository/product_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -36,6 +37,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       yield* _productLoadRetriedHandler();
     } else if (event is ProductMoreDataLoaded) {
       yield* _productMoreDataLoadedHandler();
+    } else if (event is ProductRateUpDated) {
+      yield* _productRateUpDatedHandler(
+        product: event.product,
+        newRate: event.newRate,
+        oldRate: event.oldRate,
+      );
     }
   }
 
@@ -67,8 +74,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
   }
 
-
-
   Stream<ProductState> _productDataLoadedHandler() async* {
     yield* _loadData();
   }
@@ -93,5 +98,24 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             productList: await productRepository
                 .getProductsStreamFromLocalCache(endPoint)
                 .toList()));
+  }
+
+  Stream<ProductState> _productRateUpDatedHandler({
+    required Product product,
+    required double? newRate,
+    required double? oldRate,
+  }) async* {
+    try {
+      var map = await productRepository.sendUserRateForProduct(
+          oldRate, newRate, product, endPoint);
+      yield ProductRateSuccess(map['newRate'], map['newProductRateFromAPI']!);
+      // publish the updated data
+      yield ProductLoadSuccess(
+          productList: await productRepository
+              .getProductsStreamFromLocalCache(endPoint)
+              .toList());
+    } on ConnectionException {
+      yield ProductRateFailure();
+    }
   }
 }

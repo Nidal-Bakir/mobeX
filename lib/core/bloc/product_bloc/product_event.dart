@@ -21,3 +21,19 @@ class ProductMoreDataLoaded extends ProductEvent {
   @override
   List<Object?> get props => [];
 }
+
+// send user rate for a product
+class ProductRateUpDated extends ProductEvent {
+  final double? newRate;
+  final double? oldRate;
+  final Product product;
+
+  const ProductRateUpDated({
+    required this.newRate,
+    required this.oldRate,
+    required this.product,
+  });
+
+  @override
+  List<Object?> get props => [oldRate,newRate, product];
+}
