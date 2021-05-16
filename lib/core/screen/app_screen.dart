@@ -41,7 +41,9 @@ class _AppScreenState extends State<AppScreen>
               actions: [
                 IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () {},
+                  onPressed: () {
+                  Navigator.of(context).pushNamed('/search');
+                  },
                 ),
                 IconButton(
                   icon: Icon(Icons.shopping_cart_rounded),

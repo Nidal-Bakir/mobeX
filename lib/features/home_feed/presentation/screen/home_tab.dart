@@ -19,8 +19,11 @@ class _HomeTabState extends State<HomeTab> {
       create: (context) => GetIt.I.get<ProductBloc>(param1: 'newProducts'),
       child: Builder(
         builder: (builderContext) => NotificationListener<ScrollNotification>(
-          onNotification: (notification) =>
-              notificationListener(notification, builderContext),
+          onNotification: (notification) => notificationListener(
+            notification: notification,
+            onNotify: () =>
+                builderContext.read<ProductBloc>().add(ProductMoreDataLoaded()),
+          ),
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(

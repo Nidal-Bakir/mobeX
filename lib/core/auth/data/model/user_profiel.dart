@@ -39,10 +39,11 @@ class UserProfile extends Equatable {
       ];
 
   factory UserProfile.fromMap(Map jsonMap) {
+
     return UserProfile(
       userName: jsonMap['user_name'],
       token: jsonMap['token'],
-      balance:  double.parse(jsonMap['balance'] ) ,
+      balance:  jsonMap['balance'],
       profileImage: jsonMap['profile_image'],
       phone: jsonMap['phone'],
       address: Address(jsonMap['city'], jsonMap['address']),

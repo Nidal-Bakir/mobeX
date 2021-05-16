@@ -14,10 +14,13 @@ import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/data/local/local_categories_data_source.dart';
 import 'package:mobox/features/categories/data/remote/romote_categories_data_source.dart';
 import 'package:mobox/features/categories/repository/categories_repository.dart';
+import 'package:mobox/features/search/bloc/store_search_bloc.dart';
+import 'package:mobox/features/search/data/remote_data_source/remote_search_data_source.dart';
+import 'package:mobox/features/search/repository/search_repository.dart';
 
 part 'auth_injection.dart';
 
-part 'home_injection.dart';
+part 'search_injection.dart';
 
 part 'core_injection.dart';
 
@@ -28,10 +31,13 @@ final sl = GetIt.instance;
 void init() {
   // auth feature
   authInit();
+
   // core app
   coreInit();
-  // home feed feature
-  homeInit();
-  // categories
+
+  // categories feature
   categoriesInit();
+
+  // search feature
+  searchInit();
 }

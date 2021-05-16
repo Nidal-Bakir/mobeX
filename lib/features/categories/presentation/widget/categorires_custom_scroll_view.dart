@@ -35,7 +35,11 @@ class CategoriesCustomScrollView extends StatelessWidget {
           SliverToBoxAdapter(
             child: BlocProvider.value(
               value: context.read<CategoriesBloc>(),
-              child: Center(child: RetryTextButton()),
+              child: Center(
+                  child: RetryTextButton(
+                onClickCallback: () =>
+                    context.read<ProductBloc>().add(ProductLoadRetried()),
+              )),
             ),
           )
       ],
