@@ -1,8 +1,4 @@
-class CannotLoginException implements Exception {
-  final String message;
 
-  const CannotLoginException(this.message);
-}
 
 class AuthenticationException implements Exception {
   final String message;

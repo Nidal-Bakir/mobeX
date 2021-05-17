@@ -5,8 +5,28 @@ import 'package:mobox/core/auth/data/model/user_profiel.dart';
 import 'package:mobox/core/error/exception.dart';
 
 abstract class RemoteAuth {
+  /// login the user using [userName] and [password] and get his profile form the server
+  ///
+  /// Returns [UserProfile] object hold the user info.
+  ///
+  /// Throws [AuthenticationException] if the [userName] or [password] is invalid.
+  ///
+  /// Throws [ConnectionException] if the user doesn't have a proper internet
+  /// connection or he is not connected to internet.
   Future<UserProfile> login(
       {required String userName, required String password});
+
+  /// get updated user profile form the server
+  ///
+  /// [token] user toke which will be used to identify the user
+  ///
+  /// Returns [UserProfile] object hold the undated info about the user
+  ///
+  /// Throws [AuthenticationException] if the token is invalid.
+  ///
+  /// Throws [ConnectionException] if the user doesn't have a proper internet
+  /// connection or he is not connected to internet.
+  Future<UserProfile> getUpdatedUserProfile({required String token});
 }
 
 class RemoteAuthImpl extends RemoteAuth {
@@ -17,14 +37,14 @@ class RemoteAuthImpl extends RemoteAuth {
   @override
   Future<UserProfile> login(
       {required String userName, required String password}) async {
-    return await _getUserIdFromApi(userName, password);
+    return await _getUserProfileFromApi(
+        'login&userName=$userName&password=$password');
   }
 
-  Future<UserProfile> _getUserIdFromApi(
-      String userName, String password) async {
+  Future<UserProfile> _getUserProfileFromApi(String endPoint) async {
     // TODO : add our website
     // var res =
-    // await _client.get(Uri.https(ApiUrl.BASE_URL, '$userName,$password'));
+    // await _client.get(Uri.https(ApiUrl.BASE_URL\$endPoint));
     var res = await Future.value(Response(
         '{"token":"123abc","user_name":"nidal","balance":"12000","profile_image":"assets/images/productimg2.png","phone":"1234567890","city":"home","address":"alware 22st","first_name":"nidal","last_name":"bakir","account_status":"active"}',
         200));
@@ -33,11 +53,19 @@ class RemoteAuthImpl extends RemoteAuth {
       var jsonMap = json.decode(res.body);
       if (jsonMap == 'null') {
         throw AuthenticationException('wrong username or password try again!');
+      } else if (jsonMap == 'invalid token') {
+        throw AuthenticationException('invalid token need to login again');
       } else {
         return UserProfile.fromMap(jsonMap);
       }
     } else {
-      throw CannotLoginException('check your internet connection');
+      throw ConnectionException('check your internet connection');
     }
+  }
+
+
+  @override
+  Future<UserProfile> getUpdatedUserProfile({required String token}) async {
+    return await _getUserProfileFromApi("userProfile&token=$token");
   }
 }
