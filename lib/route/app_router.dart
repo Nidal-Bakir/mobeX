@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mobox/core/model/store_model.dart';
 import 'package:mobox/core/screen/app_screen.dart';
 import 'package:mobox/core/auth/presentation/screen/login.dart';
 import 'package:mobox/core/auth/presentation/screen/splash.dart';
+import 'package:mobox/core/screen/store_screen.dart';
 import 'package:mobox/features/search/presentation/screen/search.dart';
 import 'package:mobox/features/search/util/search_value_state_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,12 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
         builder: (context) => ChangeNotifierProvider(
           create: (context) => SearchValueStateProvider(),
           child: Search(),
+        ),
+      );
+    case '/store-screen':
+      return MaterialPageRoute(
+        builder: (context) => StoreScreen(
+          store: settings.arguments as Store,
         ),
       );
 

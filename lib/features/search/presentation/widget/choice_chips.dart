@@ -32,7 +32,7 @@ class _ChoiceChipsState extends State<ChoiceChips> {
           child: ChoiceChip(
             labelStyle: TextStyle(fontSize: 14),
             label: Text('Stores'),
-            selectedColor: Colors.green,
+            selectedColor: Theme.of(context).accentColor,
             selected: _storeIsSelected,
             onSelected: (selected) {
               _searchStateProv.setSearchType(SearchType.Stores);
@@ -74,7 +74,7 @@ class _ChoiceChipsState extends State<ChoiceChips> {
                 _storeIsSelected = false;
               });
             },
-            selectedColor: Colors.green,
+            selectedColor: Theme.of(context).accentColor,
           ),
         ),
         if (_productIsSelected)

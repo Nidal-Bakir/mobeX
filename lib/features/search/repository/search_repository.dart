@@ -1,6 +1,6 @@
 
 import 'package:mobox/features/search/data/remote_data_source/remote_search_data_source.dart';
-import 'package:mobox/features/search/data/model/store_model.dart';
+import 'package:mobox/core/model/store_model.dart';
 
 class SearchRepository {
   RemoteSearchDataSource _remoteSearchDataSource;

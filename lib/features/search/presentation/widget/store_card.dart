@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobox/features/search/data/model/store_model.dart';
+import 'package:mobox/core/model/store_model.dart';
 
 class StoreCard extends StatelessWidget {
   final Store store;
@@ -9,7 +9,8 @@ class StoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () =>
+          Navigator.of(context).pushNamed('/store-screen', arguments: store),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Container(

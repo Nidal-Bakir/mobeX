@@ -90,7 +90,7 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     // TODO : use paginationCount in the url
 
     // var req = http.Request(
-    //     'get', Uri.parse('https://api.mobex.com/ad$token$paginationCount'));
+    //     'get', Uri.parse('https://api.mobex.com/$endPoint&token=$token&paginationCount=$paginationCount'));
     // var res = await client.send(req);
     //
     // if (res.statusCode == 200) {

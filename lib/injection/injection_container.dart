@@ -6,9 +6,12 @@ import 'package:mobox/core/auth/data/data_source/remote/remote_auth.dart';
 import 'package:mobox/core/auth/repository/auth_repo.dart';
 
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
+import 'package:mobox/core/bloc/store_bloc/store_bloc.dart';
 import 'package:mobox/core/data/product_data_source/local/local_product_source.dart';
 import 'package:mobox/core/data/product_data_source/remote/remote_product_source.dart';
+import 'package:mobox/core/data/store_data_source/remote/store_follow_remote_data_source.dart';
 import 'package:mobox/core/repository/product_repository.dart';
+import 'package:mobox/core/repository/store_repository.dart';
 import 'package:mobox/core/utils/shared_initializer.dart';
 import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/data/local/local_categories_data_source.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/core/widget/rating_bar.dart' as customRating;
@@ -15,6 +15,10 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userName =
+        (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
+            .userProfile
+            .userName;
     return Scaffold(
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
@@ -31,28 +35,15 @@ class ProductScreen extends StatelessWidget {
             stretch: true,
             flexibleSpace: FlexibleSpaceBar(
               // titlePadding: EdgeInsets.zero,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 8, bottom: 2),
-                    child: BlocBuilder<ProductBloc, ProductState>(
-                      buildWhen: (previous, current) =>
-                          current is ProductRateSuccess,
-                      builder: (context, state) {
-                        if (state is ProductRateSuccess) {
-                          return flutterRate.RatingBar.builder(
-                            itemBuilder: (context, index) => Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                            ),
-                            glow: false,
-                            itemSize: 16.0,
-                            initialRating: state.newProductRateFromAPI,
-                            onRatingUpdate: (_) {},
-                            ignoreGestures: true,
-                          );
-                        }
+              title: Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 8, bottom: 2),
+                  child: BlocBuilder<ProductBloc, ProductState>(
+                    buildWhen: (previous, current) =>
+                        current is ProductRateSuccess,
+                    builder: (context, state) {
+                      if (state is ProductRateSuccess) {
                         return flutterRate.RatingBar.builder(
                           itemBuilder: (context, index) => Icon(
                             Icons.star,
@@ -60,14 +51,25 @@ class ProductScreen extends StatelessWidget {
                           ),
                           glow: false,
                           itemSize: 16.0,
-                          initialRating: product.rate,
+                          initialRating: state.newProductRateFromAPI,
                           onRatingUpdate: (_) {},
                           ignoreGestures: true,
                         );
-                      },
-                    ),
+                      }
+                      return flutterRate.RatingBar.builder(
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        glow: false,
+                        itemSize: 16.0,
+                        initialRating: product.rate,
+                        onRatingUpdate: (_) {},
+                        ignoreGestures: true,
+                      );
+                    },
                   ),
-                ],
+                ),
               ),
               collapseMode: CollapseMode.parallax,
               stretchModes: [StretchMode.zoomBackground, StretchMode.fadeTitle],
@@ -108,41 +110,43 @@ class ProductScreen extends StatelessWidget {
                       Spacer(
                         flex: 2,
                       ),
-                      Flexible(
-                        flex: 0,
-                        child: BlocConsumer<ProductBloc, ProductState>(
-                          listenWhen: (previous, current) =>
-                              current is ProductRateSuccess ||
-                              current is ProductRateFailure,
-                          listener: (context, state) {
-                            var _message = '';
-                            if (state is ProductRateSuccess) {
-                              _message = 'thanks for your feedback';
-                            } else if (state is ProductRateFailure) {
-                              _message =
-                                  'some thing went wrong try again later!';
-                            }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(_message)));
-                          },
-                          buildWhen: (previous, current) =>
-                              current is ProductRateSuccess ||
-                              current is ProductRateFailure,
-                          builder: (context, state) {
-                            double? _myRate = product.myRate;
-                            if (state is ProductRateSuccess) {
-                              _myRate = state.newUserRate;
-                            } else if (state is ProductRateFailure) {
-                              _myRate = product.myRate;
-                            }
-                            return customRating.RatingBar(
-                              immutable: false,
-                              product:product,
-                              rate: _myRate,
-                            );
-                          },
-                        ),
-                      ),
+                      product.storeId == userName
+                          ? Text('This is your product!')
+                          : Flexible(
+                              flex: 0,
+                              child: BlocConsumer<ProductBloc, ProductState>(
+                                listenWhen: (previous, current) =>
+                                    current is ProductRateSuccess ||
+                                    current is ProductRateFailure,
+                                listener: (context, state) {
+                                  var _message = '';
+                                  if (state is ProductRateSuccess) {
+                                    _message = 'thanks for your feedback';
+                                  } else if (state is ProductRateFailure) {
+                                    _message =
+                                        'some thing went wrong try again later!';
+                                  }
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(_message)));
+                                },
+                                buildWhen: (previous, current) =>
+                                    current is ProductRateSuccess ||
+                                    current is ProductRateFailure,
+                                builder: (context, state) {
+                                  double? _myRate = product.myRate;
+                                  if (state is ProductRateSuccess) {
+                                    _myRate = state.newUserRate;
+                                  } else if (state is ProductRateFailure) {
+                                    _myRate = product.myRate;
+                                  }
+                                  return customRating.RatingBar(
+                                    immutable: false,
+                                    product: product,
+                                    rate: _myRate,
+                                  );
+                                },
+                              ),
+                            ),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                   ),
@@ -170,12 +174,14 @@ class ProductScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO add to cart function
-        },
-        child: Icon(Icons.add_shopping_cart),
-      ),
+      floatingActionButton: product.storeId == userName
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () {
+                // TODO add to cart function
+              },
+              child: Icon(Icons.add_shopping_cart),
+            ),
     );
   }
 }

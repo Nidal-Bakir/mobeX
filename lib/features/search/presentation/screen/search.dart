@@ -36,7 +36,7 @@ class Search extends StatelessWidget {
                 background: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Divider(thickness: 0.5),
+                    Divider(),
                     ChoiceChips(),
                   ],
                 ),

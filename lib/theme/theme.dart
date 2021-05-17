@@ -18,7 +18,6 @@ ThemeData appTheme() {
         foregroundColor: MaterialStateProperty.all<Color>(green),
       ),
     ),
-
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(color: green),
       focusedBorder: OutlineInputBorder(
@@ -33,6 +32,8 @@ ThemeData appTheme() {
         backgroundColor: MaterialStateProperty.all<Color>(green),
       ),
     ),
+    dividerTheme: DividerThemeData(thickness: 0.5),
+
   );
 }
 
