@@ -35,5 +35,53 @@ class ProductRateUpDated extends ProductEvent {
   });
 
   @override
-  List<Object?> get props => [oldRate,newRate, product];
+  List<Object?> get props => [oldRate, newRate, product];
+}
+
+class ProductsSearchLoaded extends ProductEvent {
+  final String productName;
+  final double? priceLessThenOrEqual;
+
+  const ProductsSearchLoaded({
+    required this.productName,
+    this.priceLessThenOrEqual,
+  });
+
+  @override
+  List<Object?> get props => [productName, priceLessThenOrEqual];
+}
+
+class ProductSearchInitialed extends ProductEvent {
+
+  @override
+  List<Object?> get props => [];
+
+  const ProductSearchInitialed();
+}
+
+class ProductSearchLoadRetried extends ProductEvent {
+  final String productName;
+  final double? priceLessThenOrEqual;
+
+  const ProductSearchLoadRetried({
+    required this.productName,
+    this.priceLessThenOrEqual,
+  });
+
+  @override
+  List<Object?> get props => [productName, priceLessThenOrEqual];
+}
+
+/// load more products from api for search infinite scrolling
+class ProductMoreSearchDataLoaded extends ProductEvent {
+  final String productName;
+  final double? priceLessThenOrEqual;
+
+  const ProductMoreSearchDataLoaded({
+    required this.productName,
+    this.priceLessThenOrEqual,
+  });
+
+  @override
+  List<Object?> get props => [productName, priceLessThenOrEqual];
 }

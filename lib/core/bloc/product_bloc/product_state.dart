@@ -57,3 +57,11 @@ class ProductRateFailure extends ProductState {
   @override
   List<Object?> get props => [];
 }
+
+/// show search tip in the search screen
+class ProductSearchInitial extends ProductState {
+  const ProductSearchInitial();
+
+  @override
+  List<Object> get props => [];
+}

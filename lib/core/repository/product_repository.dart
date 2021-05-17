@@ -98,4 +98,14 @@ class ProductRepository {
       rethrow;
     }
   }
+
+  Stream<Product> searchProductsByTitle({
+    required String title,
+    double? priceLessThenOrEqual,
+    required int paginationCount,
+  }) =>
+      _remoteProductDataSource.searchProductsByTitle(
+          title: title,
+          priceLessThenOrEqual: priceLessThenOrEqual,
+          paginationCount: paginationCount);
 }

@@ -27,6 +27,12 @@ abstract class RemoteProductDataSource {
   /// Returns product rate from the server.
   Future<double> upDateProductRate(
       int id, String storeId, double? oldRate, double? newRate);
+
+  Stream<Product> searchProductsByTitle({
+    required String title,
+    double? priceLessThenOrEqual,
+    required int paginationCount,
+  });
 }
 
 class RemoteProductDataSourceImpl extends RemoteProductDataSource {
@@ -112,6 +118,52 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
       );
     } else {
       yield throw ConnectionException('error while fetching $endPoint data');
+    }
+  }
+
+  @override
+  Stream<Product> searchProductsByTitle({
+    required String title,
+    double? priceLessThenOrEqual,
+    required int paginationCount,
+  }) async* {
+    // TODO : add our website
+    //TODO : use the token filed from  class
+
+    // var req = await http.Request(
+    //     'get',
+    //     Uri.parse(
+    //         'https://api.mobex.com/search&&token=$token&&title=$title&&paginationCount=$paginationCount &&priceLessThenOrEqual=$priceLessThenOrEqual'));
+    // var res = await client.send(req);
+    //
+    // if (res.statusCode == 200) {
+    //  yield* res.stream
+    //       .transform(utf8.decoder)
+    //       .transform(json.decoder)
+    //       .expand((element) => [...element as List])
+    //       .map((event) => Product.fromMap(event));
+    //
+    // }else {
+    //  yield throw ConnectionException('error while searching for $title products');
+    // }
+    int index = 0;
+    var res = await Future.value(http.Response(
+        await rootBundle.loadString('assets/for_tests_temp/products.json'),
+        200));
+    if (res.statusCode == 200) {
+      yield* Stream.fromIterable(
+          (json.decode(res.body)['products'] as List<dynamic>)
+              .map((e) {
+                e['id'] = Random().nextInt(999999999);
+                e['storeName'] = (++index).toString();
+
+                return Product.fromMap(e);
+              })
+              .where((element) => element.title == title)
+              .toList());
+    } else {
+      yield throw ConnectionException(
+          'error while searching for $title products');
     }
   }
 }

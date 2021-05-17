@@ -26,8 +26,10 @@ class _AllProductsState extends State<AllProducts> {
     final String title = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       body: NotificationListener<ScrollNotification>(
-        onNotification: (notification) =>
-            notificationListener(notification, context),
+        onNotification: (notification) => notificationListener(
+            notification: notification,
+            onNotify: () =>
+                context.read<ProductBloc>().add(ProductMoreDataLoaded())),
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -70,7 +72,10 @@ class _AllProductsState extends State<AllProducts> {
                     ),
                   );
                 } else if (state is ProductLoadFailure) {
-                  return RetryTextButton();
+                  return RetryTextButton(
+                    onClickCallback: () =>
+                        context.read<ProductBloc>().add(ProductLoadRetried()),
+                  );
                 }
                 return SliverToBoxAdapter(
                   child: Container(),
