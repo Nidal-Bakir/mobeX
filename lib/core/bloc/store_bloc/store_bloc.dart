@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobox/core/error/exception.dart';
+import 'package:mobox/core/model/store_model.dart';
 import 'package:mobox/core/repository/store_repository.dart';
 
 part 'store_event.dart';
@@ -23,6 +24,8 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     } else if (event is StoreFollowStateChanged) {
       yield* _storeFollowStateChangedHandler(
           event.storeUserName, event.isFollowing);
+    } else if (event is StoreLoaded) {
+      yield* _storeLoadedHandler(event.ownerUserName);
     }
   }
 
@@ -46,6 +49,16 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
       yield StoreFollowStateChangSuccess(isFollowing: isFollowing);
     } on ConnectionException catch (e) {
       yield StoreFollowStateChangeFailure();
+    }
+  }
+
+  Stream<StoreState> _storeLoadedHandler(String ownerUserName) async* {
+    try {
+      var store = await storeRepository.getStoreInfoFromStoreUserName(
+          storeUserName: ownerUserName);
+      yield StoreLoadSuccess(store: store);
+    } on ConnectionException catch (e) {
+      yield StoreLoadFailure();
     }
   }
 }

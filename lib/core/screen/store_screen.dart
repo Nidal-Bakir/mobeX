@@ -10,127 +10,165 @@ import 'package:mobox/core/widget/Product_list_widget.dart';
 import 'package:mobox/core/widget/follow_choice_chip.dart';
 import 'package:mobox/features/home_feed/presentation/widget/new_products_sliver_grid.dart';
 
-class StoreScreen extends StatelessWidget {
-  final Store store;
+class StoreScreen extends StatefulWidget {
+  final Store? store;
+  final String? ownerUserName;
 
-  const StoreScreen({Key? key, required this.store}) : super(key: key);
+  const StoreScreen({Key? key, this.store, this.ownerUserName})
+      : super(key: key);
+
+  @override
+  _StoreScreenState createState() => _StoreScreenState();
+}
+
+class _StoreScreenState extends State<StoreScreen> {
+  late Store? store = widget.store;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => GetIt.I.get<ProductBloc>(
-                param1: '/store/${store.ownerUserName}/newProducts'),
-          ),
-          BlocProvider(
-            create: (context) => GetIt.I.get<StoreBloc>(),
-          ),
-        ],
-        child: Builder(
-          builder: (builderContext) => NotificationListener<ScrollNotification>(
-            onNotification: (notification) => notificationListener(
-              notification: notification,
-              onNotify: () => builderContext
-                  .read<ProductBloc>()
-                  .add(ProductMoreDataLoaded()),
-            ),
-            child: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  title: FittedBox(
-                    child: Text(
-                      store.storeName,
-                      style: Theme.of(context).textTheme.headline6,
+    return BlocProvider(
+      create: (context) {
+        var bloc = GetIt.I.get<StoreBloc>();
+        if (widget.store == null) {
+          bloc.add(StoreLoaded(ownerUserName: widget.ownerUserName.toString()));
+        }
+        return bloc;
+      },
+      child: Builder(
+        builder: (context) => Scaffold(
+          body: BlocBuilder<StoreBloc, StoreState>(
+            buildWhen: (previous, current) =>
+                current is StoreLoadingInProgress ||
+                current is StoreLoadFailure ||
+                current is StoreLoadSuccess||current is StoreInitial ,
+            builder: (BuildContext context, state) {
+              if (state is StoreLoadingInProgress|| state is StoreInitial) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is StoreLoadFailure) {
+                return Text('error while loading store info!!');
+
+              }
+              else if (state is StoreLoadSuccess) {
+                store = state.store;
+              }
+
+              return BlocProvider(
+                create: (context) => GetIt.I.get<ProductBloc>(
+                    param1: '/store/${store!.ownerUserName}/newProducts'),
+                child: Builder(
+                  builder: (builderContext) =>
+                      NotificationListener<ScrollNotification>(
+                    onNotification: (notification) => notificationListener(
+                      notification: notification,
+                      onNotify: () => builderContext
+                          .read<ProductBloc>()
+                          .add(ProductMoreDataLoaded()),
                     ),
-                  ),
-                  expandedHeight: MediaQuery.of(context).size.height * 0.5,
-                  pinned: true,
-                  stretch: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    titlePadding: EdgeInsets.zero,
-                    title: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 8, bottom: 8),
-                        child: FollowChoiceChip(
-                          store: store,
-                        ),
-                      ),
-                    ),
-                    background: Hero(
-                      tag: store.ownerUserName,
-                      child: Image.asset(
-                        store.profileImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        child: Text(
-                          store.bio,
-                          maxLines: 4,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      Divider(),
-                    ],
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: BlocProvider(
-                    create: (context) => GetIt.I.get<ProductBloc>(
-                        param1: '/store/${store.ownerUserName}/offers'),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 24),
-                      child: ProductList(
-                        title: 'Offers from ${store.storeName}',
-                      ),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16.0, top: 32, bottom: 16),
-                    child: Text(
-                      'New from ${store.storeName}',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                ),
-                NewProductSliverGrid(),
-                SliverToBoxAdapter(
-                  child: Builder(
-                    builder: (context) =>
-                        BlocBuilder<ProductBloc, ProductState>(
-                      builder: (context, state) {
-                        if (state is ProductMoreInProgress)
-                          return LinearProgressIndicator();
-                        else if (state is ProductLoadFailure)
-                          return Center(
-                            child: TextButton(
-                              onPressed: () => context
-                                  .read<ProductBloc>()
-                                  .add(ProductLoadRetried()),
-                              child: Text('RETRY'),
-                              style: Theme.of(context).textButtonTheme.style,
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                          title: FittedBox(
+                            child: Text(
+                              store!.storeName,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
-                          );
-                        return Container();
-                      },
+                          ),
+                          expandedHeight:
+                              MediaQuery.of(context).size.height * 0.5,
+                          pinned: true,
+                          stretch: true,
+                          flexibleSpace: FlexibleSpaceBar(
+                            titlePadding: EdgeInsets.zero,
+                            title: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 8, bottom: 8),
+                                child: FollowChoiceChip(
+                                  store: store!,
+                                ),
+                              ),
+                            ),
+                            background: Hero(
+                              tag: store!.ownerUserName,
+                              child: Image.asset(
+                                store!.profileImage,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
+                                child: Text(
+                                  store!.bio,
+                                  maxLines: 4,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ),
+                              Divider(),
+                            ],
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: BlocProvider(
+                            create: (context) => GetIt.I.get<ProductBloc>(
+                                param1:
+                                    '/store/${store!.ownerUserName}/offers'),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 24),
+                              child: ProductList(
+                                title: 'Offers from ${store!.storeName}',
+                              ),
+                            ),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16.0, top: 32, bottom: 16),
+                            child: Text(
+                              'New from ${store!.storeName}',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ),
+                        ),
+                        NewProductSliverGrid(),
+                        SliverToBoxAdapter(
+                          child: Builder(
+                            builder: (context) =>
+                                BlocBuilder<ProductBloc, ProductState>(
+                              builder: (context, state) {
+                                if (state is ProductMoreInProgress)
+                                  return LinearProgressIndicator();
+                                else if (state is ProductLoadFailure)
+                                  return Center(
+                                    child: TextButton(
+                                      onPressed: () => context
+                                          .read<ProductBloc>()
+                                          .add(ProductLoadRetried()),
+                                      child: Text('RETRY'),
+                                      style: Theme.of(context)
+                                          .textButtonTheme
+                                          .style,
+                                    ),
+                                  );
+                                return Container();
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

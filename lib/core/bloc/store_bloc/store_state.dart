@@ -36,3 +36,21 @@ class StoreFollowStateChangeFailure extends StoreState {
   @override
   List<Object> get props => [];
 }
+
+class StoreLoadingInProgress extends StoreState {
+  @override
+  List<Object> get props => [];
+}
+
+class StoreLoadSuccess extends StoreState {
+  final Store store;
+
+  StoreLoadSuccess({ required this.store});
+  @override
+  List<Object> get props => [store];
+}
+
+class StoreLoadFailure extends StoreState {
+  @override
+  List<Object> get props => [];
+}

@@ -1,4 +1,5 @@
 import 'package:mobox/core/data/store_data_source/remote/store_follow_remote_data_source.dart';
+import 'package:mobox/core/model/store_model.dart';
 
 class StoreRepository {
   final RemoteStoreDataSource remoteStoreDataSource;
@@ -14,5 +15,8 @@ class StoreRepository {
       {required String storeUserName, required bool followState}) {
     return remoteStoreDataSource.setFollowStateForStore(
         storeUserName: storeUserName, followState: followState);
+  }
+  Future<Store> getStoreInfoFromStoreUserName({required String storeUserName})async{
+    return await remoteStoreDataSource.getStoreInfoFromStoreUserName(storeUserName:storeUserName);
   }
 }

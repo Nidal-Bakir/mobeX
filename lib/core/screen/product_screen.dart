@@ -24,6 +24,24 @@ class ProductScreen extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            actions: [
+              PopupMenuButton(
+                itemBuilder: (BuildContext context) {
+                  return <PopupMenuEntry>[
+                    PopupMenuItem(
+                      textStyle: Theme.of(context).textTheme.bodyText2,
+                      child: Text('Open owner store'),
+                      height: 15,
+                      value: 0,
+                    ),
+                  ];
+                },
+                onSelected: (_) {
+                  Navigator.of(context).pushNamed('/store-screen',
+                      arguments: [null, product.storeId]);
+                },
+              )
+            ],
             title: FittedBox(
               child: Text(
                 product.storeName,
@@ -33,53 +51,67 @@ class ProductScreen extends StatelessWidget {
             expandedHeight: MediaQuery.of(context).size.height * 0.5,
             pinned: true,
             stretch: true,
-            flexibleSpace: FlexibleSpaceBar(
-              // titlePadding: EdgeInsets.zero,
-              title: Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 8, bottom: 2),
-                  child: BlocBuilder<ProductBloc, ProductState>(
-                    buildWhen: (previous, current) =>
-                        current is ProductRateSuccess,
-                    builder: (context, state) {
-                      if (state is ProductRateSuccess) {
-                        return flutterRate.RatingBar.builder(
-                          itemBuilder: (context, index) => Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                          ),
-                          glow: false,
-                          itemSize: 16.0,
-                          initialRating: state.newProductRateFromAPI,
-                          onRatingUpdate: (_) {},
-                          ignoreGestures: true,
-                        );
-                      }
-                      return flutterRate.RatingBar.builder(
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Colors.yellow,
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                var top = constraints.biggest.height;
+                var oldRange = (320.0 - 80.0);
+                var newRange = (1.0 - 0.0);
+                var newValue = (((top - 80.0) * newRange) / oldRange) + 0.0;
+
+                return FlexibleSpaceBar(
+                  title: Opacity(
+                    opacity: newValue > 1.0 ? 1.0 : newValue,
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8, bottom: 2),
+                        child: BlocBuilder<ProductBloc, ProductState>(
+                          buildWhen: (previous, current) =>
+                              current is ProductRateSuccess,
+                          builder: (context, state) {
+                            if (state is ProductRateSuccess) {
+                              return flutterRate.RatingBar.builder(
+                                itemBuilder: (context, index) => Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                ),
+                                glow: false,
+                                itemSize: 16.0,
+                                initialRating: state.newProductRateFromAPI,
+                                onRatingUpdate: (_) {},
+                                ignoreGestures: true,
+                              );
+                            }
+                            return flutterRate.RatingBar.builder(
+                              itemBuilder: (context, index) => Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                              ),
+                              glow: false,
+                              itemSize: 16.0,
+                              initialRating: product.rate,
+                              onRatingUpdate: (_) {},
+                              ignoreGestures: true,
+                            );
+                          },
                         ),
-                        glow: false,
-                        itemSize: 16.0,
-                        initialRating: product.rate,
-                        onRatingUpdate: (_) {},
-                        ignoreGestures: true,
-                      );
-                    },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              collapseMode: CollapseMode.parallax,
-              stretchModes: [StretchMode.zoomBackground, StretchMode.fadeTitle],
-              background: Hero(
-                tag: product.id,
-                child: Image.asset(
-                  product.imageUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  collapseMode: CollapseMode.parallax,
+                  stretchModes: [
+                    StretchMode.zoomBackground,
+                    StretchMode.fadeTitle
+                  ],
+                  background: Hero(
+                    tag: product.id,
+                    child: Image.asset(
+                      product.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           SliverPadding(

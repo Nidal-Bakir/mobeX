@@ -23,3 +23,12 @@ class StoreFollowStateChanged extends StoreEvent {
   @override
   List<Object?> get props => [storeUserName, isFollowing];
 }
+
+class StoreLoaded extends StoreEvent {
+  final String ownerUserName;
+
+  StoreLoaded({required this.ownerUserName});
+
+  @override
+  List<Object?> get props => [ownerUserName];
+}

@@ -9,8 +9,8 @@ class StoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          Navigator.of(context).pushNamed('/store-screen', arguments: store),
+      onTap: () => Navigator.of(context)
+          .pushNamed('/store-screen', arguments: [store, null]),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Container(

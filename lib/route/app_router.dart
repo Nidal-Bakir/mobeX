@@ -31,9 +31,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
         ),
       );
     case '/store-screen':
+      var args = (settings.arguments as List);
       return MaterialPageRoute(
         builder: (context) => StoreScreen(
-          store: settings.arguments as Store,
+          store: args[0],
+          ownerUserName: args[1],
         ),
       );
 
