@@ -1,6 +1,7 @@
 CREATE TABLE emp (
   user_name             varchar(255) NOT NULL, 
-  token                 varchar(255) NOT NULL UNIQUE, 
+  token                 varchar(255) NOT NULL UNIQUE,
+  password              varchar(255) NOT NULL UNIQUE, 
   card_id               varchar(11) NOT NULL UNIQUE, 
   phone                 varchar(10) NOT NULL, 
   city                  varchar(255) NOT NULL, 
@@ -45,8 +46,7 @@ CREATE TABLE store (
   store_name       varchar(30) NOT NULL, 
   user_name        varchar(255) NOT NULL, 
   store_bio        varchar(100) NOT NULL, 
-  frozen_assets    float NOT NULL, 
-  available_assets float NOT NULL, 
+  frozen_assets    float NOT NULL,  
   over_all_profit  float NOT NULL, 
   PRIMARY KEY (store_no), 
   INDEX (store_name));
