@@ -7,6 +7,10 @@ import 'package:mobox/route/app_router.dart';
 import 'package:mobox/theme/theme.dart';
 import 'package:mobox/injection/injection_container.dart' as di;
 
+import 'core/bloc/product_management/product_manage_bloc.dart';
+
+
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
@@ -25,8 +29,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthBloc>(
-      create: (_) => di.sl(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(create: (_) => di.sl()),
+        BlocProvider<ProductManageBloc>(create: (_) => di.sl())
+      ],
       child: MaterialApp(
         onGenerateRoute: onGenerateRoute,
         title: 'Flutter Demo',

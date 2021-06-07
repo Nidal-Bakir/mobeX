@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/bloc/store_bloc/store_bloc.dart';
-import 'package:mobox/core/model/store_model.dart';
+import 'package:mobox/features/search/data/model/store_model.dart';
 import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/core/widget/Product_list_widget.dart';
 import 'package:mobox/core/widget/follow_choice_chip.dart';

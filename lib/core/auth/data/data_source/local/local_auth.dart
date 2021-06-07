@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:mobox/core/auth/data/model/user_profiel.dart';
+import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/utils/shared_initializer.dart';
 
 abstract class LocalAuth {

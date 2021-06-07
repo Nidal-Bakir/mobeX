@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/presentation/screen/categories_tab.dart';
 import 'package:mobox/features/home_feed/presentation/screen/home_tab.dart';
+import 'package:mobox/features/profile/presentation/screen/profile.dart';
 
 class AppScreen extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _AppScreenState extends State<AppScreen>
               child: CategoriesTab(),
             ),
             Tab2(),
-            Text("Tab 4"),
+            Profile()
           ],
         ),
       ),

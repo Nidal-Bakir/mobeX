@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobox/core/error/exception.dart';
-import 'package:mobox/core/model/store_model.dart';
+import 'package:mobox/features/search/data/model/store_model.dart';
 import 'package:mobox/core/repository/store_repository.dart';
 
 part 'store_event.dart';

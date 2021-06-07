@@ -44,7 +44,7 @@ class ProductsList extends StatelessWidget {
                         child: AllProducts()),
                     settings: RouteSettings(arguments: title),
                   ),
-                ),
+                ), style: Theme.of(context).textButtonTheme.style,
                 child: Text('MORE'),
               ),
             ],

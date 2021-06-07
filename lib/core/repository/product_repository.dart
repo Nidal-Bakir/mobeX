@@ -108,4 +108,30 @@ class ProductRepository {
           title: title,
           priceLessThenOrEqual: priceLessThenOrEqual,
           paginationCount: paginationCount);
+
+  /// Add product in local cache.
+  ///
+  /// [endPoint] where to add the  product in cache.
+  ///
+  /// [product] is the product will add.
+  void addProduct(String endPoint, Product product) {
+    _localProductDataSource.addProduct(endPoint, product);
+  }
+
+  /// Update product in local cache.
+  ///
+  /// [endPoint] where the product stored in cache.
+  ///
+  /// [product] is the updated product.
+  void updateProduct(String endPoint, Product product) {
+    _localProductDataSource.upDateProduct(endPoint, product);
+  }
+  /// Delete product from local cache.
+  ///
+  /// [endPoint] where the product stored in cache.
+  ///
+  /// [product] is the product you need to delete.
+  void deleteProduct(String endPoint, Product product) {
+    _localProductDataSource.deleteProduct(endPoint, product);
+  }
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:mobox/core/error/exception.dart';
-import 'package:mobox/core/model/store_model.dart';
+import 'package:mobox/features/search/data/model/store_model.dart';
 
 abstract class RemoteStoreDataSource {
   Future<bool> getFollowStateForStore({required String storeUserName});

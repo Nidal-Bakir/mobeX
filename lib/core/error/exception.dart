@@ -1,5 +1,3 @@
-
-
 class AuthenticationException implements Exception {
   final String message;
 
@@ -16,4 +14,10 @@ class ConnectionExceptionWithData implements Exception {
   final Object data;
 
   const ConnectionExceptionWithData(this.data);
+}
+
+class BadReturnedData implements Exception {
+  final Object data;
+
+  const BadReturnedData(this.data);
 }

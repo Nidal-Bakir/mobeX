@@ -11,6 +11,8 @@ ThemeData appTheme() {
     accentColor: green,
     canvasColor: Colors.white,
     textTheme: _textTheme(),
+    floatingActionButtonTheme:
+        FloatingActionButtonThemeData(foregroundColor: Colors.white),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         textStyle: MaterialStateProperty.all<TextStyle>(
@@ -33,7 +35,6 @@ ThemeData appTheme() {
       ),
     ),
     dividerTheme: DividerThemeData(thickness: 0.5),
-
   );
 }
 

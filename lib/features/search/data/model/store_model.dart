@@ -22,4 +22,11 @@ class Store extends Equatable {
         profileImage: jsonMap['profile_image'],
         bio: jsonMap['bio'],
       );
+
+  Map<String, dynamic> toMap() => {
+        'ownerUserName': ownerUserName,
+        'storeName': storeName,
+        'profileImage': profileImage,
+        'bio': bio,
+      };
 }
