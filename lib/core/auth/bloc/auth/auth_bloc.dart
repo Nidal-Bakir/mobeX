@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobox/core/auth/data/model/user_profiel.dart';
+import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/auth/repository/auth_repo.dart';
 
 import 'package:mobox/core/error/exception.dart';

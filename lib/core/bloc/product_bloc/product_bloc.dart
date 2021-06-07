@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
+import 'package:mobox/core/bloc/product_management/product_manage_bloc.dart';
+
 import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/core/repository/product_repository.dart';
@@ -14,11 +18,27 @@ part 'product_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository productRepository;
   final String endPoint;
+  final ProductManageBloc _productManageBloc;
 
-  ProductBloc(this.productRepository, this.endPoint)
+  ProductBloc(this.productRepository, this.endPoint, this._productManageBloc)
       : super(endPoint == 'search'
             ? ProductSearchInitial()
-            : ProductInProgress());
+            : ProductInProgress()) {
+    var userName = (GetIt.I.get<AuthBloc>().state as AuthLoadUserProfileSuccess)
+        .userProfile
+        .userName;
+    _productManageBloc.stream.listen((storeManageState) {
+      if (storeManageState is ProductManageAddProductSuccess &&
+          // to make sure that it's user store and add new product to it
+          endPoint == '/store/$userName/newProducts') {
+        add(ProductAdded(storeManageState.product));
+      } else if (storeManageState is ProductManageEditProductSuccess) {
+        add(ProductEdited(storeManageState.product));
+      } else if (storeManageState is ProductManageDeleteProductSuccess) {
+        add(ProductDeleted(storeManageState.product));
+      }
+    });
+  }
 
   @override
   Stream<Transition<ProductEvent, ProductState>> transformEvents(
@@ -77,6 +97,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           event.productName, event.priceLessThenOrEqual);
     } else if (event is ProductSearchInitialed) {
       yield ProductSearchInitial();
+    } else if (event is ProductAdded) {
+      yield* _productAddedHandler(event._product);
+    } else if (event is ProductEdited) {
+      yield* _productEditedHandler(event._product);
+    } else if (event is ProductDeleted) {
+      yield* _productDeletedHandler(event._product);
     }
   }
 
@@ -160,5 +186,29 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             : ProductLoadSuccess(productList: event))
         .startWith(ProductInProgress())
         .onErrorReturn(ProductLoadFailure(productList: _productList));
+  }
+
+  Stream<ProductState> _productAddedHandler(Product product) async* {
+    productRepository.addProduct(endPoint, product);
+    yield ProductLoadSuccess(
+        productList: await productRepository
+            .getProductsStreamFromLocalCache(endPoint)
+            .toList());
+  }
+
+  Stream<ProductState> _productEditedHandler(Product product) async* {
+    productRepository.updateProduct(endPoint, product);
+    yield ProductLoadSuccess(
+        productList: await productRepository
+            .getProductsStreamFromLocalCache(endPoint)
+            .toList());
+  }
+
+  Stream<ProductState> _productDeletedHandler(Product product) async* {
+    productRepository.deleteProduct(endPoint, product);
+    yield ProductLoadSuccess(
+        productList: await productRepository
+            .getProductsStreamFromLocalCache(endPoint)
+            .toList());
   }
 }

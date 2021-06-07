@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobox/core/model/user_store.dart';
+import 'package:mobox/core/utils/address.dart';
 
 enum AccountStatus { active, suspend }
 
@@ -12,18 +14,19 @@ class UserProfile extends Equatable {
   final String firstName;
   final String lastName;
   final AccountStatus accountStatus;
+  final UserStore? userStore;
 
-  UserProfile({
-    required this.userName,
-    required this.token,
-    required this.balance,
-    required this.profileImage,
-    required this.phone,
-    required this.address,
-    required this.firstName,
-    required this.lastName,
-    required this.accountStatus,
-  });
+  UserProfile(
+      {required this.userName,
+      required this.token,
+      required this.balance,
+      required this.profileImage,
+      required this.phone,
+      required this.address,
+      required this.firstName,
+      required this.lastName,
+      required this.accountStatus,
+      this.userStore});
 
   @override
   List<Object?> get props => [
@@ -36,14 +39,14 @@ class UserProfile extends Equatable {
         firstName,
         lastName,
         accountStatus,
+        userStore
       ];
 
   factory UserProfile.fromMap(Map jsonMap) {
-
     return UserProfile(
       userName: jsonMap['user_name'],
       token: jsonMap['token'],
-      balance:  jsonMap['balance'],
+      balance: jsonMap['balance'].toDouble(),
       profileImage: jsonMap['profile_image'],
       phone: jsonMap['phone'],
       address: Address(jsonMap['city'], jsonMap['address']),
@@ -52,6 +55,9 @@ class UserProfile extends Equatable {
       accountStatus: jsonMap['account_status'] == 'active'
           ? AccountStatus.active
           : AccountStatus.suspend,
+      userStore: jsonMap['user_store'] == null
+          ? null
+          : UserStore.formMap(jsonMap['user_store']),
     );
   }
 
@@ -67,16 +73,7 @@ class UserProfile extends Equatable {
       'first_name': firstName,
       'last_name': lastName,
       'account_status': accountStatus.toString(),
+      'user_store': userStore?.toMap()
     };
   }
-}
-
-class Address extends Equatable {
-  final String city;
-  final String stAddress;
-
-  Address(this.city, this.stAddress);
-
-  @override
-  List<Object?> get props => [city, stAddress];
 }

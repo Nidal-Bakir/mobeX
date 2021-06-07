@@ -52,7 +52,6 @@ class ProductsSearchLoaded extends ProductEvent {
 }
 
 class ProductSearchInitialed extends ProductEvent {
-
   @override
   List<Object?> get props => [];
 
@@ -84,4 +83,28 @@ class ProductMoreSearchDataLoaded extends ProductEvent {
 
   @override
   List<Object?> get props => [productName, priceLessThenOrEqual];
+}
+// when store management bloc add new product
+class ProductAdded extends ProductEvent {
+  final Product _product;
+
+  ProductAdded(this._product);
+
+  List<Object?> get props => [_product];
+}
+// when store management bloc edit a product
+class ProductEdited extends ProductEvent {
+  final Product _product;
+
+  ProductEdited(this._product);
+
+  List<Object?> get props => [_product];
+}
+// when store management bloc delete a product
+class ProductDeleted extends ProductEvent {
+  final Product _product;
+
+  ProductDeleted(this._product);
+
+  List<Object?> get props => [_product];
 }

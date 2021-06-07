@@ -1,6 +1,9 @@
 import 'package:mobox/core/model/product_model.dart';
 
 abstract class LocalProductDataSource {
+  /// returns stream from new list it's data from the source Map
+  /// to solve the error case where the list is read/write from it in concurrent
+  /// time
   Stream<Product> getProductsStreamFromLocalEndPoint(String endPoint);
 
   void appendCache(Future<List<Product>> productList, String endPoint);
@@ -8,6 +11,10 @@ abstract class LocalProductDataSource {
   int getNumberOfCachedProductsForEndPoint(String endPoint);
 
   void upDateProduct(String endPoint, Product product);
+
+  void addProduct(String endPoint, Product product);
+
+  void deleteProduct(String endPoint, Product product);
 }
 
 class LocalProductDataSourceImpl extends LocalProductDataSource {
@@ -23,9 +30,6 @@ class LocalProductDataSourceImpl extends LocalProductDataSource {
         );
   }
 
-  /// returns stream from new list it's data from the source Map
-  /// to solve the error case where the list is read/write from it in concurrent
-  /// time
   @override
   Stream<Product> getProductsStreamFromLocalEndPoint(String endPoint) =>
       Stream.fromIterable([...cache[endPoint] ?? []]);
@@ -42,9 +46,30 @@ class LocalProductDataSourceImpl extends LocalProductDataSource {
     // get the index of the product to replace it.
     int productIndex =
         productList.indexWhere((element) => element.id == upDateProduct.id);
+    if (productIndex == -1) return;
     productList.removeAt(productIndex);
     productList.insert(productIndex, upDateProduct);
     // update the cache
-    cache.update(endPoint, (value) => productList);
+    cache[endPoint]=productList;
+  }
+
+  @override
+  void addProduct(String endPoint, Product product) {
+    // get product list
+    var productList = cache[endPoint];
+    if (productList == null) return;
+    productList.insert(0, product);
+    // update the cache
+    cache[endPoint]=productList;
+  }
+
+  @override
+  void deleteProduct(String endPoint, Product product) {
+    // get product list
+    var productList = cache[endPoint];
+    if (productList == null) return;
+    productList.remove(product);
+    // update the cache
+    cache[endPoint]=productList;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:mobox/core/auth/data/data_source/local/local_auth.dart';
 import 'package:mobox/core/auth/data/data_source/remote/remote_auth.dart';
-import 'package:mobox/core/auth/data/model/user_profiel.dart';
+import 'package:mobox/core/model/user_profiel.dart';
 
 class AuthRepo {
   final LocalAuth localAuth;

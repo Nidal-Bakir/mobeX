@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobox/core/model/store_model.dart';
+import 'package:mobox/features/search/data/model/store_model.dart';
 import 'package:mobox/features/search/presentation/widget/store_card.dart';
 
 class SliverStoresGrid extends StatelessWidget {

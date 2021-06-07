@@ -25,20 +25,35 @@ class ProductScreen extends StatelessWidget {
         slivers: [
           SliverAppBar(
             actions: [
-              PopupMenuButton(
+              PopupMenuButton<int>(
                 itemBuilder: (BuildContext context) {
-                  return <PopupMenuEntry>[
-                    PopupMenuItem(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      child: Text('Open owner store'),
-                      height: 15,
-                      value: 0,
-                    ),
+                  return <PopupMenuEntry<int>>[
+                    userName == product.storeId
+                        ? PopupMenuItem<int>(
+                            textStyle: Theme.of(context).textTheme.bodyText2,
+                            child: Text('Manage this product'),
+                            height: 15,
+                            value: 0,
+                          )
+                        : PopupMenuItem<int>(
+                            textStyle: Theme.of(context).textTheme.bodyText2,
+                            child: Text('Open owner store'),
+                            height: 15,
+                            value: 1,
+                          ),
                   ];
                 },
-                onSelected: (_) {
-                  Navigator.of(context).pushNamed('/store-screen',
-                      arguments: [null, product.storeId]);
+                onSelected: (index) {
+                  if (index == 0) {
+                    Navigator.of(context)
+                        .pushNamed<bool>('/product-manage', arguments: product)
+                        .then((state) {
+                      if (state != null) Navigator.of(context).pop();
+                    });
+                  } else {
+                    Navigator.of(context).pushNamed('/store-screen',
+                        arguments: [null, product.storeId]);
+                  }
                 },
               )
             ],
