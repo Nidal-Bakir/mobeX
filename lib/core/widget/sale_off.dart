@@ -41,7 +41,7 @@ class SaleOff extends StatelessWidget {
               style: sale == null
                   ? Theme.of(context).textTheme.headline6
                   : Theme.of(context).textTheme.bodyText1?.copyWith(
-                color: Colors.grey[700],
+                        color: Colors.grey[700],
                         decoration:
                             sale == null ? null : TextDecoration.lineThrough,
                         decorationColor: Theme.of(context).accentColor,
@@ -58,13 +58,13 @@ class SaleOff extends StatelessWidget {
           if (sale != null)
             FittedBox(
               child: Text(
-                sale.toString() + "\$",
+                toNumberWithChar(sale!.toStringAsFixed(0)) + "\$",
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
           FittedBox(
             child: Text(
-              price.toString() + "\$",
+              toNumberWithChar(price.toStringAsFixed(0)) + "\$",
               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                     decoration:
                         sale == null ? null : TextDecoration.lineThrough,
@@ -76,5 +76,20 @@ class SaleOff extends StatelessWidget {
         ],
       );
     }
+  }
+
+  String toNumberWithChar(String number) {
+    if (number.length <= 3) {
+      return number;
+    } else if (number.length <= 4) {
+      return number[0] + "K";
+    } else if (number.length <= 5) {
+      return number[0] + number[1] + "K";
+    } else if (number.length <= 6) {
+      return number[0] + number[1] + number[2] + "K";
+    } else if (number.length <= 7) {
+      return number[0] + "M";
+    }
+    return number;
   }
 }

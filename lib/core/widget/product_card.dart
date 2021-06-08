@@ -67,31 +67,34 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
               Container(
+                // height: 55,
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Table(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${product.storeName}',
-                          style: Theme.of(context).textTheme.bodyText2,
+                    TableRow(children: [
+                      TableCell(
+                        child:  Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${product.storeName}',overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                            Text(
+                              product.rate.toStringAsFixed(1),
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                          ],
                         ),
-                        Text(
-                          product.rate.toStringAsFixed(1),
-                          style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                      TableCell(verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: SaleOff(
+                          productScreen: false,
+                          sale: product.sale,
+                          price: product.price,
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    SaleOff(
-                      productScreen: false,
-                      sale: product.sale,
-                      price: product.price,
-                    ),
+                      )
+                    ]),
                   ],
                 ),
               )
