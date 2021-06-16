@@ -11,7 +11,7 @@ class RemoteCategoriesImpl extends RemoteCategories {
   /// user token
   final String token;
   final http.Client _client;
-// because
+
   RemoteCategoriesImpl({required http.Client client, required this.token})
       : _client = client;
 
@@ -27,7 +27,7 @@ class RemoteCategoriesImpl extends RemoteCategories {
     // } else {
     //   throw ConnectionException('error while fetching categories list');
     // }
-    String apiRes = """{"categories":["IT","phones","kitchen","furniture"]}""";
+    String apiRes = """{"categories":["it","phones","kitchen","furniture"]}""";
     var res = http.Response(apiRes, 200);
     if (res.statusCode == 200) {
       return jsonDecode(res.body)['categories'].cast<String>();

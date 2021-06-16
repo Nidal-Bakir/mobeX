@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
+import 'package:mobox/core/widget/animated_floating_action_button.dart';
 import 'package:mobox/core/widget/rating_bar.dart' as customRating;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart' as flutterRate;
 import 'package:mobox/core/widget/sale_off.dart';
@@ -223,12 +224,8 @@ class ProductScreen extends StatelessWidget {
       ),
       floatingActionButton: product.storeId == userName
           ? Container()
-          : FloatingActionButton(
-              onPressed: () {
-                // TODO add to cart function
-              },
-              child: Icon(Icons.add_shopping_cart),
-            ),
+          : AnimatedAddToCartFAB(product: product),
     );
+    //   Icon(Icons.add_shopping_cart)
   }
 }

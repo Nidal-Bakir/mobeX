@@ -8,8 +8,7 @@ import 'package:mobox/theme/theme.dart';
 import 'package:mobox/injection/injection_container.dart' as di;
 
 import 'core/bloc/product_management/product_manage_bloc.dart';
-
-
+import 'features/cart/presentation/bloc/cart_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +31,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (_) => di.sl()),
-        BlocProvider<ProductManageBloc>(create: (_) => di.sl())
+        BlocProvider<ProductManageBloc>(create: (_) => di.sl()),
+        BlocProvider<CartBloc>(create: (context) => di.sl.get<CartBloc>()),
       ],
       child: MaterialApp(
         onGenerateRoute: onGenerateRoute,

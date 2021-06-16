@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobox/core/bloc/product_management/product_manage_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
+import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/features/product_management/data/model/editable_product_info.dart';
 
 class ProductManagement extends StatefulWidget {
@@ -374,14 +375,5 @@ class _ProductManagementState extends State<ProductManagement> {
     return Image.asset('assets/images/productimg2.png');
   }
 
-  void showSnack(BuildContext context, String text) {
-    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 3),
-        content: Text(
-          '$text',
-        ),
-      ),
-    );
-  }
+
 }

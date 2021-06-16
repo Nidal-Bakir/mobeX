@@ -21,3 +21,9 @@ class BadReturnedData implements Exception {
 
   const BadReturnedData(this.data);
 }
+
+class InsufficientBalance implements Exception {
+  final String message;
+
+  const InsufficientBalance(this.message);
+}

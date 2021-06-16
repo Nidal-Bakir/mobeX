@@ -23,8 +23,8 @@ class CategoriesCustomScrollView extends StatelessWidget {
         SliverFixedExtentList(
           delegate: SliverChildBuilderDelegate(
             (sliverContext, index) => BlocProvider<ProductBloc>(
-              create: (sliverContext) =>
-                  GetIt.I.get<ProductBloc>(param1: categoriesList[index]),
+              create: (sliverContext) => GetIt.I.get<ProductBloc>(
+                  param1: '/products?category=${categoriesList[index]}'),
               child: ProductList(title: categoriesList[index]),
             ),
             childCount: categoriesList.length,
