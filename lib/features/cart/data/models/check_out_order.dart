@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-import 'order_item.dart';
+import 'checkout_order_item.dart';
 
 class CheckOutOrder extends Equatable {
-  final List<OrderItem> items;
+  final List<CheckOutOrderItem> items;
   final DateTime orderDate;
 
   CheckOutOrder.empty()
@@ -20,7 +20,7 @@ class CheckOutOrder extends Equatable {
   @override
   List<Object?> get props => [items, orderDate];
 
-  CheckOutOrder copyWith({List<OrderItem>? items, DateTime? orderDate}) =>
+  CheckOutOrder copyWith({List<CheckOutOrderItem>? items, DateTime? orderDate}) =>
       CheckOutOrder._(
         items: items ?? this.items,
         orderDate: orderDate ?? this.orderDate,

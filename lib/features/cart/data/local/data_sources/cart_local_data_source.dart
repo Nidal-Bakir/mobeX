@@ -1,6 +1,6 @@
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/features/cart/data/models/check_out_order.dart';
-import 'package:mobox/features/cart/data/models/order_item.dart';
+import 'package:mobox/features/cart/data/models/checkout_order_item.dart';
 
 abstract class CartLocalDataSource {
   final CheckOutOrder checkOutOrder;
@@ -29,7 +29,7 @@ class CartLocalDataSourceImpl extends CartLocalDataSource {
     var index = checkOutOrder.items
         .indexWhere((element) => element.product.id == product.id);
     if (index == -1) {
-      checkOutOrder.items.add(OrderItem(product, 1));
+      checkOutOrder.items.add(CheckOutOrderItem(product, 1));
     } else {
       var item = checkOutOrder.items.removeAt(index);
       item = item.copyWith(quantity: item.quantity + 1);
@@ -41,7 +41,7 @@ class CartLocalDataSourceImpl extends CartLocalDataSource {
     var index = checkOutOrder.items
         .indexWhere((element) => element.product.id == product.id);
     if (index == -1) {
-      checkOutOrder.items.add(OrderItem(product, 1));
+      checkOutOrder.items.add(CheckOutOrderItem(product, 1));
     } else {
       var item =
           checkOutOrder.items.removeAt(index).copyWith(quantity: newQuantity);

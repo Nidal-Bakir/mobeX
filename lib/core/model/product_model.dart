@@ -13,7 +13,7 @@ class Product extends Equatable {
   final String description;
 
   Product(
-      {required this.id,
+      { required this.id,
       required this.title,
       required this.storeName,
       required this.storeId,

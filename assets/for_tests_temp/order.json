@@ -1,0 +1,22 @@
+{
+  "order": {
+    "order_no": 1,
+    "order_date": "2021-06-24 21:41:40.650970",
+    "items": [
+      {
+        "id": 1,
+        "product_name": "ti",
+        "store_name": "store_name1",
+        "store_no": "nidal",
+        "product_image": "assets/images/productimg2.png",
+        "product_price": 11.5,
+        "offer": 1.1,
+        "myRate": 1.0,
+        "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+        "rate": 2.5,
+        "item_state": "Hold"
+      }
+    ]
+
+  }
+}
