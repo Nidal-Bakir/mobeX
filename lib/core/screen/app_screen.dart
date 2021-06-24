@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mobox/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/presentation/screen/categories_tab.dart';
 import 'package:mobox/features/home_feed/presentation/screen/home_tab.dart';
@@ -43,13 +44,40 @@ class _AppScreenState extends State<AppScreen>
                 IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () {
-                  Navigator.of(context).pushNamed('/search');
+                    Navigator.of(context).pushNamed('/search');
                   },
                 ),
-                IconButton(
-                  icon: Icon(Icons.shopping_cart_rounded),
-                  onPressed: () {},
-                )
+                Stack(
+                  children: [
+                    Align(
+                      child: IconButton(
+                        icon: Icon(Icons.shopping_cart_rounded),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/cart');
+                        },
+                      ),
+                    ),
+                    BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if (state is CartAddItemSuccess) {
+                          return Positioned(
+                            top: 5,
+                            child: Container(
+                              padding: EdgeInsets.all(4.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context).accentColor,
+                              ),
+                              child: Text(state.totalComputation.totalQuantity
+                                  .toString()),
+                            ),
+                          );
+                        }
+                        return Container();
+                      },
+                    ),
+                  ],
+                ),
               ],
               bottom: TabBar(
                 controller: _tabController,

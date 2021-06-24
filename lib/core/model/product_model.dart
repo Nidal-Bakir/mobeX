@@ -13,7 +13,7 @@ class Product extends Equatable {
   final String description;
 
   Product(
-      {required this.id,
+      { required this.id,
       required this.title,
       required this.storeName,
       required this.storeId,
@@ -41,14 +41,16 @@ class Product extends Equatable {
   factory Product.fromMap(Map<String, dynamic?> jsonMap) {
     return Product(
         id: jsonMap['id'] as int,
-        title: jsonMap['title'],
-        storeName: jsonMap['storeName'],
-        storeId: jsonMap['storeId'],
-        imageUrl: jsonMap['imageUrl'],
-        myRate: jsonMap['myRate'] as double?,
+        title: jsonMap['product_name'],
+        storeName: jsonMap['store_name'],
+        storeId: jsonMap['store_no'],
+        imageUrl: jsonMap['product_image'],
+        myRate:  double.tryParse(jsonMap['myRate'].toString())== 0.0
+            ? null
+            : (jsonMap['myRate'] as double),
         description: jsonMap['description'] ?? '',
-        price: jsonMap['price'] as double,
-        sale: jsonMap['sale'] as double?,
+        price: jsonMap['product_price'] as double,
+        sale: jsonMap['offer'] as double?,
         rate: jsonMap['rate'] as double);
   }
 
@@ -79,13 +81,13 @@ class Product extends Equatable {
 
   Map<String, dynamic?> toMap() => {
         "id": id,
-        "title": title,
-        "storeName": storeName,
-        "storeId": storeId,
-        "imageUrl": imageUrl,
+        "product_name": title,
+        "store_name": storeName,
+        "store_no": storeId,
+        "product_image": imageUrl,
         "description": description,
-        "price": price,
-        "sale": sale,
+        "product_price": price,
+        "offer": sale,
         "rate": rate,
         "myRate": myRate
       };

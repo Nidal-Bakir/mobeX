@@ -6,6 +6,7 @@ import 'package:mobox/core/screen/app_screen.dart';
 import 'package:mobox/core/auth/presentation/screen/login.dart';
 import 'package:mobox/core/auth/presentation/screen/splash.dart';
 import 'package:mobox/core/screen/store_screen.dart';
+import 'package:mobox/features/cart/presentation/pages/cart.dart';
 import 'package:mobox/features/product_management/presentation/screen/product_management.dart';
 import 'package:mobox/features/profile/presentation/screen/edit_profile.dart';
 import 'package:mobox/features/search/presentation/screen/search.dart';
@@ -60,6 +61,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
         builder: (context) => EditProfile(
           userProfile: args,
         ),
+      );
+
+    case '/cart':
+      return MaterialPageRoute(
+        builder: (context) => Cart(),
       );
 
     // /product_screen Navigated through the Navigator.push(MaterialPageRoute)

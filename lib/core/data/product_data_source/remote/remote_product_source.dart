@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/model/product_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobox/core/utils/api_urls.dart';
 
 abstract class RemoteProductDataSource {
   const RemoteProductDataSource();
@@ -77,7 +78,7 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
       throw ConnectionException(
           "can't update the rate bad statusCode ${res.statusCode} or the server return empty Response");
     }
-    return (Random().nextDouble() * 10) % 6;
+
   }
 
   @override
@@ -90,13 +91,14 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     // TODO : use paginationCount in the url
 
     // var req = http.Request(
-    //     'get', Uri.parse('https://api.mobex.com/$endPoint&token=$token&paginationCount=$paginationCount'));
+    //     'get', Uri.parse('${ApiUrl.BASE_URL}/$endPoint?&token=$token&paginationCount=$paginationCount'));
     // var res = await client.send(req);
     //
     // if (res.statusCode == 200) {
     //  yield* res.stream
     //       .transform(utf8.decoder)
     //       .transform(json.decoder)
+    //       .map((event) => (event as Map)['data'])
     //       .expand((element) => [...element as List])
     //       .map((event) => Product.fromMap(event));
     //
@@ -107,12 +109,14 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     var res = await Future.value(http.Response(
         await rootBundle.loadString('assets/for_tests_temp/products.json'),
         200));
+       
     if (res.statusCode == 200) {
-      yield* Stream.fromIterable(
-        (json.decode(res.body)['products'] as List<dynamic>).map((e) {
+    yield* Stream.fromIterable(
+        (json.decode(res.body)['data'] as List<dynamic>).map((e) {
+
           e['id'] = Random().nextInt(999999999);
-          e['title'] = endPoint;
-          e['storeName'] = (++index).toString();
+          e['product_name'] = endPoint;
+          e['store_name'] = (++index).toString();
           return Product.fromMap(e);
         }).toList(),
       );
@@ -133,13 +137,14 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     // var req = await http.Request(
     //     'get',
     //     Uri.parse(
-    //         'https://api.mobex.com/search&&token=$token&&title=$title&&paginationCount=$paginationCount &&priceLessThenOrEqual=$priceLessThenOrEqual'));
+    //         '${ApiUrl.BASE_URL}/search?&token=$token&title=$title&paginationCount=$paginationCount&priceLessThenOrEqual=$priceLessThenOrEqual'));
     // var res = await client.send(req);
     //
     // if (res.statusCode == 200) {
     //  yield* res.stream
     //       .transform(utf8.decoder)
     //       .transform(json.decoder)
+    //        .map((event) => (event as Map)['data'])
     //       .expand((element) => [...element as List])
     //       .map((event) => Product.fromMap(event));
     //
@@ -152,10 +157,10 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
         200));
     if (res.statusCode == 200) {
       yield* Stream.fromIterable(
-          (json.decode(res.body)['products'] as List<dynamic>)
+          (json.decode(res.body)['data'] as List<dynamic>)
               .map((e) {
                 e['id'] = Random().nextInt(999999999);
-                e['storeName'] = (++index).toString();
+                e['store_name'] = (++index).toString();
 
                 return Product.fromMap(e);
               })
