@@ -5,6 +5,7 @@ import 'package:mobox/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/presentation/screen/categories_tab.dart';
 import 'package:mobox/features/home_feed/presentation/screen/home_tab.dart';
+import 'package:mobox/features/order/presentation/bloc/order_bloc/order_bloc.dart';
 import 'package:mobox/features/profile/presentation/screen/profile.dart';
 
 class AppScreen extends StatefulWidget {
@@ -24,9 +25,26 @@ class _AppScreenState extends State<AppScreen>
   }
 
   @override
+  void initState() {
+    // init the order bloc to listen to event from cart bloc
+    context.read<OrderBloc>();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/orders');
+                },
+                child: Text('orders'))
+          ],
+        ),
+      ),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [

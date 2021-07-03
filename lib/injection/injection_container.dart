@@ -21,6 +21,12 @@ import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/data/local/local_categories_data_source.dart';
 import 'package:mobox/features/categories/data/remote/romote_categories_data_source.dart';
 import 'package:mobox/features/categories/repository/categories_repository.dart';
+import 'package:mobox/features/order/data/local/local_order_data_source.dart';
+import 'package:mobox/features/order/data/models/order_item.dart';
+import 'package:mobox/features/order/data/remote/remote_order_data_source.dart';
+import 'package:mobox/features/order/data/repositories/order_repository.dart';
+import 'package:mobox/features/order/presentation/bloc/order_bloc/order_bloc.dart';
+import 'package:mobox/features/order/presentation/bloc/order_item_bloc/order_item_bloc.dart';
 import 'package:mobox/features/product_management/data/remote/data_sources/store_management_remote_data_source.dart';
 import 'package:mobox/features/product_management/repositories/store_management_repository.dart';
 import 'package:mobox/features/profile/bloc/profile_bloc.dart';
@@ -43,6 +49,8 @@ part 'product_manage_injection.dart';
 part 'profile_injection.dart';
 
 part 'cart_injection.dart';
+
+part 'order_injection.dart';
 
 final sl = GetIt.instance;
 
@@ -67,4 +75,7 @@ void init() {
 
   // cart init
   cartInit();
+
+  // order init
+  ordersInit();
 }

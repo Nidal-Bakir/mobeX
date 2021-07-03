@@ -27,3 +27,12 @@ class InsufficientBalance implements Exception {
 
   const InsufficientBalance(this.message);
 }
+
+class UnHandledStateException implements Exception {
+  final dynamic state;
+
+  const UnHandledStateException(this.state);
+
+  @override
+  String toString() => state.toString();
+}
