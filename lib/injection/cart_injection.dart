@@ -2,7 +2,8 @@ part of 'injection_container.dart';
 
 void cartInit() {
   //  bloc
-  sl.registerFactory<CartBloc>(() => CartBloc(sl()));
+  
+  sl.registerLazySingleton<CartBloc>(() =>CartBloc(sl()) );
   //  Repository
   sl.registerLazySingleton<CartRepository>(() =>
       CartRepository(cartLocalDataSource: sl(), cartRemoteDataSource: sl()));

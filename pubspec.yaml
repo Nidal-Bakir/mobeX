@@ -74,6 +74,8 @@ flutter:
     - assets/images/logo.png
     - assets/for_tests_temp/products.json
     - assets/for_tests_temp/store.json
+    - assets/for_tests_temp/orders.json
+    - assets/for_tests_temp/order.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

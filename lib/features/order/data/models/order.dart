@@ -8,7 +8,9 @@ class Order extends Equatable {
 
   factory Order.fromMap(Map<String, dynamic> jsonMap) {
     return Order(
-      items: jsonMap['items'].map((item) => OrderItem.fromMap(item)),
+      items: jsonMap['items']
+          .map<OrderItem>((item) => OrderItem.fromMap(item))
+          .toList(),
       orderId: jsonMap['order_no'],
       orderDate: DateTime.parse(jsonMap['order_date']),
     );
@@ -22,4 +24,7 @@ class Order extends Equatable {
 
   @override
   List<Object?> get props => [orderId, orderDate, items];
+
+  Order copyWithNewItems(List<OrderItem> newItems) =>
+      Order(orderId: orderId, orderDate: orderDate, items: newItems);
 }

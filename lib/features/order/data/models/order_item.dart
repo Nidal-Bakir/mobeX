@@ -5,6 +5,7 @@ enum OrderItemState { Hold, Rejected, Accepted, InProgress, Sent, Delivered }
 
 class OrderItem extends Product with EquatableMixin {
   final OrderItemState orderItemState;
+  final int quantity;
 
   OrderItem(
       {required int id,
@@ -17,6 +18,7 @@ class OrderItem extends Product with EquatableMixin {
       required double rate,
       required double? myRate,
       required String description,
+      required this.quantity,
       required this.orderItemState})
       : super(
           id: id,
@@ -31,9 +33,10 @@ class OrderItem extends Product with EquatableMixin {
           description: description,
         );
 
-  Product copyWithNewOrderState({required OrderItemState orderItemState}) {
+  OrderItem copyWithNewOrderState({required OrderItemState orderItemState}) {
     return OrderItem(
         orderItemState: orderItemState,
+        quantity: quantity,
         storeName: storeName,
         storeId: storeId,
         rate: rate,
@@ -51,9 +54,11 @@ class OrderItem extends Product with EquatableMixin {
       super.toMap()..putIfAbsent('order_item', () => orderItemState.toString());
 
   @override
-  List<Object?> get props => [...super.props, orderItemState];
+  List<Object?> get props => [...super.props, quantity, orderItemState];
 
-  factory OrderItem.fromMap(Map<String, dynamic> jsonMap) => OrderItem(
+  factory OrderItem.fromMap(Map<String, dynamic> jsonMap) {
+
+    return OrderItem(
         id: jsonMap['id'] as int,
         title: jsonMap['product_name'],
         storeName: jsonMap['store_name'],
@@ -66,7 +71,9 @@ class OrderItem extends Product with EquatableMixin {
         price: jsonMap['product_price'] as double,
         sale: jsonMap['offer'] as double?,
         rate: jsonMap['rate'] as double,
+        quantity: jsonMap['quantity'] as int,
         orderItemState: OrderItemState.values.firstWhere(
-            (element) => jsonMap['item_state'] == element.toString()),
+            (element) => jsonMap['item_state'] == element.toString().split('.')[1]),
       );
+  }
 }

@@ -5,7 +5,7 @@
     "items": [
       {
         "id": 1,
-        "product_name": "ti",
+        "product_name": "new order from check out<",
         "store_name": "store_name1",
         "store_no": "nidal",
         "product_image": "assets/images/productimg2.png",
@@ -14,6 +14,7 @@
         "myRate": 1.0,
         "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
         "rate": 2.5,
+        "quantity": 1,
         "item_state": "Hold"
       }
     ]
