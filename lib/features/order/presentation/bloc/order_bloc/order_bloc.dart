@@ -33,24 +33,21 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     }
   }
 
-  @override
-  void onTransition(Transition<OrderEvent, OrderState> transition) {
-    super.onTransition(transition);
-    print('event : '+transition.event.toString());
-    print('currentState: '+transition.currentState.toString());
-    print('nextState: '+transition.nextState.toString());
-
-  }
-
   Stream<OrderState> _orderNextPageLoadedHandle() async* {
+    List<Order> oldTempOrders = [];
+    var currentState = state;
+    if (currentState is OrderLoadSuccess && currentState.orders.isNotEmpty) {
+      oldTempOrders = currentState.orders;
+      yield OrderLoadMoreDataInProgress(oldTempOrders);
+    }
+
     yield* _repository
         .getStreamOfUserOrders()
         .bufferCount(5)
         .scan<List<Order>>(
             (acc, orders, index) => [...acc ?? []]..addAll(orders), [])
-        .map((orderList) => orderList.isEmpty
-            ? OrderNothingPlaced()
-            : OrderLoadSuccess(orderList))
+        .map<OrderState>((orderList) => OrderLoadSuccess(orderList))
+        .startWith(OrderNothingPlaced())
         .onErrorReturn(
             OrderLoadFailure(await _repository.getLocalCachedOrders()));
   }

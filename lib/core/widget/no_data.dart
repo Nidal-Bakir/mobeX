@@ -6,7 +6,7 @@ class NoData extends StatelessWidget {
 
   const NoData({
     Key? key,
-     this.title='',
+    this.title = '',
     this.vertical = false,
   }) : super(key: key);
 
@@ -14,7 +14,8 @@ class NoData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: _isVerticalChildren(vertical, context, title),
       ),
@@ -29,7 +30,7 @@ List<Widget> _isVerticalChildren(
       Flexible(child: Image.asset('assets/images/nothing_to_show_space.png')),
       Flexible(
         child: Text(
-          'Nothing to show right know',
+          title.isEmpty ? 'Nothing to show right know' : title,
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ),
@@ -45,7 +46,7 @@ List<Widget> _isVerticalChildren(
           Flexible(child: Image.asset('assets/images/nothing_to_show.png')),
           Flexible(
             child: Text(
-              'Nothing to show right know',
+              title.isEmpty ? 'Nothing to show right know' : title,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ),

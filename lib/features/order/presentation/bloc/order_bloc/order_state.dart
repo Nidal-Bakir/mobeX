@@ -27,7 +27,14 @@ class OrderLoadSuccess extends OrderState {
   @override
   List<Object> get props => [orders];
 }
+class OrderLoadMoreDataInProgress extends OrderState {
+  final List<Order> orders;
 
+  const OrderLoadMoreDataInProgress(this.orders);
+
+  @override
+  List<Object> get props => [orders];
+}
 class OrderLoadFailure extends OrderState {
   final List<Order> orders;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/features/order/data/models/order_item.dart' as model;
 import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/features/order/presentation/bloc/order_item_bloc/order_item_bloc.dart';
@@ -24,9 +25,7 @@ class OrderItemView extends StatelessWidget {
           message = 'Something want wrong!!';
         }
 
-        ScaffoldMessenger.of(context)
-          ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text(message)));
+        showSnack(context, message);
       },
       builder: (context, state) {
         if (state is OrderItemMarkAsDeliveredInProgress) {
