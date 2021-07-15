@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobox/features/order/data/models/order_item.dart' as model;
-import 'package:mobox/features/order/data/repositories/order_repository.dart';
+import 'package:mobox/core/model/order_item.dart' as model;
+import 'package:mobox/features/order/repositories/order_repository.dart';
 
 part 'order_item_event.dart';
 

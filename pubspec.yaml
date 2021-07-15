@@ -76,6 +76,7 @@ flutter:
     - assets/for_tests_temp/store.json
     - assets/for_tests_temp/orders.json
     - assets/for_tests_temp/order.json
+    - assets/for_tests_temp/purchase_orders.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

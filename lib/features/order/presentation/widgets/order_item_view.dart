@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/utils/global_function.dart';
-import 'package:mobox/features/order/data/models/order_item.dart' as model;
-import 'package:mobox/core/error/exception.dart';
+import 'package:mobox/core/model/order_item.dart' as model;
 import 'package:mobox/features/order/presentation/bloc/order_item_bloc/order_item_bloc.dart';
 
 class OrderItemView extends StatelessWidget {
@@ -32,7 +31,7 @@ class OrderItemView extends StatelessWidget {
           return _Item(
             orderItem: state.orderItem,
             orderId: state.orderId,
-            isMarkingInProgress: true,
+            inLoadingState: true,
           );
         }
         return _Item(orderItem: state.orderItem, orderId: state.orderId);
@@ -43,13 +42,13 @@ class OrderItemView extends StatelessWidget {
 
 class _Item extends StatelessWidget {
   final model.OrderItem orderItem;
-  final bool isMarkingInProgress;
+  final bool inLoadingState;
   final int orderId;
 
   const _Item({
     Key? key,
     required this.orderItem,
-    this.isMarkingInProgress = false,
+    this.inLoadingState = false,
     required this.orderId,
   }) : super(key: key);
 
@@ -68,8 +67,9 @@ class _Item extends StatelessWidget {
         ),
 
         // isThreeLine: true,
-        subtitle: orderItem.orderItemState == model.OrderItemState.Sent
-            ? isMarkingInProgress
+        subtitle: orderItem.getOrderItemState() ==
+                model.OrderItemState.Sent.getState()
+            ? inLoadingState
                 ? LinearProgressIndicator()
                 : Align(
                     alignment: Alignment.centerLeft,
@@ -85,7 +85,7 @@ class _Item extends StatelessWidget {
                     ),
                   )
             : Text(
-                orderItem.orderItemState.toString().split('.')[1],
+                orderItem.getOrderItemState(),
               ),
         trailing: Column(
           mainAxisSize: MainAxisSize.min,

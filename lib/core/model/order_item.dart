@@ -1,10 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:mobox/core/model/product_model.dart';
 
+extension EnumOrderItemStateExtension on OrderItemState {
+  String getState() => this.toString().split('.')[1];
+}
+
 enum OrderItemState { Hold, Rejected, Accepted, InProgress, Sent, Delivered }
 
+OrderItemState convertStringOrderStateToEnumObjectState(String state) =>
+    OrderItemState.values.firstWhere((element) => element.getState() == state);
+
 class OrderItem extends Product with EquatableMixin {
-  final OrderItemState orderItemState;
+  final OrderItemState _orderItemState;
   final int quantity;
 
   OrderItem(
@@ -19,8 +26,9 @@ class OrderItem extends Product with EquatableMixin {
       required double? myRate,
       required String description,
       required this.quantity,
-      required this.orderItemState})
-      : super(
+      required OrderItemState orderItemState})
+      : _orderItemState = orderItemState,
+        super(
           id: id,
           title: title,
           storeName: storeName,
@@ -49,31 +57,35 @@ class OrderItem extends Product with EquatableMixin {
         title: title);
   }
 
-  @override
-  Map<String, dynamic> toMap() =>
-      super.toMap()..putIfAbsent('order_item', () => orderItemState.toString());
+  String getOrderItemState() => this._orderItemState.getState();
 
   @override
-  List<Object?> get props => [...super.props, quantity, orderItemState];
+  Map<String, dynamic> toMap() => super.toMap()
+    ..addAll({
+      'item_state': this.getOrderItemState(),
+      'quantity': quantity,
+    });
+
+  @override
+  List<Object?> get props => [...super.props, quantity, _orderItemState];
 
   factory OrderItem.fromMap(Map<String, dynamic> jsonMap) {
-
     return OrderItem(
-        id: jsonMap['id'] as int,
-        title: jsonMap['product_name'],
-        storeName: jsonMap['store_name'],
-        storeId: jsonMap['store_no'],
-        imageUrl: jsonMap['product_image'],
-        myRate: double.tryParse(jsonMap['myRate'].toString()) == 0.0
-            ? null
-            : (jsonMap['myRate'] as double),
-        description: jsonMap['description'] ?? '',
-        price: jsonMap['product_price'] as double,
-        sale: jsonMap['offer'] as double?,
-        rate: jsonMap['rate'] as double,
-        quantity: jsonMap['quantity'] as int,
-        orderItemState: OrderItemState.values.firstWhere(
-            (element) => jsonMap['item_state'] == element.toString().split('.')[1]),
-      );
+      id: jsonMap['id'] as int,
+      title: jsonMap['product_name'],
+      storeName: jsonMap['store_name'],
+      storeId: jsonMap['store_no'],
+      imageUrl: jsonMap['product_image'],
+      myRate: double.tryParse(jsonMap['myRate'].toString()) == 0.0
+          ? null
+          : (jsonMap['myRate'] as double),
+      description: jsonMap['description'] ?? '',
+      price: jsonMap['product_price'] as double,
+      sale: jsonMap['offer'] == null ? null : jsonMap['offer'] as double,
+      rate: jsonMap['rate'] as double,
+      quantity: jsonMap['quantity'] as int,
+      orderItemState: OrderItemState.values
+          .firstWhere((element) => jsonMap['item_state'] == element.getState()),
+    );
   }
 }

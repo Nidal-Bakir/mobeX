@@ -1,6 +1,6 @@
 import 'package:mobox/features/order/data/local/local_order_data_source.dart';
 import 'package:mobox/features/order/data/models/order.dart';
-import 'package:mobox/features/order/data/models/order_item.dart';
+import 'package:mobox/core/model/order_item.dart';
 import 'package:mobox/features/order/data/remote/remote_order_data_source.dart';
 
 class OrderRepository {

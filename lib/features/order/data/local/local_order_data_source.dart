@@ -1,5 +1,5 @@
 import 'package:mobox/features/order/data/models/order.dart';
-import 'package:mobox/features/order/data/models/order_item.dart';
+import 'package:mobox/core/model/order_item.dart';
 
 abstract class LocalOrderDataSource {
   Stream<Order> getCachedOrders();

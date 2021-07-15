@@ -7,6 +7,8 @@ import 'package:mobox/features/categories/presentation/screen/categories_tab.dar
 import 'package:mobox/features/home_feed/presentation/screen/home_tab.dart';
 import 'package:mobox/features/order/presentation/bloc/order_bloc/order_bloc.dart';
 import 'package:mobox/features/profile/presentation/screen/profile.dart';
+import 'package:mobox/features/purchase_orders/presentation/manager/purchase_orders_bloc/purchase_orders_bloc.dart';
+import 'package:mobox/features/purchase_orders/presentation/pages/purchase_orders_tab.dart';
 
 class AppScreen extends StatefulWidget {
   @override
@@ -103,7 +105,7 @@ class _AppScreenState extends State<AppScreen>
                 tabs: <Widget>[
                   Tab(text: 'HOME'),
                   Tab(text: 'CATEGORIES'),
-                  Tab(text: 'NOTIFICATIONS'),
+                  Tab(text: 'PURCHASE ORDERS'),
                   Tab(text: 'PROFILE'),
                 ],
               ),
@@ -118,21 +120,14 @@ class _AppScreenState extends State<AppScreen>
               create: (context) => GetIt.I.get(),
               child: CategoriesTab(),
             ),
-            Tab2(),
+            BlocProvider<PurchaseOrdersBloc>(
+              create: (context) => GetIt.I.get(),
+              child: PurchaseOrdersTab(),
+            ),
             Profile()
           ],
         ),
       ),
-    );
-  }
-}
-
-class Tab2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    print('rebuild Tab2');
-    return Container(
-      child: Text("Tab 2"),
     );
   }
 }

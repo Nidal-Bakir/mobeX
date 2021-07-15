@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobox/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:mobox/features/order/repositories/order_repository.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mobox/features/order/data/models/order.dart';
-import 'package:mobox/features/order/data/repositories/order_repository.dart';
 
 part 'order_event.dart';
 

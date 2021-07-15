@@ -22,16 +22,22 @@ import 'package:mobox/features/categories/data/local/local_categories_data_sourc
 import 'package:mobox/features/categories/data/remote/romote_categories_data_source.dart';
 import 'package:mobox/features/categories/repository/categories_repository.dart';
 import 'package:mobox/features/order/data/local/local_order_data_source.dart';
-import 'package:mobox/features/order/data/models/order_item.dart';
+import 'package:mobox/core/model/order_item.dart';
 import 'package:mobox/features/order/data/remote/remote_order_data_source.dart';
-import 'package:mobox/features/order/data/repositories/order_repository.dart';
 import 'package:mobox/features/order/presentation/bloc/order_bloc/order_bloc.dart';
 import 'package:mobox/features/order/presentation/bloc/order_item_bloc/order_item_bloc.dart';
+import 'package:mobox/features/order/repositories/order_repository.dart';
 import 'package:mobox/features/product_management/data/remote/data_sources/store_management_remote_data_source.dart';
 import 'package:mobox/features/product_management/repositories/store_management_repository.dart';
 import 'package:mobox/features/profile/bloc/profile_bloc.dart';
 import 'package:mobox/features/profile/data/remote/remote_profile_data_source.dart';
 import 'package:mobox/features/profile/repository/profile_repository.dart';
+import 'package:mobox/features/purchase_orders/data/local/purchase_orders_local_data_source.dart';
+import 'package:mobox/features/purchase_orders/data/model/purchase_orders.dart';
+import 'package:mobox/features/purchase_orders/data/remote/purchase_order_remote_data_source.dart';
+import 'package:mobox/features/purchase_orders/presentation/manager/purchase_order_bloc/purchase_order_bloc.dart';
+import 'package:mobox/features/purchase_orders/presentation/manager/purchase_orders_bloc/purchase_orders_bloc.dart';
+import 'package:mobox/features/purchase_orders/repositories/purchase_orders_repository.dart';
 import 'package:mobox/features/search/bloc/store_search_bloc.dart';
 import 'package:mobox/features/search/data/remote_data_source/remote_search_data_source.dart';
 import 'package:mobox/features/search/repository/search_repository.dart';
@@ -51,6 +57,8 @@ part 'profile_injection.dart';
 part 'cart_injection.dart';
 
 part 'order_injection.dart';
+
+part 'purchase_orders_injection.dart';
 
 final sl = GetIt.instance;
 
@@ -73,9 +81,12 @@ void init() {
   // profile init feature
   profileInit();
 
-  // cart init
+  // cart init feature
   cartInit();
 
-  // order init
+  // order init feature
   ordersInit();
+
+  // purchase orders init feature
+  purchaseOrdersInit();
 }

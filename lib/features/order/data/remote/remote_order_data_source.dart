@@ -5,7 +5,7 @@ import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/utils/api_urls.dart';
 import 'package:mobox/features/order/data/models/order.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobox/features/order/data/models/order_item.dart';
+import 'package:mobox/core/model/order_item.dart';
 
 abstract class RemoteOrderDataSource {
   Stream<Order> getOrdersStream();
@@ -42,7 +42,7 @@ class RemoteOrderDataSourceImpl extends RemoteOrderDataSource {
     yield* Stream.fromIterable(order);
     return;
     // TODO : end test code
-    http.Request request = http.Request("PATCH", Uri.parse(nextPageUrl!));
+    http.Request request = http.Request("GET", Uri.parse(nextPageUrl!));
     var res = await _client.send(request);
     if (res.statusCode == 200) {
       yield* res.stream
@@ -64,7 +64,7 @@ class RemoteOrderDataSourceImpl extends RemoteOrderDataSource {
     // TODO : remove this return
     return true;
     var res = await _client.patch(
-      Uri.parse(url + "order_no=$orderId&item_no=$itemId"),
+      Uri.parse(url + "&order_no=$orderId&item_no=$itemId"),
       body: {
         "item_state": OrderItemState.Delivered.toString(),
       },

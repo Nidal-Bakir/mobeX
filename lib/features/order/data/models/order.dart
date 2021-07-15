@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobox/features/order/data/models/order_item.dart';
+import 'package:mobox/core/model/order_item.dart';
 
 class Order extends Equatable {
   final int orderId;
