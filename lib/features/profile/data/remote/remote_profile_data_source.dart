@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/utils/api_urls.dart';
-import 'package:mobox/features/profile/data/model/editable_profile_info.dart';
+import 'package:mobox/core/model/editable_profile_info.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobox/core/utils/global_function.dart';
 
 abstract class RemoteProfileDataSource {
   Future<bool> changeProfileInfo(
@@ -27,11 +27,12 @@ class RemoteProfileDataSourceImpl extends RemoteProfileDataSource {
 
     // upload the changed data with the new photo using the headers
     if (newProfileInfo.profileImagePath != userProfile.profileImage) {
-      var isSuccess = await _uploadImageWithDataHeader(
-          ApiUrl.BASE_URL + '/user',
-          newProfileInfo.profileImagePath,
-          body,
-          'PATCH');
+      var isSuccess = await uploadImageWithDataHeader(
+          token: token,
+          endPoint: ApiUrl.BASE_URL + '/user',
+          imagePath: newProfileInfo.profileImagePath,
+          headers: body,
+          method: 'PATCH');
 
       return isSuccess;
     } else {
@@ -49,30 +50,6 @@ class RemoteProfileDataSourceImpl extends RemoteProfileDataSource {
     }
 
     return true;
-  }
-
-  Future<bool> _uploadImageWithDataHeader(String endPoint, String imagePath,
-      Map<String, dynamic> headers, String method) async {
-    var file = File.fromUri(Uri.file('$imagePath'));
-
-    var req = http.MultipartRequest(method, Uri.parse(endPoint))
-      ..headers['token'] = '$token'
-      ..headers
-          .addAll(headers.map((key, value) => MapEntry(key, value.toString())))
-      ..files.add(http.MultipartFile.fromBytes(
-        'image',
-        await file.readAsBytes(),
-      ));
-
-    var res = await req.send();
-    if (res.statusCode == 200)
-      return jsonDecode(
-                  await res.stream.transform(utf8.decoder).first)['success'] ==
-              'true'
-          ? true
-          : false;
-
-    return false;
   }
 
   Map<String, String> _getBodyMapFromProfileInfo(

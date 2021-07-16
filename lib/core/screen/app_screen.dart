@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
+import 'package:mobox/core/model/user_store.dart';
 import 'package:mobox/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/presentation/screen/categories_tab.dart';
@@ -17,8 +19,7 @@ class AppScreen extends StatefulWidget {
 
 class _AppScreenState extends State<AppScreen>
     with SingleTickerProviderStateMixin {
-  late final TabController _tabController =
-      TabController(length: 4, vsync: this, initialIndex: 0);
+  late final TabController _tabController;
 
   @override
   void dispose() {
@@ -28,6 +29,12 @@ class _AppScreenState extends State<AppScreen>
 
   @override
   void initState() {
+    var userStore =
+        (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
+            .userProfile
+            .userStore;
+    _tabController = TabController(
+        length: userStore == null ? 2 : 4, vsync: this, initialIndex: 0);
     // init the order bloc to listen to event from cart bloc
     context.read<OrderBloc>();
     super.initState();
@@ -35,6 +42,8 @@ class _AppScreenState extends State<AppScreen>
 
   @override
   Widget build(BuildContext context) {
+    var userStore = context.select<AuthBloc, UserStore?>((AuthBloc auth) =>
+        (auth.state as AuthLoadUserProfileSuccess).userProfile.userStore);
     return Scaffold(
       drawer: Drawer(
         child: Column(
@@ -101,12 +110,12 @@ class _AppScreenState extends State<AppScreen>
               ],
               bottom: TabBar(
                 controller: _tabController,
-                isScrollable: true,
+                isScrollable: userStore == null ? false : true,
                 tabs: <Widget>[
                   Tab(text: 'HOME'),
                   Tab(text: 'CATEGORIES'),
-                  Tab(text: 'PURCHASE ORDERS'),
-                  Tab(text: 'PROFILE'),
+                  if (userStore != null) Tab(text: 'PURCHASE ORDERS'),
+                  if (userStore != null) Tab(text: 'PROFILE'),
                 ],
               ),
             ),
@@ -120,11 +129,12 @@ class _AppScreenState extends State<AppScreen>
               create: (context) => GetIt.I.get(),
               child: CategoriesTab(),
             ),
-            BlocProvider<PurchaseOrdersBloc>(
-              create: (context) => GetIt.I.get(),
-              child: PurchaseOrdersTab(),
-            ),
-            Profile()
+            if (userStore != null)
+              BlocProvider<PurchaseOrdersBloc>(
+                create: (context) => GetIt.I.get(),
+                child: PurchaseOrdersTab(),
+              ),
+            if (userStore != null) Profile()
           ],
         ),
       ),

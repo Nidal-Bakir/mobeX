@@ -21,6 +21,9 @@ import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/data/local/local_categories_data_source.dart';
 import 'package:mobox/features/categories/data/remote/romote_categories_data_source.dart';
 import 'package:mobox/features/categories/repository/categories_repository.dart';
+import 'package:mobox/features/create_store/data/data_sources/create_store_remote_data_source.dart';
+import 'package:mobox/features/create_store/presentation/manager/create_store_bloc/create_store_bloc.dart';
+import 'package:mobox/features/create_store/repositories/create_store_repository.dart';
 import 'package:mobox/features/order/data/local/local_order_data_source.dart';
 import 'package:mobox/core/model/order_item.dart';
 import 'package:mobox/features/order/data/remote/remote_order_data_source.dart';
@@ -59,6 +62,8 @@ part 'cart_injection.dart';
 part 'order_injection.dart';
 
 part 'purchase_orders_injection.dart';
+
+part 'create_store_injection.dart';
 
 final sl = GetIt.instance;
 

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobox/core/model/user_profiel.dart';
-import 'package:mobox/features/profile/data/model/editable_profile_info.dart';
+import 'package:mobox/core/model/editable_profile_info.dart';
 import 'package:mobox/features/profile/repository/profile_repository.dart';
 
 part 'profile_event.dart';

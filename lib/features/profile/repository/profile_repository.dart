@@ -1,6 +1,6 @@
 import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/features/profile/data/remote/remote_profile_data_source.dart';
-import 'package:mobox/features/profile/data/model/editable_profile_info.dart';
+import 'package:mobox/core/model/editable_profile_info.dart';
 
 class ProfileRepository {
   final RemoteProfileDataSource _remote;

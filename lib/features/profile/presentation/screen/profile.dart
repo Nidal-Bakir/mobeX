@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,30 @@ import 'package:mobox/core/widget/Product_list_widget.dart';
 import 'package:mobox/features/home_feed/presentation/widget/new_products_sliver_grid.dart';
 import 'package:mobox/features/profile/presentation/widget/profile_info_table.dart';
 
-class Profile extends StatelessWidget {
+
+class Profile extends StatefulWidget {
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  late final TapGestureRecognizer _tapGestureRecognizer =
+      TapGestureRecognizer();
+
+  @override
+  void initState() {
+    _tapGestureRecognizer.onTap = ()   {
+      Navigator.of(context).pushNamed('/create-store');
+    };
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tapGestureRecognizer.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
@@ -18,8 +42,23 @@ class Profile extends StatelessWidget {
         var userProfile = (state as AuthLoadUserProfileSuccess).userProfile;
         var store = userProfile.userStore;
         if (store == null)
-          return Container(); // TODO return mesage that hes is not have store and show his basic info he can edit tho!
-
+          return Center(
+            child: Text.rich(
+              TextSpan(
+                text: "You do not have a store account\n",
+                children: <InlineSpan>[
+                  TextSpan(
+                    text: ' Click here to create one',
+                    recognizer: _tapGestureRecognizer,
+                    style: TextStyle(
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         return BlocProvider<ProductBloc>(
           create: (context) => GetIt.I.get<ProductBloc>(
               param1: '/store/${userProfile.userName}/newProducts'),
@@ -56,8 +95,9 @@ class Profile extends StatelessWidget {
                                 padding: EdgeInsets.only(bottom: 8.0),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamed('/edit-profile',arguments: userProfile);
+                                    Navigator.of(context).pushNamed(
+                                        '/edit-profile',
+                                        arguments: userProfile);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),

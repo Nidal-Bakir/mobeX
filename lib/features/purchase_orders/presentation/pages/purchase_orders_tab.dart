@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/error/exception.dart';
-import 'package:mobox/core/model/user_store.dart';
 import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/core/widget/no_data.dart';
 import 'package:mobox/core/widget/retry_button.dart';
@@ -14,7 +13,7 @@ import 'package:mobox/features/purchase_orders/presentation/manager/purchase_ord
 import 'package:mobox/features/purchase_orders/presentation/manager/purchase_orders_bloc/purchase_orders_bloc.dart';
 import 'package:mobox/features/purchase_orders/presentation/widgets/purchase_order_item.dart';
 import 'package:mobox/features/purchase_orders/presentation/widgets/purchase_order_item_with_date.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 class PurchaseOrdersTab extends StatefulWidget {
   const PurchaseOrdersTab({Key? key}) : super(key: key);
@@ -30,11 +29,8 @@ class _PurchaseOrdersTabState extends State<PurchaseOrdersTab> {
   @override
   void initState() {
     context.read<PurchaseOrdersBloc>().add(PurchaseOrdersNextPageLoaded());
-    _tapGestureRecognizer.onTap = () async {
-      // TODO : use our url
-      if (await canLaunch('http://mobox.com')) {
-        await launch('http://mobox.com');
-      }
+    _tapGestureRecognizer.onTap = () {
+      Navigator.of(context).pushNamed('/create-store');
     };
     super.initState();
   }
@@ -47,17 +43,19 @@ class _PurchaseOrdersTabState extends State<PurchaseOrdersTab> {
 
   @override
   Widget build(BuildContext context) {
-    var userStore = context.select<AuthBloc, UserStore?>((AuthBloc auth) =>
-        (auth.state as AuthLoadUserProfileSuccess).userProfile.userStore);
+    var userStore =
+        (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
+            .userProfile
+            .userStore;
 
     if (userStore == null) {
       return Center(
         child: Text.rich(
           TextSpan(
-            text: "You do not have a store account",
+            text: "You do not have a store account\n",
             children: <InlineSpan>[
               TextSpan(
-                text: 'Click here to create one',
+                text: ' Click here to create one',
                 recognizer: _tapGestureRecognizer,
                 style: TextStyle(
                   color: Colors.blue,
