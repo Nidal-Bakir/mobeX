@@ -15,7 +15,15 @@
       "quantity": 4,
       "item_state": "Hold",
       "order_no": 456210,
-      "order_date": "2021-06-23 21:41:40.650970"
+      "order_date": "2021-06-23 21:41:40.650970",
+      "Purchaser_info": {
+        "city": "homes",
+        "address": "alware 22st",
+        "first_name": "nidal",
+        "father_name": "omer",
+        "last_name": "bakir",
+        "phone": "1234567890"
+      }
     },
     {
       "id": 23,
@@ -31,7 +39,15 @@
       "quantity": 4,
       "item_state": "Rejected",
       "order_no": 458136,
-      "order_date": "2021-06-23 21:41:40.650970"
+      "order_date": "2021-06-23 21:41:40.650970",
+      "Purchaser_info": {
+        "city": "homes",
+        "address": "alware 22st",
+        "first_name": "nidal",
+        "father_name": "omer",
+        "last_name": "bakir",
+        "phone": "1234567890"
+      }
     },
     {
       "id": 344,
@@ -47,7 +63,15 @@
       "quantity": 4,
       "item_state": "Rejected",
       "order_no": 45677,
-      "order_date": "2021-06-22 21:41:40.650970"
+      "order_date": "2021-06-22 21:41:40.650970",
+      "Purchaser_info": {
+        "city": "homes",
+        "address": "alware 22st",
+        "first_name": "nidal",
+        "father_name": "omer",
+        "last_name": "bakir",
+        "phone": "1234567890"
+      }
     },
     {
       "id": 13,
@@ -63,7 +87,15 @@
       "quantity": 4,
       "item_state": "Sent",
       "order_no": 45126,
-      "order_date": "2021-06-21 21:41:40.650970"
+      "order_date": "2021-06-21 21:41:40.650970",
+      "Purchaser_info": {
+        "city": "homes",
+        "address": "alware 22st",
+        "first_name": "nidal",
+        "father_name": "omer",
+        "last_name": "bakir",
+        "phone": "1234567890"
+      }
     },
     {
       "id": 39,
@@ -79,7 +111,15 @@
       "quantity": 4,
       "item_state": "InProgress",
       "order_no": 45336,
-      "order_date": "2021-06-21 21:41:40.650970"
+      "order_date": "2021-06-21 21:41:40.650970",
+      "Purchaser_info": {
+        "city": "homes",
+        "address": "alware 22st",
+        "first_name": "nidal",
+        "father_name": "omer",
+        "last_name": "bakir",
+        "phone": "1234567890"
+      }
     },
     {
       "id": 83,
@@ -95,7 +135,15 @@
       "quantity": 4,
       "item_state": "Delivered",
       "order_no": 4543336,
-      "order_date": "2021-06-21 21:41:40.650970"
+      "order_date": "2021-06-21 21:41:40.650970",
+      "Purchaser_info": {
+        "city": "homes",
+        "address": "alware 22st",
+        "first_name": "nidal",
+        "father_name": "omer",
+        "last_name": "bakir",
+        "phone": "1234567890"
+      }
     },
     {
       "id": 83,
@@ -111,7 +159,15 @@
       "quantity": 4,
       "item_state": "Hold",
       "order_no": 4543336,
-      "order_date": "2021-06-21 21:41:40.650970"
+      "order_date": "2021-06-21 21:41:40.650970",
+      "Purchaser_info": {
+        "city": "homes",
+        "address": "alware 22st",
+        "first_name": "nidal",
+        "father_name": "omer",
+        "last_name": "bakir",
+        "phone": "1234567890"
+      }
     }
   ]
 }

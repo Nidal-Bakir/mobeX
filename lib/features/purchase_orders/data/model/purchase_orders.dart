@@ -1,8 +1,10 @@
 import 'package:mobox/core/model/order_item.dart';
+import 'package:mobox/features/purchase_orders/data/model/purchaser_info.dart';
 
 class PurchaseOrder extends OrderItem {
   final DateTime orderTime;
   final int orderId;
+  final PurchaserInfo purchaserInfo;
 
   PurchaseOrder(
       {required int id,
@@ -17,6 +19,7 @@ class PurchaseOrder extends OrderItem {
       required String description,
       required int quantity,
       required OrderItemState orderItemState,
+      required this.purchaserInfo,
       required this.orderTime,
       required this.orderId})
       : super(
@@ -34,11 +37,20 @@ class PurchaseOrder extends OrderItem {
             quantity: quantity);
 
   @override
-  Map<String, dynamic> toMap() =>
-      super.toMap()..addAll({'order_date': orderTime, 'order_no': orderId});
+  Map<String, dynamic> toMap() => super.toMap()
+    ..addAll({
+      'order_date': orderTime,
+      'order_no': orderId,
+      "Purchaser_info": purchaserInfo.toMap()
+    });
 
   @override
-  List<Object?> get props => [orderId, orderTime, ...super.props];
+  List<Object?> get props => [
+        orderId,
+        orderTime,
+        ...purchaserInfo.props,
+        ...super.props,
+      ];
 
   @override
   OrderItem copyWithNewOrderState({required OrderItemState orderItemState}) {
@@ -57,6 +69,7 @@ class PurchaseOrder extends OrderItem {
       title: title,
       orderTime: orderTime,
       orderId: orderId,
+      purchaserInfo: purchaserInfo,
     );
   }
 
@@ -79,6 +92,7 @@ class PurchaseOrder extends OrderItem {
           jsonMap['item_state'] == element.toString().split('.')[1]),
       orderTime: DateTime.parse(jsonMap['order_date']),
       orderId: jsonMap['order_no'] as int,
+      purchaserInfo: PurchaserInfo.formJson(jsonMap['Purchaser_info'] ),
     );
   }
 }

@@ -58,8 +58,6 @@ class _Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Navigator.of(context)
-          .pushNamed('/store-screen', arguments: [null, purchaseOrder.storeId]),
       leading: CircleAvatar(
         radius: 24,
         backgroundImage: AssetImage(purchaseOrder.imageUrl),
@@ -76,7 +74,7 @@ class _Item extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'To: ${purchaseOrder.storeName},\n Quantity: ${purchaseOrder.quantity}',
+            _getOrderBasicInfo(),
           ),
           if (inLoadingState) LinearProgressIndicator(),
           Divider()
@@ -116,6 +114,14 @@ class _Item extends StatelessWidget {
       ),
     );
   }
+
+  String _getOrderBasicInfo() => ''' 
+To: ${purchaseOrder.purchaserInfo.getFullName()}
+City: ${purchaseOrder.purchaserInfo.city}
+Address: ${purchaseOrder.purchaserInfo.address}
+Phone: ${purchaseOrder.purchaserInfo.phone}
+Quantity: ${purchaseOrder.quantity}
+  ''';
 }
 
 List<String> _stateChoices(String state) {
