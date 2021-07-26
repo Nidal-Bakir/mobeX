@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
+import 'package:mobox/core/widget/restart_app.dart';
 import 'package:mobox/features/order/presentation/bloc/order_bloc/order_bloc.dart';
 import 'package:mobox/route/app_router.dart';
 
@@ -23,7 +24,7 @@ void main() {
     ),
   );
   di.init();
-  runApp(MyApp());
+  runApp(RestartApp(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,8 +34,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(create: (_) => di.sl()),
         BlocProvider<ProductManageBloc>(create: (_) => di.sl()),
-        BlocProvider<CartBloc>(create: (_) => di.sl.get<CartBloc>()),
-        BlocProvider<OrderBloc>(create: (_) => di.sl.get<OrderBloc>())
+        BlocProvider<CartBloc>(create: (_) => di.sl()),
+        BlocProvider<OrderBloc>(create: (_) => di.sl())
       ],
       child: MaterialApp(
         onGenerateRoute: onGenerateRoute,

@@ -48,16 +48,19 @@ class RemoteAuthImpl extends RemoteAuth {
     // var res =
     // await _client.get(Uri.https(ApiUrl.BASE_URL\$endPoint));
     var res;
-    if (_firstTime)
+    if (_firstTime) {
       res = await Future.value(Response(
           '{"token":"123abc","user_name":"nidal","balance":12000,"profile_image":"assets/images/productimg2.png","phone":"1234567890","city":"home","address":"alware 22st","first_name":"nidal","last_name":"bakir","account_status":"active","user_store":null}',
           200));
-    else
+      _firstTime = false; // TODO :: remove this code it is for testing
+
+    } else {
+      _firstTime = true; // TODO :: remove this code it is for testing
+
       res = await Future.value(Response(
           '{"token":"123abc","user_name":"nidal","balance":12000,"profile_image":"assets/images/productimg2.png","phone":"1234567890","city":"home","address":"alware 22st","first_name":"nidal","last_name":"bakir","account_status":"active","user_store":      {"store_name":"nidal store","bio":"my bio","available_assets":12000,"frozen_assets":2000,"over_all_profit":15000}}',
           200));
-
-    _firstTime = false; // TODO :: remove this code it is for testing
+    }
 
     if (res.statusCode == 200) {
       var jsonMap = json.decode(res.body);

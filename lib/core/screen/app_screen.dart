@@ -20,6 +20,7 @@ class AppScreen extends StatefulWidget {
 class _AppScreenState extends State<AppScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
+  late UserStore? _userStore;
 
   @override
   void dispose() {
@@ -29,12 +30,12 @@ class _AppScreenState extends State<AppScreen>
 
   @override
   void initState() {
-    var userStore =
-        (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
-            .userProfile
-            .userStore;
+    _userStore = (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
+        .userProfile
+        .userStore;
     _tabController = TabController(
-        length: userStore == null ? 2 : 4, vsync: this, initialIndex: 0);
+        length: _userStore == null ? 2 : 4, vsync: this, initialIndex: 0);
+
     // init the order bloc to listen to event from cart bloc
     context.read<OrderBloc>();
     super.initState();
@@ -42,8 +43,6 @@ class _AppScreenState extends State<AppScreen>
 
   @override
   Widget build(BuildContext context) {
-    var userStore = context.select<AuthBloc, UserStore?>((AuthBloc auth) =>
-        (auth.state as AuthLoadUserProfileSuccess).userProfile.userStore);
     return Scaffold(
       drawer: Drawer(
         child: Column(
@@ -52,7 +51,12 @@ class _AppScreenState extends State<AppScreen>
                 onPressed: () {
                   Navigator.of(context).pushNamed('/orders');
                 },
-                child: Text('orders'))
+                child: Text('orders')),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/create-store');
+                },
+                child: Text('create store'))
           ],
         ),
       ),
@@ -110,12 +114,12 @@ class _AppScreenState extends State<AppScreen>
               ],
               bottom: TabBar(
                 controller: _tabController,
-                isScrollable: userStore == null ? false : true,
+                isScrollable: _userStore == null ? false : true,
                 tabs: <Widget>[
                   Tab(text: 'HOME'),
                   Tab(text: 'CATEGORIES'),
-                  if (userStore != null) Tab(text: 'PURCHASE ORDERS'),
-                  if (userStore != null) Tab(text: 'PROFILE'),
+                  if (_userStore != null) Tab(text: 'PURCHASE ORDERS'),
+                  if (_userStore != null) Tab(text: 'PROFILE'),
                 ],
               ),
             ),
@@ -129,12 +133,12 @@ class _AppScreenState extends State<AppScreen>
               create: (context) => GetIt.I.get(),
               child: CategoriesTab(),
             ),
-            if (userStore != null)
+            if (_userStore != null)
               BlocProvider<PurchaseOrdersBloc>(
                 create: (context) => GetIt.I.get(),
                 child: PurchaseOrdersTab(),
               ),
-            if (userStore != null) Profile()
+            if (_userStore != null) Profile()
           ],
         ),
       ),

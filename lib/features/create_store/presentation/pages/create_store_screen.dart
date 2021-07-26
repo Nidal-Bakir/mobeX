@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/utils/global_function.dart';
+import 'package:mobox/core/widget/restart_app.dart';
 
 import 'package:mobox/features/create_store/presentation/manager/create_store_bloc/create_store_bloc.dart';
 
@@ -33,16 +34,15 @@ class _EditProfileState extends State<CreateStoreScreen> {
           listenWhen: (previous, current) => current is! CreateStoreInProgress,
           listener: (context, state) {
             if (state is CreateStoreSuccess) {
-              context.read<AuthBloc>().add(AuthUpdateUserProfileLoaded());
-              // exit form the screen
-              Navigator.of(context).pop();
+              RestartApp.restart(context);
+
             } else if (state is CreateStoreFailure) {
               showSnack(context, 'Your info updated successfully.');
             }
           },
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Edit profile'),
+              title: Text('Create store'),
               actions: [
                 BlocBuilder<CreateStoreBloc, CreateStoreState>(
                   builder: (context, state) {

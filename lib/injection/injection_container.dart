@@ -94,4 +94,7 @@ void init() {
 
   // purchase orders init feature
   purchaseOrdersInit();
+
+  // create store feature
+  createStoreInit();
 }
