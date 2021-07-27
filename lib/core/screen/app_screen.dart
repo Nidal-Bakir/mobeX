@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
+import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/model/user_store.dart';
 import 'package:mobox/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:mobox/features/categories/bloc/categories_bloc.dart';
@@ -21,6 +25,7 @@ class _AppScreenState extends State<AppScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
   late UserStore? _userStore;
+  late UserProfile _userProfile;
 
   @override
   void dispose() {
@@ -30,9 +35,10 @@ class _AppScreenState extends State<AppScreen>
 
   @override
   void initState() {
-    _userStore = (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
-        .userProfile
-        .userStore;
+    _userProfile =
+        (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
+            .userProfile;
+    _userStore = _userProfile.userStore;
     _tabController = TabController(
         length: _userStore == null ? 2 : 4, vsync: this, initialIndex: 0);
 
@@ -44,20 +50,111 @@ class _AppScreenState extends State<AppScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/orders');
-                },
-                child: Text('orders')),
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/create-store');
-                },
-                child: Text('create store'))
-          ],
+      drawer: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Drawer(
+          child: Column(
+            children: [
+              /*
+              * TODO :: uncomment this code
+              *  Image.network(_userProfile.profileImage,fit: BoxFit.cover,
+                height: 200,
+                width: double.infinity,
+                 ),
+              * */
+
+              Image.asset(
+                'assets/images/productimg2.png',
+                fit: BoxFit.cover,
+                height: 200,
+                width: double.infinity,
+              ),
+              Theme(
+                data: Theme.of(context).copyWith(
+                  textButtonTheme: TextButtonThemeData(
+                    style: ButtonStyle(
+                      textStyle: MaterialStateProperty.all<TextStyle>(
+                          TextStyle(fontWeight: FontWeight.w900)),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                    ),
+                  ),
+                  dividerTheme:
+                      DividerThemeData(thickness: 1, color: Colors.black),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'My padget',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              _userProfile.balance.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(),
+                      TextButton.icon(
+                          icon: Icon(Icons.favorite_border_outlined),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/following');
+                          },
+                          label: Text('Following')),
+                      TextButton.icon(
+                          icon: Icon(Icons.clear_all_outlined),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/orders');
+                          },
+                          label: Text('My orders')),
+                      if (_userStore == null)
+                        TextButton.icon(
+                          icon: Icon(Icons.store_outlined),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/create-store');
+                          },
+                          label: Text('Create store'),
+                        ),
+                      TextButton.icon(
+                        icon: Icon(Icons.extension_outlined),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/product-manage');
+                        },
+                        label: Text('Add product'),
+                      ),
+                      Divider(),
+                      TextButton.icon(
+                        icon: Icon(Icons.textsms_outlined),
+                        onPressed: () {},
+                        label: Text('Contact us'),
+                      ),
+                      Divider(),
+                      TextButton.icon(
+                        icon: Icon(Icons.settings_outlined),
+                        onPressed: () {},
+                        label: Text('Settings'),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: NestedScrollView(

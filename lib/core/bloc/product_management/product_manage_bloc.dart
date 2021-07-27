@@ -9,6 +9,7 @@ import 'package:mobox/features/product_management/data/model/editable_product_in
 import 'package:mobox/features/product_management/repositories/store_management_repository.dart';
 
 part 'product_manage_event.dart';
+
 part 'product_manage_state.dart';
 
 class ProductManageBloc extends Bloc<ProductManageEvent, ProductManageState> {
@@ -29,6 +30,8 @@ class ProductManageBloc extends Bloc<ProductManageEvent, ProductManageState> {
           event.product, event.editableProductInfo);
     } else if (event is ProductManageProductDeleted) {
       yield* _productManageProductDeletedHandler(event.product);
+    } else if (event is ProductManageResetState) {
+      yield ProductManageInitial();
     }
   }
 

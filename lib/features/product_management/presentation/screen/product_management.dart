@@ -34,6 +34,13 @@ class _ProductManagementState extends State<ProductManagement> {
   var _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    // dump the previous state if it exist form previous add for a product
+    context.read<ProductManageBloc>().add(ProductManageResetState());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<ProductManageBloc, ProductManageState>(
       listener: (context, state) {
@@ -374,6 +381,4 @@ class _ProductManagementState extends State<ProductManagement> {
     }
     return Image.asset('assets/images/productimg2.png');
   }
-
-
 }

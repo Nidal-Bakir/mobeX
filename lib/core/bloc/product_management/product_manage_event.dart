@@ -31,3 +31,10 @@ class ProductManageProductDeleted extends ProductManageEvent {
   @override
   List<Object?> get props => [product];
 }
+
+class ProductManageResetState extends ProductManageEvent {
+  const ProductManageResetState();
+
+  @override
+  List<Object?> get props => [];
+}
