@@ -30,6 +30,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthCreateAccount();
     } else if (event is AuthUpdateUserProfileLoaded) {
       yield* _authUpdateUserProfileLoadedHandler();
+    } else if (event is AuthGuestUserCreated) {
+      yield AuthLoadUserProfileSuccess(
+          userProfile: _authRepo.getGuestUserProfile());
     }
   }
 

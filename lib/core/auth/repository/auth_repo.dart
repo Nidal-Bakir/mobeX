@@ -25,4 +25,6 @@ class AuthRepo {
     localAuth.storeUserProfile(userProfile);
     return userProfile;
   }
+
+  UserProfile getGuestUserProfile() => localAuth.generateDummyUserData();
 }

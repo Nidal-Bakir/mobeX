@@ -26,3 +26,7 @@ class AuthUpdateUserProfileLoaded extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
+class AuthGuestUserCreated extends AuthEvent {
+  @override
+  List<Object?> get props => [];
+}

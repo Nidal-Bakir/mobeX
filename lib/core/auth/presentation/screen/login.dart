@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
-import 'package:mobox/features/order/presentation/bloc/order_bloc/order_bloc.dart';
+import 'package:mobox/core/widget/restart_app.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Login extends StatefulWidget {
@@ -120,6 +120,15 @@ class _LoginState extends State<Login> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      TextButton(
+                          onPressed: () {
+                            context
+                                .read<AuthBloc>()
+                                .add(AuthGuestUserCreated());
+                          },
+                          child: Text(
+                            'LOGIN AS GUEST',
+                          )),
                       state is AuthLoadUserProfileInProgress
                           ? CircularProgressIndicator()
                           : Container(),
@@ -149,7 +158,11 @@ class _LoginState extends State<Login> {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('${state.message}')));
                   } else if (state is AuthLoadUserProfileSuccess) {
-                    Navigator.of(context).pushReplacementNamed('/home');
+                    // so the dependency of the app( token and other user specific info) get rested in case the user
+                    // was not logged-in and logged-in at some point (was a guest).
+                    // The app will store the info in [sherdPref] and remember the user when the app first launch, so restarting
+                    // the app will case the user to login automatically at the second time, and for the restart.
+                    RestartApp.restart(context);
                   }
                 },
               ),

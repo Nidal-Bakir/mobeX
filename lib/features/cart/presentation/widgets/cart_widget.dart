@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:mobox/core/model/user_profiel.dart';
+import 'package:mobox/core/utils/const_data.dart';
 import 'package:mobox/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:mobox/features/cart/presentation/widgets/order_item_list_tile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,9 +70,15 @@ class CartWidget extends StatelessWidget {
                   onPressed: profile.balance < totalPrice
                       ? null
                       : () {
-                          context.read<CartBloc>().add(CartCheckOutRequested());
+                          if (profile.token == ConstData.guestDummyToken) {
+                            Navigator.of(context).pushNamed('login');
+                          } else {
+                            context
+                                .read<CartBloc>()
+                                .add(CartCheckOutRequested());
+                          }
                         },
-                  child: Text('CheckOut '),
+                  child: Text('CheckOut'),
                 )
               ]),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart' as bar;
+
 import 'package:mobox/core/model/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
@@ -8,9 +9,14 @@ class RatingBar extends StatefulWidget {
   final bool immutable;
   final double? rate;
   final Product product;
+  final bool isGuest;
 
   const RatingBar(
-      {Key? key, required this.immutable, this.rate, required this.product})
+      {Key? key,
+      required this.immutable,
+      this.rate,
+      required this.product,
+      required this.isGuest})
       : super(key: key);
 
   @override
@@ -28,8 +34,9 @@ class _RatingBarState extends State<RatingBar> {
       children: [
         if (!widget.immutable)
           Padding(
-              padding: EdgeInsets.only(bottom: 24.0),
-              child: Text('Your rate:')),
+            padding: EdgeInsets.only(bottom: 24.0),
+            child: Text('Your rate:'),
+          ),
         bar.RatingBar.builder(
           itemBuilder: (context, index) => Icon(
             Icons.star,
@@ -44,6 +51,10 @@ class _RatingBarState extends State<RatingBar> {
           ignoreGestures: widget.immutable,
           initialRating: widget.rate ?? 0,
           onRatingUpdate: (value) {
+            if (widget.isGuest) {
+              Navigator.of(context).pushNamed('/login');
+              return;
+            }
             setState(() {
               userRate = value;
             });
@@ -84,7 +95,7 @@ class _RatingBarState extends State<RatingBar> {
                         );
                   },
                 ),
-              if (widget.rate != userRate && widget.product.myRate !=null )
+              if (widget.rate != userRate && widget.product.myRate != null)
                 TextButton(
                     onPressed: () {
                       context.read<ProductBloc>().add(

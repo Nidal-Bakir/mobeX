@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
+import 'package:mobox/core/utils/const_data.dart';
 import 'package:mobox/core/widget/animated_floating_action_button.dart';
 import 'package:mobox/core/widget/rating_bar.dart' as customRating;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart' as flutterRate;
@@ -16,10 +17,9 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userName =
+    var _userProfile =
         (context.read<AuthBloc>().state as AuthLoadUserProfileSuccess)
-            .userProfile
-            .userName;
+            .userProfile;
     return Scaffold(
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
@@ -29,7 +29,7 @@ class ProductScreen extends StatelessWidget {
               PopupMenuButton<int>(
                 itemBuilder: (BuildContext context) {
                   return <PopupMenuEntry<int>>[
-                    userName == product.storeId
+                    _userProfile.userName == product.storeId
                         ? PopupMenuItem<int>(
                             textStyle: Theme.of(context).textTheme.bodyText2,
                             child: Text('Manage this product'),
@@ -158,7 +158,7 @@ class ProductScreen extends StatelessWidget {
                       Spacer(
                         flex: 2,
                       ),
-                      product.storeId == userName
+                      product.storeId == _userProfile.userName
                           ? Text('This is your product!')
                           : Flexible(
                               flex: 0,
@@ -191,6 +191,8 @@ class ProductScreen extends StatelessWidget {
                                     immutable: false,
                                     product: product,
                                     rate: _myRate,
+                                    isGuest: _userProfile.token ==
+                                        ConstData.guestDummyToken,
                                   );
                                 },
                               ),
@@ -222,7 +224,7 @@ class ProductScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: product.storeId == userName
+      floatingActionButton: product.storeId == _userProfile.userName
           ? Container()
           : AnimatedAddToCartFAB(product: product),
     );

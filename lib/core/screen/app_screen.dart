@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobox/ForTestClass.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/model/user_store.dart';
+import 'package:mobox/core/utils/const_data.dart';
 import 'package:mobox/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:mobox/features/categories/bloc/categories_bloc.dart';
 import 'package:mobox/features/categories/presentation/screen/categories_tab.dart';
@@ -113,27 +115,46 @@ class _AppScreenState extends State<AppScreen>
                       TextButton.icon(
                           icon: Icon(Icons.favorite_border_outlined),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/following');
+                            if (_userProfile.token ==
+                                ConstData.guestDummyToken) {
+                              Navigator.of(context).pushNamed('/login');
+                            } else {
+                              Navigator.of(context).pushNamed('/following');
+                            }
                           },
                           label: Text('Following')),
                       TextButton.icon(
                           icon: Icon(Icons.clear_all_outlined),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/orders');
+                            if (_userProfile.token ==
+                                ConstData.guestDummyToken) {
+                              Navigator.of(context).pushNamed('/login');
+                            } else {
+                              Navigator.of(context).pushNamed('/orders');
+                            }
                           },
                           label: Text('My orders')),
                       if (_userStore == null)
                         TextButton.icon(
                           icon: Icon(Icons.store_outlined),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/create-store');
+                            if (_userProfile.token ==
+                                ConstData.guestDummyToken) {
+                              Navigator.of(context).pushNamed('/login');
+                            } else {
+                              Navigator.of(context).pushNamed('/create-store');
+                            }
                           },
                           label: Text('Create store'),
                         ),
                       TextButton.icon(
                         icon: Icon(Icons.extension_outlined),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/product-manage');
+                          if (_userStore == null) {
+                            Navigator.of(context).pushNamed('/create-store');
+                          } else {
+                            Navigator.of(context).pushNamed('/product-manage');
+                          }
                         },
                         label: Text('Add product'),
                       ),
@@ -153,6 +174,13 @@ class _AppScreenState extends State<AppScreen>
                   ),
                 ),
               ),
+              // TODO : remove this test and the code
+              if (_userProfile.token != ConstData.guestDummyToken)
+                Switch.adaptive(
+                    value: ForTestClass.isAStore,
+                    onChanged: (_) {
+                      ForTestClass.isAStore = !ForTestClass.isAStore;
+                    })
             ],
           ),
         ),
