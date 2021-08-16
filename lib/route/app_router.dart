@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mobox/core/auth/presentation/screen/login.dart';
+import 'package:mobox/core/auth/presentation/screen/splash.dart';
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/screen/app_screen.dart';
-import 'package:mobox/core/auth/presentation/screen/login.dart';
-import 'package:mobox/core/auth/presentation/screen/splash.dart';
 import 'package:mobox/core/screen/store_screen.dart';
 import 'package:mobox/features/cart/presentation/pages/cart.dart';
 import 'package:mobox/features/create_store/presentation/pages/create_store_screen.dart';
@@ -13,6 +13,7 @@ import 'package:mobox/features/product_management/presentation/screen/product_ma
 import 'package:mobox/features/profile/presentation/screen/edit_profile.dart';
 import 'package:mobox/features/search/presentation/screen/search.dart';
 import 'package:mobox/features/search/util/search_value_state_provider.dart';
+import 'package:mobox/features/suspend/presentation/screen/suspend.dart';
 import 'package:provider/provider.dart';
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -78,6 +79,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case '/create-store':
       return MaterialPageRoute(
         builder: (context) => CreateStoreScreen(),
+      );
+
+    case '/suspend':
+      return MaterialPageRoute(
+        builder: (context) => Suspend(),
       );
 
     // /product_screen Navigated through the Navigator.push(MaterialPageRoute)

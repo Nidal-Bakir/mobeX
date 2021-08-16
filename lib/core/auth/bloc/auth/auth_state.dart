@@ -45,3 +45,7 @@ class AuthCreateAccount extends AuthState {
   @override
   List<Object?> get props => [];
 }
+class AuthAccountSuspend extends AuthState {
+  @override
+  List<Object?> get props => [];
+}

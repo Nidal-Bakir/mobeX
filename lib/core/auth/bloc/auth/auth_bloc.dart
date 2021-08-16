@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/auth/repository/auth_repo.dart';
-
 import 'package:mobox/core/error/exception.dart';
+import 'package:mobox/core/model/user_profiel.dart';
 
 part 'auth_event.dart';
-
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -55,14 +53,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (userProfile == null) {
       yield AuthLoadUserProfileNotAuthenticated();
     } else {
-      yield AuthLoadUserProfileSuccess(userProfile: userProfile);
+      try {
+        userProfile =
+            await _authRepo.getUpdatedUserProfile(token: userProfile.token);
+        if (userProfile.accountStatus == AccountStatus.suspend) {
+          yield AuthAccountSuspend();
+          return;
+        }
+        yield AuthLoadUserProfileSuccess(userProfile: userProfile);
+      } on Exception {
+        if (userProfile!.accountStatus == AccountStatus.suspend) {
+          yield AuthAccountSuspend();
+          return;
+        }
+        // fall back to local profile date in case of any error
+        yield AuthLoadUserProfileSuccess(userProfile: userProfile);
+      }
     }
   }
 
   Stream<AuthState> _authUpdateUserProfileLoadedHandler() async* {
     try {
       var userProfile = await _authRepo.getUpdatedUserProfile(
-          token: (state as AuthLoadUserProfileSuccess).userProfile.token);
+          token: _authRepo.getUserProfile()!.token);
+
+      if (userProfile.accountStatus == AccountStatus.suspend) {
+        yield AuthAccountSuspend();
+        return;
+      }
+
       yield AuthLoadUserProfileSuccess(userProfile: userProfile);
     } on ConnectionException catch (e) {
       yield AuthLoadUserProfileFailure(message: e.message);
