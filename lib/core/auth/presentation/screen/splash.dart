@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/utils/shared_initializer.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {

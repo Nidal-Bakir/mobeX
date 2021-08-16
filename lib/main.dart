@@ -23,10 +23,14 @@ void main() {
     ),
   );
   di.init();
-  runApp(BlocProvider<AuthBloc>(
-    create: (_) => di.sl(),
-    child: RestartApp(child: MyApp()),
-  ));
+  runApp(
+    RestartApp(
+      child: BlocProvider<AuthBloc>(
+        create: (_) => di.sl(),
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
