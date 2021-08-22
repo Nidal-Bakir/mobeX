@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mobox/ForTestClass.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/model/user_profiel.dart';
@@ -101,12 +100,27 @@ class _AppScreenState extends State<AppScreen>
                                   .bodyText2
                                   ?.copyWith(fontWeight: FontWeight.bold),
                             ),
-                            Text(
-                              _userProfile.balance.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2
-                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            BlocBuilder<AuthBloc, AuthState>(
+                              buildWhen: (previous, current) =>
+                                  current is AuthLoadUserProfileSuccess,
+                              builder: (context, state) {
+                                if (state is AuthLoadUserProfileSuccess) {
+                                  return Text(
+                                    state.userProfile.balance.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  );
+                                }
+                                return Text(
+                                  _userProfile.balance.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                );
+                              },
                             ),
                           ],
                         ),
