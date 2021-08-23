@@ -11,7 +11,7 @@ class FollowList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FollowListBloc>(
-      create: (BuildContext context) => GetIt.I.get(),
+      create: (BuildContext context) => GetIt.I.get()..add(FollowListLoaded()),
       child: Builder(
         builder: (context) => Scaffold(
           body: NotificationListener<ScrollNotification>(
