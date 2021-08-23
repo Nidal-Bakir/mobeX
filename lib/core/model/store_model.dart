@@ -16,7 +16,7 @@ class Store extends Equatable {
   @override
   List<Object?> get props => [ownerUserName, storeName, profileImage, bio];
 
-  factory Store.formMap(Map<String, dynamic> jsonMap) => Store(
+  factory Store.fromMap(Map<String, dynamic> jsonMap) => Store(
         ownerUserName: jsonMap['user_name'],
         storeName: jsonMap['store_name'],
         profileImage: jsonMap['profile_image'],

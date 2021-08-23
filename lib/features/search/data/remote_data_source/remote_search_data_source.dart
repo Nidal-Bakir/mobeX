@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobox/core/error/exception.dart';
-import 'package:mobox/features/search/data/model/store_model.dart';
+import 'package:mobox/core/model/store_model.dart';
 
 abstract class RemoteSearchDataSource {
   Stream<Store> searchStoresByName(
@@ -49,7 +49,7 @@ class RemoteSearchDataSourceImpl extends RemoteSearchDataSource {
               .map((e) {
                 e['user_name'] = Random().nextInt(999999999).toString();
 
-                return Store.formMap(e);
+                return Store.fromMap(e);
               })
               .where((element) => element.storeName == storeName)
               .toList());

@@ -41,13 +41,13 @@ class RemoteAuthImpl extends RemoteAuth {
   Future<UserProfile> login(
       {required String userName, required String password}) async {
     return await _getUserProfileFromApi(
-        'login&userName=$userName&password=$password');
+        'login?user_name=$userName&password=$password');
   }
 
   Future<UserProfile> _getUserProfileFromApi(String endPoint) async {
     // TODO : add our website
     // var res =
-    // await _client.get(Uri.https(ApiUrl.BASE_URL\$endPoint));
+    // await _client.get(Uri.https(ApiUrl.BASE_URL/$endPoint));
     var res;
 
     if (ForTestClass.isAStore) {

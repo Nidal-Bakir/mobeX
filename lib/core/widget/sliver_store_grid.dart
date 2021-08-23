@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobox/features/search/data/model/store_model.dart';
-import 'package:mobox/features/search/presentation/widget/store_card.dart';
+import 'package:mobox/core/model/store_model.dart';
+import 'package:mobox/core/widget/store_card.dart';
 
 class SliverStoresGrid extends StatelessWidget {
   final List<Store> storeList;
@@ -19,7 +19,7 @@ class SliverStoresGrid extends StatelessWidget {
         mainAxisSpacing: 16,
       ),
       delegate: SliverChildBuilderDelegate(
-            (_, int index) => StoreCard(store: storeList[index]),
+        (_, int index) => StoreCard(store: storeList[index]),
         childCount: storeList.length,
       ),
     );

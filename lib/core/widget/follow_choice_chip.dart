@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/bloc/store_bloc/store_bloc.dart';
+import 'package:mobox/core/model/store_model.dart';
 import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/utils/const_data.dart';
-import 'package:mobox/features/search/data/model/store_model.dart';
 
 class FollowChoiceChip extends StatefulWidget {
   final Store store;

@@ -27,14 +27,15 @@ class LocalAuthImpl extends LocalAuth {
   @override
   UserProfile? getUserProfile() {
     var userProfile =
-    sharedInitializer.sharedPreferences.getString('userProfile');
+        sharedInitializer.sharedPreferences.getString('userProfile');
     if (userProfile == null) return null;
     return UserProfile.fromMap(jsonDecode(userProfile));
   }
 
   @override
   UserProfile generateDummyUserData() {
-    return UserProfile(userName: '00000',
+    var user = UserProfile(
+        userName: '00000',
         token: ConstData.guestDummyToken,
         balance: 0.0,
         profileImage: 'assets/images/productimg2.png',
@@ -43,5 +44,9 @@ class LocalAuthImpl extends LocalAuth {
         firstName: 'guest',
         lastName: 'guest',
         accountStatus: AccountStatus.active);
+
+    storeUserProfile(user);
+
+    return user;
   }
 }

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/core/widget/retry_button.dart';
+import 'package:mobox/core/widget/sliver_store_grid.dart';
 import 'package:mobox/features/search/bloc/store_search_bloc.dart';
-import 'package:mobox/features/search/presentation/widget/sliver_store_grid.dart';
 import 'package:mobox/features/search/util/search_value_state_provider.dart';
 
 class StoreSearchResult extends StatelessWidget {

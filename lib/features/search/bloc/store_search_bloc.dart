@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mobox/features/search/data/model/store_model.dart';
+import 'package:mobox/core/model/store_model.dart';
 import 'package:mobox/features/search/repository/search_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'store_search_event.dart';
-
 part 'store_search_state.dart';
 
 class StoreSearchBloc extends Bloc<StoreSearchEvent, StoreSearchState> {

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:mobox/core/error/exception.dart';
-import 'package:mobox/features/search/data/model/store_model.dart';
+import 'package:mobox/core/model/store_model.dart';
 
 abstract class RemoteStoreDataSource {
   Future<bool> getFollowStateForStore({required String storeUserName});
@@ -59,7 +59,7 @@ class RemoteStoreDataSourceImpl extends RemoteStoreDataSource {
         '{"user_name": "12","store_name": "store2","profile_image": "assets/images/productimg2.png","bio": "the new bio is herre"}',
         200));
     if (res.statusCode == 200) {
-      return Store.formMap(json.decode(res.body));
+      return Store.fromMap(json.decode(res.body));
     }
     throw ConnectionException(
         'cannot get store form storeUserName $storeUserName');

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart' as bar;
-
-import 'package:mobox/core/model/product_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart' as bar;
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
+import 'package:mobox/core/model/product_model.dart';
 
 class RatingBar extends StatefulWidget {
   final bool immutable;
@@ -85,15 +84,17 @@ class _RatingBarState extends State<RatingBar> {
               if (widget.rate == null)
                 TextButton(
                   child: Text('POST'),
-                  onPressed: () {
-                    context.read<ProductBloc>().add(
-                          ProductRateUpDated(
-                            newRate: userRate,
-                            oldRate: widget.product.rate,
-                            product: widget.product,
-                          ),
-                        );
-                  },
+                  onPressed: this.userRate == 0.0
+                      ? null
+                      : () {
+                          context.read<ProductBloc>().add(
+                                ProductRateUpDated(
+                                  newRate: userRate,
+                                  oldRate: widget.product.rate,
+                                  product: widget.product,
+                                ),
+                              );
+                        },
                 ),
               if (widget.rate != userRate && widget.product.myRate != null)
                 TextButton(
