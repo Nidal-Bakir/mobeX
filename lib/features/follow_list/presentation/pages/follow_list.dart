@@ -31,16 +31,20 @@ class FollowList extends StatelessWidget {
                       current is! FollowListLoadFailure,
                   builder: (context, state) {
                     if (state is FollowListNoData) {
-                      return Center(
-                        child: Text('not follow yet!'),
+                      return SliverToBoxAdapter(
+                        child: Center(
+                          child: Text('not follow yet!'),
+                        ),
                       );
                     } else if (state is FollowListLoadSuccess) {
                       return SliverStoresGrid(
                         storeList: state.followList,
                       );
                     } else if (state is FollowListInProgress) {
-                      return Center(
-                        child: CircularProgressIndicator(),
+                      return SliverToBoxAdapter(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       );
                     }
                     throw 'unexpected state from follow bloc: $state';
@@ -62,7 +66,7 @@ class FollowList extends StatelessWidget {
                         ),
                       );
                     }
-                    return Container();
+                    return SliverToBoxAdapter(child: Container());
                   },
                 )
                 // SliverStoresGrid(storeList: )

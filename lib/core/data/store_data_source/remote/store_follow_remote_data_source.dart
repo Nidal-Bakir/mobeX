@@ -28,8 +28,7 @@ class RemoteStoreDataSourceImpl extends RemoteStoreDataSource {
     // var res = await client.get(Uri.parse(
     //     'https://api.mobex.com/follow&storeUserName=$storeUserName&token=$token'));
 
-    var res =
-        await Future.value(http.Response('{"follow_state":"false"}', 200));
+    var res = await Future.value(http.Response('{"follow_state":false}', 200));
     if (res.statusCode == 200) {
       return jsonDecode(res.body)['follow_state'] as bool;
     } else {

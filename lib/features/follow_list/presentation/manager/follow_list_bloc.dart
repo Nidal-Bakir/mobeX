@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mobox/core/model/store_model.dart';
-import 'package:mobox/features/purchase_orders/repositories/follow_list_repository.dart';
+import 'package:mobox/features/follow_list/repositories/follow_list_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'follow_list_event.dart';
@@ -19,13 +19,9 @@ class FollowListBloc extends Bloc<FollowListEvent, FollowListState> {
           Stream<FollowListEvent> events,
           TransitionFunction<FollowListEvent, FollowListState> transitionFn) =>
       super.transformEvents(
-        events.debounce((event) {
-          if (event is FollowListMoreDataLoaded) {
-            return Stream.value(event)
-                .debounceTime(Duration(milliseconds: 200));
-          }
-          return Stream.value(event);
-        }),
+        events is FollowListMoreDataLoaded
+            ? events.debounceTime(Duration(milliseconds: 200))
+            : events,
         transitionFn,
       );
 

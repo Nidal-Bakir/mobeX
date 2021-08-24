@@ -24,7 +24,7 @@ class FollowListLoadSuccess extends FollowListState {
   const FollowListLoadSuccess(this.followList);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [followList];
 }
 
 class FollowListLoadFailure extends FollowListState {

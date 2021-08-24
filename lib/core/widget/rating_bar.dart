@@ -67,6 +67,9 @@ class _RatingBarState extends State<RatingBar> {
               if (widget.rate != null)
                 TextButton(
                   onPressed: () {
+                    setState(() {
+                      userRate = 0.0;
+                    });
                     context.read<ProductBloc>().add(
                           ProductRateUpDated(
                             newRate: null,
@@ -96,7 +99,11 @@ class _RatingBarState extends State<RatingBar> {
                               );
                         },
                 ),
-              if (widget.rate != userRate && widget.product.myRate != null)
+              if (widget.rate != userRate &&
+                  widget.product.myRate != null &&
+                  userRate != 0.0 &&
+                  widget.rate != 0.0 &&
+                  widget.rate != null)
                 TextButton(
                     onPressed: () {
                       context.read<ProductBloc>().add(

@@ -8,6 +8,7 @@ import 'package:mobox/core/screen/app_screen.dart';
 import 'package:mobox/core/screen/store_screen.dart';
 import 'package:mobox/features/cart/presentation/pages/cart.dart';
 import 'package:mobox/features/create_store/presentation/pages/create_store_screen.dart';
+import 'package:mobox/features/follow_list/presentation/pages/follow_list.dart';
 import 'package:mobox/features/order/presentation/pages/orders_screen.dart';
 import 'package:mobox/features/product_management/presentation/screen/product_management.dart';
 import 'package:mobox/features/profile/presentation/screen/edit_profile.dart';
@@ -84,6 +85,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case '/suspend':
       return MaterialPageRoute(
         builder: (context) => Suspend(),
+      );
+
+    case '/following':
+      return MaterialPageRoute(
+        builder: (context) => FollowList(),
       );
 
     // /product_screen Navigated through the Navigator.push(MaterialPageRoute)

@@ -23,8 +23,10 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     } else if (event is StoreFollowStateChanged) {
       yield* _storeFollowStateChangedHandler(
           event.storeUserName, event.isFollowing);
+    } else if (event is StoreUserNameLoaded) {
+      yield* _storeUserNameLoadedHandler(event.ownerUserName);
     } else if (event is StoreLoaded) {
-      yield* _storeLoadedHandler(event.ownerUserName);
+      yield* _storeLoadedHandler(event.store);
     }
   }
 
@@ -51,7 +53,7 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     }
   }
 
-  Stream<StoreState> _storeLoadedHandler(String ownerUserName) async* {
+  Stream<StoreState> _storeUserNameLoadedHandler(String ownerUserName) async* {
     try {
       var store = await storeRepository.getStoreInfoFromStoreUserName(
           storeUserName: ownerUserName);
@@ -59,5 +61,9 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     } on ConnectionException catch (e) {
       yield StoreLoadFailure();
     }
+  }
+
+  Stream<StoreState> _storeLoadedHandler(Store store) async* {
+    yield StoreLoadSuccess(store: store);
   }
 }

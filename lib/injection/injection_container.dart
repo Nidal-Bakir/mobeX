@@ -28,6 +28,7 @@ import 'package:mobox/features/create_store/repositories/create_store_repository
 import 'package:mobox/features/follow_list/data/local/data_sources/follow_list_local_data_source.dart';
 import 'package:mobox/features/follow_list/data/remote/data_sources/follow_list_remote_data_source.dart';
 import 'package:mobox/features/follow_list/presentation/manager/follow_list_bloc.dart';
+import 'package:mobox/features/follow_list/repositories/follow_list_repository.dart';
 import 'package:mobox/features/order/data/local/local_order_data_source.dart';
 import 'package:mobox/features/order/data/remote/remote_order_data_source.dart';
 import 'package:mobox/features/order/presentation/bloc/order_bloc/order_bloc.dart';
@@ -43,7 +44,6 @@ import 'package:mobox/features/purchase_orders/data/model/purchase_orders.dart';
 import 'package:mobox/features/purchase_orders/data/remote/purchase_order_remote_data_source.dart';
 import 'package:mobox/features/purchase_orders/presentation/manager/purchase_order_bloc/purchase_order_bloc.dart';
 import 'package:mobox/features/purchase_orders/presentation/manager/purchase_orders_bloc/purchase_orders_bloc.dart';
-import 'package:mobox/features/purchase_orders/repositories/follow_list_repository.dart';
 import 'package:mobox/features/purchase_orders/repositories/purchase_orders_repository.dart';
 import 'package:mobox/features/search/bloc/store_search_bloc.dart';
 import 'package:mobox/features/search/data/remote_data_source/remote_search_data_source.dart';

@@ -30,7 +30,10 @@ class _StoreScreenState extends State<StoreScreen> {
       create: (context) {
         var bloc = GetIt.I.get<StoreBloc>();
         if (widget.store == null) {
-          bloc.add(StoreLoaded(ownerUserName: widget.ownerUserName.toString()));
+          bloc.add(StoreUserNameLoaded(
+              ownerUserName: widget.ownerUserName.toString()));
+        } else {
+          bloc.add(StoreLoaded(store: widget.store!));
         }
         return bloc;
       },
