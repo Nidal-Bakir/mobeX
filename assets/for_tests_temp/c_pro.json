@@ -1,0 +1,101 @@
+{
+  "data": [
+    {
+      "id": 13243546,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/1.jpg",
+      "product_price": 11.5,
+      "offer": 1.1,
+      "myRate": 1.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "rate": 2.5
+    },
+    {
+      "id": 243546,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/2.jpg",
+      "product_price": 22.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 20.2,
+      "myRate": 4.5,
+      "rate": 3.5
+    },
+    {
+      "id": 3232,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/3.jpg",
+      "product_price": 3.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 3.1,
+      "myRate": 0,
+      "rate": 2.1
+    },
+    {
+      "id": 43242,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/4.jpg",
+      "product_price": 44.0,
+      "offer": 40.1,
+      "myRate": 2.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "rate": 2.1
+    },
+    {
+      "id": 1115,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/5.jpg",
+      "product_price": 99.0,
+      "offer": null,
+      "myRate": 1.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
+      "rate": 2.1
+    },
+    {
+      "id": 6313,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/6.jpg",
+      "product_price": 19.0,
+      "myRate": 0.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": null,
+      "rate": 2.1
+    },
+    {
+      "id": 4321317,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/7.jpg",
+      "product_price": 24.0,
+      "myRate": 3.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 10.1,
+      "rate": 2.1
+    },
+    {
+      "id": 444442332,
+      "product_name": "T-shirt",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/c/8.jpg",
+      "product_price": 55.5,
+      "myRate": 2.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": null,
+      "rate": 2.5
+    }
+
+  ]
+}

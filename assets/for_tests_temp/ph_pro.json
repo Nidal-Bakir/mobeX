@@ -1,0 +1,101 @@
+{
+  "data": [
+    {
+      "id": 23422434,
+      "product_name": "nokia 46123U",
+      "store_name": "it for you",
+      "store_no": "nidadsadl",
+      "product_image": "assets/images/rand_img/ph/1.jpg",
+      "product_price": 131.5,
+      "offer": 110.1,
+      "myRate": 1.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "rate": 2.5
+    },
+    {
+      "id": 243241415989,
+      "product_name": "s6",
+      "store_name": "SAMSUMG",
+      "store_no": "gsg4fdaf5w",
+      "product_image": "assets/images/rand_img/ph/2.jpg",
+      "product_price": 222.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 220.2,
+      "myRate": 4.5,
+      "rate": 3.5
+    },
+    {
+      "id": 989696983,
+      "product_name": "nokia 7504",
+      "store_name": "the phone world",
+      "store_no": "yrwwfds2",
+      "product_image": "assets/images/rand_img/ph/3.jpg",
+      "product_price": 3.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 3.1,
+      "myRate": 0,
+      "rate": 2.1
+    },
+    {
+      "id": 4989696,
+      "product_name": "nokia t2342",
+      "store_name": "the phone world",
+      "store_no": "tttasd4",
+      "product_image": "assets/images/rand_img/ph/4.jpg",
+      "product_price": 44.0,
+      "offer": 40.1,
+      "myRate": 2.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "rate": 2.1
+    },
+    {
+      "id": 509876543,
+      "product_name": "s6 gold",
+      "store_name": "the phone world",
+      "store_no": "tdasasd321t",
+      "product_image": "assets/images/rand_img/ph/5.jpg",
+      "product_price": 99.0,
+      "offer": null,
+      "myRate": 1.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
+      "rate": 2.1
+    },
+    {
+      "id":367546576,
+      "product_name": "s6 black",
+      "store_name": "the phone world",
+      "store_no": "ttt23454trgfd4",
+      "product_image": "assets/images/rand_img/ph/6.jpg",
+      "product_price": 199.0,
+      "myRate": 0.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": null,
+      "rate": 2.1
+    },
+    {
+      "id": 7654357428,
+      "product_name": "nokia 5500",
+      "store_name": "nidal phones",
+      "store_no": "rew34rfcvbr",
+      "product_image": "assets/images/rand_img/ph/7.jpg",
+      "product_price": 244.0,
+      "myRate": 3.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 140.1,
+      "rate": 2.1
+    },
+    {
+      "id": 43526243612,
+      "product_name": "iphone gold",
+      "store_name": "the phone world",
+      "store_no": "fgsg43fgsvc",
+      "product_image": "assets/images/rand_img/ph/8.jpg",
+      "product_price": 1155.5,
+      "myRate": 2.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": null,
+      "rate": 2.5
+    }
+
+  ]
+}

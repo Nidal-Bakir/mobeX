@@ -1,0 +1,65 @@
+{
+  "data": [
+    {
+      "id": 13243546,
+      "product_name": "sandwich slicer ",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/k/1.jpg",
+      "product_price": 11.5,
+      "offer": 1.1,
+      "myRate": 1.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "rate": 2.5
+    },
+    {
+      "id": 243546,
+      "product_name": "onion slicer ",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/k/2.jpg",
+      "product_price": 22.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 20.2,
+      "myRate": 4.5,
+      "rate": 3.5
+    },
+    {
+      "id": 3232,
+      "product_name": "cucumber and any vegetables slicer ",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/k/3.jpg",
+      "product_price": 3.0,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "offer": 3.1,
+      "myRate": 0,
+      "rate": 2.1
+    },
+    {
+      "id": 43242,
+      "product_name": "tomato and any vegetables slicer",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/k/4.jpg",
+      "product_price": 44.0,
+      "offer": 40.1,
+      "myRate": 2.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
+      "rate": 2.1
+    },
+    {
+      "id": 1115,
+      "product_name": "Carrots and any vegetables slicer",
+      "store_name": "XO",
+      "store_no": "yrwwf123ds2",
+      "product_image": "assets/images/rand_img/k/5.jpg",
+      "product_price": 99.0,
+      "offer": null,
+      "myRate": 1.5,
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
+      "rate": 2.1
+    }
+
+  ]
+}
