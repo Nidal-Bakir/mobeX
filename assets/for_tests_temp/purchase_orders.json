@@ -15,7 +15,7 @@
       "quantity": 4,
       "item_state": "Hold",
       "order_no": 456210,
-      "order_date": "2021-06-23 21:41:40.650970",
+      "order_date": "2021-06-23 21:41:40",
       "Purchaser_info": {
         "city": "homes",
         "address": "alware 22st",
@@ -87,7 +87,7 @@
       "quantity": 4,
       "item_state": "Sent",
       "order_no": 45126,
-      "order_date": "2021-06-21 21:41:40.650970",
+      "order_date": "2021-06-21 21:41:40",
       "Purchaser_info": {
         "city": "homes",
         "address": "alware 22st",
@@ -111,7 +111,7 @@
       "quantity": 4,
       "item_state": "InProgress",
       "order_no": 45336,
-      "order_date": "2021-06-21 21:41:40.650970",
+      "order_date": "2021-06-21 21:41:40",
       "Purchaser_info": {
         "city": "homes",
         "address": "alware 22st",
@@ -135,7 +135,7 @@
       "quantity": 4,
       "item_state": "Delivered",
       "order_no": 4543336,
-      "order_date": "2021-06-21 21:41:40.650970",
+      "order_date": "2021-06-21 21:41:40",
       "Purchaser_info": {
         "city": "homes",
         "address": "alware 22st",
@@ -159,7 +159,7 @@
       "quantity": 4,
       "item_state": "Hold",
       "order_no": 4543336,
-      "order_date": "2021-06-21 21:41:40.650970",
+      "order_date": "2021-06-21 21:41:40",
       "Purchaser_info": {
         "city": "homes",
         "address": "alware 22st",

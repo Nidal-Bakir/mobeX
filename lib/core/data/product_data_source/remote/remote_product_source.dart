@@ -133,7 +133,7 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
                 e['id'] = Random().nextInt(999999999);
                 return Product.fromMap(e);
               })
-              .where((element) => Random().nextBool())
+              .where((element) => Random(DateTime.now().microsecond).nextBool())
               .toList(),
         );
       } else {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -33,8 +34,10 @@ class FollowListRemoteDataSourceImpl extends FollowListRemoteDataSource {
     // TODO : remove test codee
     var fileContent =
         await rootBundle.loadString('assets/for_tests_temp/store.json');
-    var followList = (jsonDecode(fileContent)['stores'] as List)
-        .map((e) => Store.fromMap(e));
+    var followList = (jsonDecode(fileContent)['stores'] as List).map((e) {
+      e['user_name'] = Random().nextInt(999999999).toString();
+      return Store.fromMap(e);
+    });
     yield* Stream.fromIterable(followList);
 
     // TODO : end test code

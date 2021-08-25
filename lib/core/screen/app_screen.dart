@@ -63,9 +63,8 @@ class _AppScreenState extends State<AppScreen>
                 width: double.infinity,
                  ),
               * */
-
               Image.asset(
-                'assets/images/productimg2.png',
+                _userProfile.profileImage,
                 fit: BoxFit.cover,
                 height: 200,
                 width: double.infinity,

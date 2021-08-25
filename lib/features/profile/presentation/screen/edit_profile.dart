@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
+import 'package:mobox/core/model/editable_profile_info.dart';
 import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/model/user_store.dart';
-
 import 'package:mobox/features/profile/bloc/profile_bloc.dart';
-import 'package:mobox/core/model/editable_profile_info.dart';
 
 class EditProfile extends StatefulWidget {
   final UserProfile userProfile;
@@ -295,10 +294,14 @@ class _EditProfileState extends State<EditProfile> {
         fit: BoxFit.cover,
       );
     } else {
-      return Image.network(
+      return Image.asset(
         _userProfile.profileImage,
         fit: BoxFit.cover,
       );
+      // return Image.network(
+      //   _userProfile.profileImage,
+      //   fit: BoxFit.cover,
+      // );
     }
   }
 
