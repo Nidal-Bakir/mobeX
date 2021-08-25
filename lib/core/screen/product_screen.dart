@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart' as flutterRate;
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
 import 'package:mobox/core/utils/const_data.dart';
 import 'package:mobox/core/widget/animated_floating_action_button.dart';
 import 'package:mobox/core/widget/rating_bar.dart' as customRating;
-import 'package:flutter_rating_bar/flutter_rating_bar.dart' as flutterRate;
 import 'package:mobox/core/widget/sale_off.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -64,7 +64,7 @@ class ProductScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
             ),
-            expandedHeight: MediaQuery.of(context).size.height * 0.5,
+            expandedHeight: MediaQuery.of(context).size.height * 0.6,
             pinned: true,
             stretch: true,
             flexibleSpace: LayoutBuilder(
@@ -73,7 +73,6 @@ class ProductScreen extends StatelessWidget {
                 var oldRange = (320.0 - 80.0);
                 var newRange = (1.0 - 0.0);
                 var newValue = (((top - 80.0) * newRange) / oldRange) + 0.0;
-
                 return FlexibleSpaceBar(
                   title: Opacity(
                     opacity: newValue > 1.0 ? 1.0 : newValue,
@@ -119,11 +118,14 @@ class ProductScreen extends StatelessWidget {
                     StretchMode.zoomBackground,
                     StretchMode.fadeTitle
                   ],
-                  background: Hero(
-                    tag: product.id,
-                    child: Image.asset(
-                      product.imageUrl,
-                      fit: BoxFit.cover,
+                  background: Padding(
+                    padding: const EdgeInsets.only(top: 80.0),
+                    child: Hero(
+                      tag: product.id,
+                      child: Image.asset(
+                        product.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 );

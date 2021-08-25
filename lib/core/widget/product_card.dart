@@ -73,11 +73,12 @@ class ProductCard extends StatelessWidget {
                   children: [
                     TableRow(children: [
                       TableCell(
-                        child:  Column(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${product.storeName}',overflow: TextOverflow.ellipsis,
+                              '${product.storeName}',
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
                             Text(
@@ -87,7 +88,8 @@ class ProductCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      TableCell(verticalAlignment: TableCellVerticalAlignment.middle,
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
                         child: SaleOff(
                           productScreen: false,
                           sale: product.sale,

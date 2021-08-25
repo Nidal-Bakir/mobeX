@@ -71,6 +71,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/
+    - assets/images/rand_img/c/
+    - assets/images/rand_img/f/
+    - assets/images/rand_img/it/
+    - assets/images/rand_img/k/
+    - assets/images/rand_img/ph/
+    - assets/images/rand_img/store/
     - assets/images/logo.png
     - assets/for_tests_temp/
 

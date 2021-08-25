@@ -27,7 +27,8 @@ class RemoteCategoriesImpl extends RemoteCategories {
     // } else {
     //   throw ConnectionException('error while fetching categories list');
     // }
-    String apiRes = """{"categories":["it","phones","kitchen","furniture"]}""";
+    String apiRes =
+        """{"categories":["it","phones","kitchen","furniture","clothes"]}""";
     var res = http.Response(apiRes, 200);
     if (res.statusCode == 200) {
       return jsonDecode(res.body)['categories'].cast<String>();

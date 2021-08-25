@@ -2,10 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:mobox/core/error/exception.dart';
 import 'package:mobox/core/model/product_model.dart';
-import 'package:http/http.dart' as http;
-import 'package:mobox/core/utils/api_urls.dart';
 
 abstract class RemoteProductDataSource {
   const RemoteProductDataSource();
@@ -78,7 +77,6 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
       throw ConnectionException(
           "can't update the rate bad statusCode ${res.statusCode} or the server return empty Response");
     }
-
   }
 
   @override
@@ -105,18 +103,49 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     // }else {
     //  yield throw ConnectionException('error while fetching $endPoint data');
     // }
-    int index = 0;
-    var res = await Future.value(http.Response(
-        await rootBundle.loadString('assets/for_tests_temp/products.json'),
-        200));
-       
-    if (res.statusCode == 200) {
-    yield* Stream.fromIterable(
-        (json.decode(res.body)['data'] as List<dynamic>).map((e) {
+    var assets = 'assets/for_tests_temp/products.json';
+    switch (endPoint) {
+      case '/products?category=it':
+        assets = 'assets/for_tests_temp/it_pro.json';
+        break;
+      case '/products?category=phones':
+        assets = 'assets/for_tests_temp/ph_pro.json';
+        break;
+      case '/products?category=kitchen':
+        assets = 'assets/for_tests_temp/k_pro.json';
+        break;
+      case '/products?category=furniture':
+        assets = 'assets/for_tests_temp/f_pro.json';
+        break;
+      case '/products?category=clothes':
+        assets = 'assets/for_tests_temp/c_pro.json';
+        break;
+    }
 
+    var res = await Future.value(
+        http.Response(await rootBundle.loadString(assets), 200));
+
+    if (assets == 'assets/for_tests_temp/products.json') {
+      if (res.statusCode == 200) {
+        yield* Stream.fromIterable(
+          (json.decode(res.body)['data'] as List<dynamic>)
+              .map((e) {
+                e['id'] = Random().nextInt(999999999);
+                return Product.fromMap(e);
+              })
+              .where((element) => Random().nextBool())
+              .toList(),
+        );
+      } else {
+        yield throw ConnectionException('error while fetching $endPoint data');
+      }
+      return;
+    }
+
+    if (res.statusCode == 200) {
+      yield* Stream.fromIterable(
+        (json.decode(res.body)['data'] as List<dynamic>).map((e) {
           e['id'] = Random().nextInt(999999999);
-          e['product_name'] = endPoint;
-          e['store_name'] = (++index).toString();
           return Product.fromMap(e);
         }).toList(),
       );
@@ -151,7 +180,6 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
     // }else {
     //  yield throw ConnectionException('error while searching for $title products');
     // }
-    int index = 0;
     var res = await Future.value(http.Response(
         await rootBundle.loadString('assets/for_tests_temp/products.json'),
         200));
@@ -160,8 +188,6 @@ class RemoteProductDataSourceImpl extends RemoteProductDataSource {
           (json.decode(res.body)['data'] as List<dynamic>)
               .map((e) {
                 e['id'] = Random().nextInt(999999999);
-                e['store_name'] = (++index).toString();
-
                 return Product.fromMap(e);
               })
               .where((element) => element.title == title)
