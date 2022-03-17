@@ -29,19 +29,22 @@ class ProductRepository {
     var numberOfProductsForPagination =
         _localProductDataSource.getNumberOfCachedProductsForEndPoint(endPoint);
 
+    // send the local cached product first.
     yield* _localProductDataSource.getProductsStreamFromLocalEndPoint(endPoint);
 
+    // resolve a stream of data from the server.
     var remoteStream = _remoteProductDataSource
         .getProductsStreamFromEndPoint(
             endPoint: endPoint, paginationCount: numberOfProductsForPagination)
-        .asBroadcastStream();
+        .asBroadcastStream(); // make it Broadcast
 
+    // update the cache with new data form server.
     _localProductDataSource.appendCache(
         remoteStream.handleError((_) {
           return; //ignore the error
         }).toList(),
         endPoint);
-
+    // send the new fresh data.
     yield* remoteStream;
   }
 
@@ -126,6 +129,7 @@ class ProductRepository {
   void updateProduct(String endPoint, Product product) {
     _localProductDataSource.upDateProduct(endPoint, product);
   }
+
   /// Delete product from local cache.
   ///
   /// [endPoint] where the product stored in cache.

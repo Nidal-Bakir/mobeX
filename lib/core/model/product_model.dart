@@ -13,7 +13,7 @@ class Product extends Equatable {
   final String description;
 
   Product(
-      { required this.id,
+      {required this.id,
       required this.title,
       required this.storeName,
       required this.storeId,
@@ -45,13 +45,11 @@ class Product extends Equatable {
         storeName: jsonMap['store_name'],
         storeId: jsonMap['store_no'],
         imageUrl: jsonMap['product_image'],
-        myRate:  double.tryParse(jsonMap['myRate'].toString())== 0.0
-            ? null
-            : (jsonMap['myRate'] as double),
+        myRate: 0.0,
         description: jsonMap['description'] ?? '',
         price: jsonMap['product_price'] as double,
         sale: jsonMap['offer'] as double?,
-        rate: jsonMap['rate'] as double);
+        rate: 0.0);
   }
 
   Product copyWith({
@@ -88,7 +86,7 @@ class Product extends Equatable {
         "description": description,
         "product_price": price,
         "offer": sale,
-        "rate": rate,
-        "myRate": myRate
+        "rate": 0.0,
+        "myRate": 0.0
       };
 }

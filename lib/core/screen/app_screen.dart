@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mobox/ForTestClass.dart';
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
 import 'package:mobox/core/model/user_profiel.dart';
 import 'package:mobox/core/model/user_store.dart';
@@ -188,12 +187,12 @@ class _AppScreenState extends State<AppScreen>
                 ),
               ),
               // TODO : remove this test and the code
-              if (_userProfile.token != ConstData.guestDummyToken)
-                Switch.adaptive(
-                    value: ForTestClass.isAStore,
-                    onChanged: (_) {
-                      ForTestClass.isAStore = !ForTestClass.isAStore;
-                    })
+              // if (_userProfile.token != ConstData.guestDummyToken)
+              //   Switch.adaptive(
+              //       value: ForTestClass.isAStore,
+              //       onChanged: (_) {
+              //         ForTestClass.isAStore = !ForTestClass.isAStore;
+              //       })
             ],
           ),
         ),

@@ -6,11 +6,10 @@
       "store_name": "XO",
       "store_no": "yrwwf123ds2",
       "product_image": "assets/images/rand_img/k/1.jpg",
+      "product_image_AR": "assets/images/rand_img/k/1.jpg",
       "product_price": 11.5,
       "offer": 1.1,
-      "myRate": 1.0,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.5
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 7654357428,
@@ -19,10 +18,8 @@
       "store_no": "rew34rfcvbr",
       "product_image": "assets/images/rand_img/ph/7.jpg",
       "product_price": 244.0,
-      "myRate": 3.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 140.1,
-      "rate": 2.1
+      "offer": 140.1
     },
     {
       "id": 1,
@@ -32,9 +29,7 @@
       "product_image": "assets/images/rand_img/f/1.jpg",
       "product_price": 11.5,
       "offer": 1.1,
-      "myRate": 1.0,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.5
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 13243546,
@@ -44,9 +39,7 @@
       "product_image": "assets/images/rand_img/c/1.jpg",
       "product_price": 11.5,
       "offer": 1.1,
-      "myRate": 1.0,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.5
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 1,
@@ -56,21 +49,17 @@
       "product_image": "assets/images/rand_img/it/1.jpg",
       "product_price": 11.5,
       "offer": 1.1,
-      "myRate": 1.0,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.5
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
-      "id":367546576,
+      "id": 367546576,
       "product_name": "s6 black",
       "store_name": "the phone world",
       "store_no": "ttt23454trgfd4",
       "product_image": "assets/images/rand_img/ph/6.jpg",
       "product_price": 199.0,
-      "myRate": 0.0,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": null,
-      "rate": 2.1
+      "offer": null
     },
     {
       "id": 2,
@@ -80,9 +69,7 @@
       "product_image": "assets/images/rand_img/it/2.jpg",
       "product_price": 222.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 220.2,
-      "myRate": 4.5,
-      "rate": 3.5
+      "offer": 220.2
     },
     {
       "id": 2,
@@ -92,9 +79,7 @@
       "product_image": "assets/images/rand_img/f/2.jpg",
       "product_price": 22.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 20.2,
-      "myRate": 4.5,
-      "rate": 3.5
+      "offer": 20.2
     },
     {
       "id": 509876543,
@@ -104,9 +89,7 @@
       "product_image": "assets/images/rand_img/ph/5.jpg",
       "product_price": 99.0,
       "offer": null,
-      "myRate": 1.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need "
     },
     {
       "id": 243546,
@@ -116,9 +99,7 @@
       "product_image": "assets/images/rand_img/c/2.jpg",
       "product_price": 22.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 20.2,
-      "myRate": 4.5,
-      "rate": 3.5
+      "offer": 20.2
     },
     {
       "id": 4,
@@ -128,9 +109,7 @@
       "product_image": "assets/images/rand_img/it/4.jpg",
       "product_price": 44.0,
       "offer": 4.1,
-      "myRate": 2.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 4,
@@ -140,9 +119,7 @@
       "product_image": "assets/images/rand_img/f/4.jpg",
       "product_price": 44.0,
       "offer": 40.1,
-      "myRate": 2.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 6,
@@ -151,10 +128,8 @@
       "store_no": "ttt23454trgfd4",
       "product_image": "assets/images/rand_img/it/6.jpg",
       "product_price": 199.0,
-      "myRate": 0.0,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": null,
-      "rate": 2.1
+      "offer": null
     },
     {
       "id": 989696983,
@@ -164,9 +139,7 @@
       "product_image": "assets/images/rand_img/ph/3.jpg",
       "product_price": 3.0,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 3.1,
-      "myRate": 0,
-      "rate": 2.1
+      "offer": 3.1
     },
     {
       "id": 243546,
@@ -176,9 +149,7 @@
       "product_image": "assets/images/rand_img/c/2.jpg",
       "product_price": 22.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 20.2,
-      "myRate": 4.5,
-      "rate": 3.5
+      "offer": 20.2
     },
     {
       "id": 5,
@@ -188,9 +159,7 @@
       "product_image": "assets/images/rand_img/f/5.jpg",
       "product_price": 99.0,
       "offer": null,
-      "myRate": 1.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need "
     },
     {
       "id": 3232,
@@ -200,9 +169,7 @@
       "product_image": "assets/images/rand_img/k/3.jpg",
       "product_price": 3.0,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 3.1,
-      "myRate": 0,
-      "rate": 2.1
+      "offer": 3.1
     },
     {
       "id": 5,
@@ -212,9 +179,7 @@
       "product_image": "assets/images/rand_img/it/5.jpg",
       "product_price": 99.0,
       "offer": null,
-      "myRate": 1.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need "
     },
     {
       "id": 43242,
@@ -224,9 +189,7 @@
       "product_image": "assets/images/rand_img/c/4.jpg",
       "product_price": 44.0,
       "offer": 40.1,
-      "myRate": 2.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 43242,
@@ -236,9 +199,7 @@
       "product_image": "assets/images/rand_img/k/4.jpg",
       "product_price": 44.0,
       "offer": 40.1,
-      "myRate": 2.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 23422434,
@@ -248,9 +209,7 @@
       "product_image": "assets/images/rand_img/ph/1.jpg",
       "product_price": 131.5,
       "offer": 110.1,
-      "myRate": 1.0,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "rate": 2.5
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? "
     },
     {
       "id": 7,
@@ -259,10 +218,8 @@
       "store_no": "rew34rfcvbr",
       "product_image": "assets/images/rand_img/f/7.jpg",
       "product_price": 24.0,
-      "myRate": 0.0,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 10.1,
-      "rate": 2.1
+      "offer": 10.1
     },
     {
       "id": 1115,
@@ -272,9 +229,7 @@
       "product_image": "assets/images/rand_img/c/5.jpg",
       "product_price": 99.0,
       "offer": null,
-      "myRate": 1.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need "
     },
     {
       "id": 1115,
@@ -284,9 +239,7 @@
       "product_image": "assets/images/rand_img/k/5.jpg",
       "product_price": 99.0,
       "offer": null,
-      "myRate": 1.5,
-      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need ",
-      "rate": 2.1
+      "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? do the same while you can dip in and out of a chapter to get just the morsel of information you need "
     },
     {
       "id": 7,
@@ -295,10 +248,8 @@
       "store_no": "rew34rfcvbr",
       "product_image": "assets/images/rand_img/it/7.jpg",
       "product_price": 244.0,
-      "myRate": 3.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 140.1,
-      "rate": 2.1
+      "offer": 140.1
     },
     {
       "id": 432,
@@ -307,10 +258,8 @@
       "store_no": "fgsg43fgsvc",
       "product_image": "assets/images/rand_img/it/8.jpg",
       "product_price": 55.5,
-      "myRate": 2.0,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": null,
-      "rate": 2.5
+      "offer": null
     },
     {
       "id": 243241415989,
@@ -320,9 +269,7 @@
       "product_image": "assets/images/rand_img/ph/2.jpg",
       "product_price": 222.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 220.2,
-      "myRate": 4.5,
-      "rate": 3.5
+      "offer": 220.2
     },
     {
       "id": 4321317,
@@ -331,10 +278,8 @@
       "store_no": "yrwwf123ds2",
       "product_image": "assets/images/rand_img/c/7.jpg",
       "product_price": 24.0,
-      "myRate": 3.5,
       "description": "do the same while you can dip in and out of a chapter to get just the morsel of information you need, why not pause for a minute and savor the experience of actually holding this book and going deeper? ",
-      "offer": 10.1,
-      "rate": 2.1
+      "offer": 10.1
     }
   ]
 }
