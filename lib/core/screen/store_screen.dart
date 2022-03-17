@@ -7,7 +7,6 @@ import 'package:mobox/core/bloc/store_bloc/store_bloc.dart';
 import 'package:mobox/core/model/store_model.dart';
 import 'package:mobox/core/utils/global_function.dart';
 import 'package:mobox/core/widget/Product_list_widget.dart';
-import 'package:mobox/core/widget/follow_choice_chip.dart';
 import 'package:mobox/features/home_feed/presentation/widget/new_products_sliver_grid.dart';
 
 class StoreScreen extends StatefulWidget {
@@ -83,15 +82,6 @@ class _StoreScreenState extends State<StoreScreen> {
                           stretch: true,
                           flexibleSpace: FlexibleSpaceBar(
                             titlePadding: EdgeInsets.zero,
-                            title: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 8, bottom: 8),
-                                child: FollowChoiceChip(
-                                  store: store!,
-                                ),
-                              ),
-                            ),
                             background: Hero(
                               tag: store!.ownerUserName,
                               child: Image.asset(

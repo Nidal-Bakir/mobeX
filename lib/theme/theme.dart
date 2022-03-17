@@ -9,6 +9,8 @@ ThemeData appTheme() {
     brightness: Brightness.light,
     primaryColor: Colors.white,
     accentColor: green,
+    appBarTheme:
+        AppBarTheme(color: Colors.white, foregroundColor: Colors.black),
     canvasColor: Colors.white,
     textTheme: _textTheme(),
     floatingActionButtonTheme:

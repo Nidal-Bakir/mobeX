@@ -81,10 +81,6 @@ class ProductCard extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
-                            Text(
-                              product.rate.toStringAsFixed(1),
-                              style: Theme.of(context).textTheme.bodyText2,
-                            ),
                           ],
                         ),
                       ),

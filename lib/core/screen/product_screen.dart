@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart' as flutterRate;
 import 'package:mobox/core/auth/bloc/auth/auth_bloc.dart';
-import 'package:mobox/core/bloc/product_bloc/product_bloc.dart';
 import 'package:mobox/core/model/product_model.dart';
-import 'package:mobox/core/utils/const_data.dart';
 import 'package:mobox/core/widget/animated_floating_action_button.dart';
-import 'package:mobox/core/widget/rating_bar.dart' as customRating;
 import 'package:mobox/core/widget/sale_off.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -74,45 +70,6 @@ class ProductScreen extends StatelessWidget {
                 var newRange = (1.0 - 0.0);
                 var newValue = (((top - 80.0) * newRange) / oldRange) + 0.0;
                 return FlexibleSpaceBar(
-                  title: Opacity(
-                    opacity: newValue > 1.0 ? 1.0 : newValue,
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 8, bottom: 2),
-                        child: BlocBuilder<ProductBloc, ProductState>(
-                          buildWhen: (previous, current) =>
-                              current is ProductRateSuccess,
-                          builder: (context, state) {
-                            if (state is ProductRateSuccess) {
-                              return flutterRate.RatingBar.builder(
-                                itemBuilder: (context, index) => Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                ),
-                                glow: false,
-                                itemSize: 16.0,
-                                initialRating: state.newProductRateFromAPI,
-                                onRatingUpdate: (_) {},
-                                ignoreGestures: true,
-                              );
-                            }
-                            return flutterRate.RatingBar.builder(
-                              itemBuilder: (context, index) => Icon(
-                                Icons.star,
-                                color: Colors.yellow,
-                              ),
-                              glow: false,
-                              itemSize: 16.0,
-                              initialRating: product.rate,
-                              onRatingUpdate: (_) {},
-                              ignoreGestures: true,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
                   collapseMode: CollapseMode.parallax,
                   stretchModes: [
                     StretchMode.zoomBackground,
@@ -158,47 +115,8 @@ class ProductScreen extends StatelessWidget {
                         ),
                       ),
                       Spacer(
-                        flex: 2,
+                        flex: 3,
                       ),
-                      product.storeId == _userProfile.userName
-                          ? Text('This is your product!')
-                          : Flexible(
-                              flex: 0,
-                              child: BlocConsumer<ProductBloc, ProductState>(
-                                listenWhen: (previous, current) =>
-                                    current is ProductRateSuccess ||
-                                    current is ProductRateFailure,
-                                listener: (context, state) {
-                                  var _message = '';
-                                  if (state is ProductRateSuccess) {
-                                    _message = 'thanks for your feedback';
-                                  } else if (state is ProductRateFailure) {
-                                    _message =
-                                        'some thing went wrong try again later!';
-                                  }
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(_message)));
-                                },
-                                buildWhen: (previous, current) =>
-                                    current is ProductRateSuccess ||
-                                    current is ProductRateFailure,
-                                builder: (context, state) {
-                                  double? _myRate = product.myRate;
-                                  if (state is ProductRateSuccess) {
-                                    _myRate = state.newUserRate;
-                                  } else if (state is ProductRateFailure) {
-                                    _myRate = product.myRate;
-                                  }
-                                  return customRating.RatingBar(
-                                    immutable: false,
-                                    product: product,
-                                    rate: _myRate,
-                                    isGuest: _userProfile.token ==
-                                        ConstData.guestDummyToken,
-                                  );
-                                },
-                              ),
-                            ),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                   ),
